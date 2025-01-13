@@ -5,6 +5,7 @@ export default function RootLayout() {
     <Stack
       screenOptions={{
         headerStyle: { backgroundColor: '#31F99A' },
+        contentStyle: { backgroundColor: "#DFEFDF" }
       }}
     >
       <Stack.Screen name="index" options={{ title: 'Name My Baby!' }} />
