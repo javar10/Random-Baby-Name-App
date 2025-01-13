@@ -20,7 +20,7 @@ export default function BabyName() {
                 <Text>Last</Text>
             </AutoSizeText>
         </View>
-    ); d
+    ); 
 }
 
 const styles = StyleSheet.create({
