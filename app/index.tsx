@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import BabyName from "./components/BabyName";
+import BabyName from "./components/name/BabyName";
 
 export default function Index() {
   return (
