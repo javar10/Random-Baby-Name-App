@@ -4,7 +4,6 @@ import { AutoSizeText, ResizeTextMode } from 'react-native-auto-size-text';
 
 const { width: screenWidth } = Dimensions.get("window");
 
-
 export default function BabyName() {
     const [firstName, setFirstName] = useState('First');
     const [middleName, setMiddleName] = useState('Middle');
@@ -14,7 +13,7 @@ export default function BabyName() {
             style={styles.box}
         >
             <AutoSizeText
-                fontSize={32}
+                fontSize={104}
                 numberOfLines={1} 
                 mode={ResizeTextMode.max_lines} 
                 style={styles.text}
@@ -28,7 +27,7 @@ export default function BabyName() {
 const styles = StyleSheet.create({
     box: {
         // flex: 1,
-        width: screenWidth * 0.95,
+        width: screenWidth * 0.75,
         flexDirection: 'row',
         justifyContent: "center",
         alignItems: "center",
