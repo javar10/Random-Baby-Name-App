@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
 import { AutoSizeText, ResizeTextMode } from 'react-native-auto-size-text';
 
 const { width: screenWidth } = Dimensions.get("window");
 
+
 export default function BabyName() {
+    const [firstName, setFirstName] = useState('First');
+    const [middleName, setMiddleName] = useState('Middle');
+    const [lastName, setLastName] = useState('Last');
     return (
         <View
             style={styles.box}
@@ -13,12 +18,9 @@ export default function BabyName() {
                 numberOfLines={1} 
                 mode={ResizeTextMode.max_lines} 
                 style={styles.text}
-            >
-                {/* TODO: Cannot wrap the text elements. Change each on to its own component and find a new solution to dynamically change the font size */}
-                <Text>First </Text> 
-                <Text style={{ marginRight: 5 }}>Middle </Text>
-                <Text>Last</Text>
+            >{firstName} {middleName} {lastName}
             </AutoSizeText>
+                {/* TODO: Cannot wrap the text elements. Change each one to its own component and find a new solution to dynamically change the font size */}
         </View>
     ); 
 }
