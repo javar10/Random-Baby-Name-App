@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from 'react';
 interface Props {
   middleName: string;
   setMiddleName: Dispatch<SetStateAction<string>>;  
-  style?: TextStyle;
+  style?: TextStyle | TextStyle[];
 }
 
 const MiddleNameText: React.FC<Props> = ({ middleName, setMiddleName, style }) => {

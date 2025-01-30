@@ -15,27 +15,35 @@ export default function BabyName() {
 
     const handleTextLayout = (e: any, setTextWidth: React.Dispatch<React.SetStateAction<number>>) => {
         const { width: textWidth } = e.nativeEvent.layout;
-        setTextWidth(textWidth); 
+        setTextWidth(textWidth);
+    };
+
+    const calculateFontSize = (textWidth: number) => {
+        return Math.max(86, (screenWidth * 0.75 - textWidth) / 10);
     };
 
     return (
         <View
             style={styles.box}
+            
         >
-            <FirstNameText
-                firstName={firstName}
-                setFirstName={setFirstName}
-                style={styles.text} />
-                <Text style={styles.text}> </Text>
-            <MiddleNameText
-                middleName={middleName}
-                setMiddleName={setMiddleName}
-                style={styles.text} />
-                <Text style={styles.text}> </Text>
-            <LastNameText
-                lastName={lastName}
-                setLastName={setLastName}
-                style={styles.text} />
+            <Text onLayout={(e) => handleTextLayout(e, setNameWidth)}>
+                <FirstNameText
+                    firstName={firstName}
+                    setFirstName={setFirstName}
+                    style={[styles.text, { fontSize: calculateFontSize(nameWidth) }]} />
+                <Text style={[styles.text, { fontSize: calculateFontSize(nameWidth) }]}> </Text>
+                <MiddleNameText
+                    middleName={middleName}
+                    setMiddleName={setMiddleName}
+                    style={[styles.text, { fontSize: calculateFontSize(nameWidth) }]} />
+                <Text style={[styles.text, { fontSize: calculateFontSize(nameWidth) }]}> </Text>
+                <LastNameText
+                    lastName={lastName}
+                    setLastName={setLastName}
+                    style={[styles.text, { fontSize: calculateFontSize(nameWidth) }]} />
+            </Text>
+
         </View>
     );
 }
@@ -65,7 +73,7 @@ const styles = StyleSheet.create({
         color: "#C0C0C0",
         // flex: 1,
         textAlign: "center",
-        fontSize: 86,
+        // fontSize: 86,
     }
 
 })

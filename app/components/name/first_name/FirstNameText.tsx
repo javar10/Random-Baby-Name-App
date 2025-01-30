@@ -5,11 +5,10 @@ import { Dispatch, SetStateAction } from 'react';
 interface Props {
   firstName: string;
   setFirstName: Dispatch<SetStateAction<string>>;  
-  style?: TextStyle;
+  style?: TextStyle | TextStyle[];
 }
 
 const FirstNameText: React.FC<Props> = ({ firstName, setFirstName, style }) => {
-
   return (
     <View>
       <Text style={style}>{firstName}</Text>
