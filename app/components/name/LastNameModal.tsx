@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextStyle, Modal, TouchableOpacity, StyleSheet, TextInput, Pressable } from 'react-native';
+import { View, Text, TextStyle, TouchableOpacity, StyleSheet, TextInput, Pressable } from 'react-native';
 import { Dispatch, SetStateAction } from 'react';
 // import { TextInput } from 'react-native-gesture-handler';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import Modal from "react-native-modal";
 
 interface Props {
     lastName: string;
@@ -16,55 +18,86 @@ const LastNameModal: React.FC<Props> = ({ lastName, setLastName, visible, onClos
         setLastName(newLastName); // Update the last name directly
     };
 
-
-    // Debugging logs to check the modal visibility and state
-    console.log('Modal visible:', visible);
-    console.log('Last Name in Modal:', lastName);
-
     return (
-        <View>
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={visible}
-                onRequestClose={onClose}
-            >
-                <View style={styles.modalOverlay}>
-                    <View style={styles.modalContainer}>
-                        <View style={styles.modalHeader}>
-                            <TouchableOpacity onPress={onClose}>
-                                <Text style={styles.closeButtonText}>X</Text>
-                            </TouchableOpacity>
-                        </View>
+        <SafeAreaProvider>
 
-                        <View>
-                            <Text style={styles.inputHeader}>Type a last name:</Text>
-                            <TextInput
-                                style={styles.inputText}
-                                value={lastName}
-                                onChangeText={handleChange}
-                            />
+
+            <SafeAreaView style={styles.centeredView}>
+                <Modal
+                    // animationType="slide"
+                    // transparent={false}
+                    isVisible={visible}
+                    // onRequestClose={() => {
+
+                    //     onClose;
+                    // }}
+                    >
+                    {/* <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={visible}
+                    onRequestClose={onClose}
+                > */}
+
+                    <View style={styles.modalOverlay}>
+                        <View style={styles.modalContainer}>
+                            <View style={styles.modalHeader}>
+                                <Pressable onPress={onClose}>
+                                    <Text style={styles.closeButtonText}>X</Text>
+                                </Pressable>
+                            </View>
+
+                            <View>
+                                <Text style={styles.inputHeader}>Type a last name:</Text>
+                                <TextInput
+                                    style={styles.inputText}
+                                    value={lastName}
+                                    onChangeText={handleChange}
+                                />
+                            </View>
                         </View>
                     </View>
-                </View>
-            </Modal>
-        </View>
+
+
+                </Modal>
+            </SafeAreaView>
+        </SafeAreaProvider>
+
+
     );
 };
 
 const styles = StyleSheet.create({
-    modalOverlay: {
+    centeredView: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalOverlay: {
+        // flex: 1,
+        position: 'absolute',
+        // top: 0,
+        // left: 0,
+        // right: 0,
+        // bottom: 0,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0,0,0,0.5)',
     },
     modalContainer: {
+        // position: 'absolute',
         width: 300,
         backgroundColor: 'white',
         padding: 10,
         borderRadius: 10,
-        paddingBottom: 20
+        paddingBottom: 20,
+        // top: 0,
+        // left: 0,
+        // right: 0,
+        // bottom: 0,
+        // backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
+        justifyContent: "center",
+        alignItems: "center",
         // alignItems: 'center',
     },
     // modalText: {

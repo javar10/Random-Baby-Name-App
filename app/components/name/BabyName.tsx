@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Text, View, StyleSheet, Dimensions, SafeAreaView } from "react-native";
+import { Text, View, StyleSheet, Dimensions } from "react-native";
 import { AutoSizeText, ResizeTextMode } from "react-native-auto-size-text";
 import LastNameModal from "./LastNameModal";
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -12,14 +13,9 @@ export default function BabyName() {
 
     const [lastNameModalVisible, setLastNameModalVisible] = useState<boolean>(false);
 
-    // Debugging logs to check if states are updated correctly
-    console.log('First Name:', firstName);
-    console.log('Middle Name:', middleName);
-    console.log('Last Name:', lastName);
-    console.log('Modal Visible:', lastNameModalVisible);
-
     return (
-        <SafeAreaView style={styles.box}>
+        <View>
+            <View style={styles.box}>
             <AutoSizeText
                 fontSize={90}
                 numberOfLines={1}
@@ -32,7 +28,9 @@ export default function BabyName() {
                 <Text> </Text>
                 <Text onPress={() => setLastNameModalVisible(true)}>{lastName}</Text>
             </AutoSizeText>
+            </View>
 
+            <View>
             {lastNameModalVisible && (
                 <LastNameModal
                     visible={lastNameModalVisible}
@@ -41,8 +39,9 @@ export default function BabyName() {
                     onClose={() => setLastNameModalVisible(false)}
                 />
             )}
+            </View>
 
-        </SafeAreaView>
+        </View>
     );
 }
 
