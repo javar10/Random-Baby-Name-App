@@ -30,7 +30,6 @@ export default function BabyName() {
             </AutoSizeText>
             </View>
 
-            <View>
             {lastNameModalVisible && (
                 <LastNameModal
                     visible={lastNameModalVisible}
@@ -39,16 +38,14 @@ export default function BabyName() {
                     onClose={() => setLastNameModalVisible(false)}
                 />
             )}
-            </View>
-
+            
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     box: {
-        // width: screenWidth * 0.75,
-        maxWidth: screenWidth * 0.75,
+        maxWidth: screenWidth * 0.8,
         flexDirection: 'row',
         justifyContent: "center",
         alignItems: "center",
@@ -61,16 +58,14 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 }, // Optional: Shadow offset for iOS
-        shadowOpacity: 0.2, // Optional: Shadow opacity for iOS
-        shadowRadius: 5, // Optional: Shadow blur for iOS
-        elevation: 5, // Optional: Shadow for Android
+        shadowOffset: { width: 0, height: 2 }, 
+        shadowOpacity: 0.2,
+        shadowRadius: 5, 
+        elevation: 5,
     },
     text: {
         color: "#C0C0C0",
-        // flex: 1,
         textAlign: "center",
-        // fontSize: 90,
     }
 
 })
