@@ -24,31 +24,30 @@ const LastNameModal: React.FC<Props> = ({ lastName, setLastName, visible, onClos
     return (
         <View>
             <Modal
-                animationType="slide"
+                animationType="fade"
                 transparent={true}
                 visible={visible}
                 onRequestClose={onClose}
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContainer}>
-                        {/* <Text style={styles.modalText}>{content}</Text> */}
+                        <View style={styles.modalHeader}>
+                            <TouchableOpacity onPress={onClose}>
+                                <Text style={styles.closeButtonText}>X</Text>
+                            </TouchableOpacity>
+                        </View>
 
-                        {/* Close Button */}
-                        <Pressable onPress={onClose} style={styles.closeButton}>
-                            <Text style={styles.closeButtonText}>Close</Text>
-                        </Pressable>
+                        <View>
+                            <Text style={styles.inputHeader}>Type a last name:</Text>
+                            <TextInput
+                                style={styles.inputText}
+                                value={lastName}
+                                onChangeText={handleChange}
+                            />
+                        </View>
                     </View>
                 </View>
-                <View>
-                <TextInput
-                    value={lastName}
-                    onChangeText={handleChange}
-                />
-                </View>
-    
-                <Text>{lastName}</Text>
             </Modal>
-
         </View>
     );
 };
@@ -63,24 +62,40 @@ const styles = StyleSheet.create({
     modalContainer: {
         width: 300,
         backgroundColor: 'white',
-        padding: 20,
+        padding: 10,
         borderRadius: 10,
-        alignItems: 'center',
+        paddingBottom: 20
+        // alignItems: 'center',
     },
-    modalText: {
-        fontSize: 18,
+    // modalText: {
+    //     fontSize: 18,
+    //     marginBottom: 10,
+    // },
+    modalHeader: {
+        alignItems: "flex-end",
         marginBottom: 10,
     },
-    closeButton: {
-        backgroundColor: 'red',
-        padding: 10,
-        marginTop: 10,
-        borderRadius: 5,
-    },
+    // closeButton: {
+    //     padding: 10,
+    //     marginTop: 10,
+    //     borderRadius: 5,
+    // },
     closeButtonText: {
-        color: 'white',
+        color: 'gray',
         fontSize: 16,
     },
+    inputHeader: {
+        marginBottom: 5,
+        fontSize: 16
+    },
+    inputText: {
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderRadius: 5,
+        padding: 5,
+        cursor: 'auto',
+        fontSize: 32,
+    }
 });
 
 export default LastNameModal;

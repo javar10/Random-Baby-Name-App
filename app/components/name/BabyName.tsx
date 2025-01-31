@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         color: "#C0C0C0",
         // flex: 1,
         textAlign: "center",
-        fontSize: 90,
+        // fontSize: 90,
     }
 
 })
