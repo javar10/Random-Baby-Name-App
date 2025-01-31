@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Text, View, StyleSheet, Dimensions } from "react-native";
-import FirstNameText from "./first_name/FirstNameText";
-import MiddleNameText from "./middle_name/MiddleNameText";
-import LastNameText from "./last_name/LastNameText";
+import { Text, View, StyleSheet, Dimensions, SafeAreaView } from "react-native";
+import { AutoSizeText, ResizeTextMode } from "react-native-auto-size-text";
+import LastNameModal from "./LastNameModal";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -11,40 +10,39 @@ export default function BabyName() {
     const [middleName, setMiddleName] = useState<string>('Middle');
     const [lastName, setLastName] = useState<string>('Last');
 
-    const [nameWidth, setNameWidth] = useState<number>(0);
+    const [lastNameModalVisible, setLastNameModalVisible] = useState<boolean>(false);
 
-    const handleTextLayout = (e: any, setTextWidth: React.Dispatch<React.SetStateAction<number>>) => {
-        const { width: textWidth } = e.nativeEvent.layout;
-        setTextWidth(textWidth);
-    };
-
-    const calculateFontSize = (textWidth: number) => {
-        return Math.max(86, (screenWidth * 0.75 - textWidth) / 10);
-    };
+    // Debugging logs to check if states are updated correctly
+    console.log('First Name:', firstName);
+    console.log('Middle Name:', middleName);
+    console.log('Last Name:', lastName);
+    console.log('Modal Visible:', lastNameModalVisible);
 
     return (
-        <View
-            style={styles.box}
-            
-        >
-            <Text onLayout={(e) => handleTextLayout(e, setNameWidth)}>
-                <FirstNameText
-                    firstName={firstName}
-                    setFirstName={setFirstName}
-                    style={[styles.text, { fontSize: calculateFontSize(nameWidth) }]} />
-                <Text style={[styles.text, { fontSize: calculateFontSize(nameWidth) }]}> </Text>
-                <MiddleNameText
-                    middleName={middleName}
-                    setMiddleName={setMiddleName}
-                    style={[styles.text, { fontSize: calculateFontSize(nameWidth) }]} />
-                <Text style={[styles.text, { fontSize: calculateFontSize(nameWidth) }]}> </Text>
-                <LastNameText
+        <SafeAreaView style={styles.box}>
+            <AutoSizeText
+                fontSize={90}
+                numberOfLines={1}
+                mode={ResizeTextMode.max_lines}
+                style={styles.text}
+            >
+                <Text onPress={() => setFirstName('Lia')}>{firstName}</Text>
+                <Text> </Text>
+                <Text>{middleName}</Text>
+                <Text> </Text>
+                <Text onPress={() => setLastNameModalVisible(true)}>{lastName}</Text>
+            </AutoSizeText>
+
+            {lastNameModalVisible && (
+                <LastNameModal
+                    visible={lastNameModalVisible}
                     lastName={lastName}
                     setLastName={setLastName}
-                    style={[styles.text, { fontSize: calculateFontSize(nameWidth) }]} />
-            </Text>
+                    onClose={() => setLastNameModalVisible(false)}
+                />
+            )}
 
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -73,7 +71,7 @@ const styles = StyleSheet.create({
         color: "#C0C0C0",
         // flex: 1,
         textAlign: "center",
-        // fontSize: 86,
+        fontSize: 90,
     }
 
 })
