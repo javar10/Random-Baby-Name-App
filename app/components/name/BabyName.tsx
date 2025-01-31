@@ -11,34 +11,54 @@ export default function BabyName() {
     const [middleName, setMiddleName] = useState<string>('Middle');
     const [lastName, setLastName] = useState<string>('Last');
 
+    const [firstNameModalVisible, setFirstNameModalVisible] = useState<boolean>(false);
+    const [middleNameModalVisible, setMiddleNameModalVisible] = useState<boolean>(false);
     const [lastNameModalVisible, setLastNameModalVisible] = useState<boolean>(false);
 
     return (
         <View>
             <View style={styles.box}>
-            <AutoSizeText
-                fontSize={90}
-                numberOfLines={1}
-                mode={ResizeTextMode.max_lines}
-                style={styles.text}
-            >
-                <Text onPress={() => setFirstName('Lia')}>{firstName}</Text>
-                <Text> </Text>
-                <Text>{middleName}</Text>
-                <Text> </Text>
-                <Text onPress={() => setLastNameModalVisible(true)}>{lastName}</Text>
-            </AutoSizeText>
+                <AutoSizeText
+                    fontSize={90}
+                    numberOfLines={1}
+                    mode={ResizeTextMode.max_lines}
+                    style={styles.text}
+                >
+                    <Text onPress={() => setFirstNameModalVisible(true)}>{firstName}</Text>
+                    <Text> </Text>
+                    <Text onPress={() => setMiddleNameModalVisible(true)}>{middleName}</Text>
+                    <Text> </Text>
+                    <Text onPress={() => setLastNameModalVisible(true)}>{lastName}</Text>
+                </AutoSizeText>
             </View>
+
+            {firstNameModalVisible && (
+                <LastNameModal
+                    visible={firstNameModalVisible}
+                    name={firstName}
+                    setName={setFirstName}
+                    onClose={() => setFirstNameModalVisible(false)}
+                />
+            )}
+
+            {middleNameModalVisible && (
+                <LastNameModal
+                    visible={middleNameModalVisible}
+                    name={middleName}
+                    setName={setMiddleName}
+                    onClose={() => setMiddleNameModalVisible(false)}
+                />
+            )}
 
             {lastNameModalVisible && (
                 <LastNameModal
                     visible={lastNameModalVisible}
-                    lastName={lastName}
-                    setLastName={setLastName}
+                    name={lastName}
+                    setName={setLastName}
                     onClose={() => setLastNameModalVisible(false)}
                 />
             )}
-            
+
         </View>
     );
 }
@@ -58,9 +78,9 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 }, 
+        shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
-        shadowRadius: 5, 
+        shadowRadius: 5,
         elevation: 5,
     },
     text: {

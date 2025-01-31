@@ -4,15 +4,15 @@ import { Dispatch, SetStateAction } from 'react';
 import Modal from "react-native-modal";
 
 interface Props {
-    lastName: string;
-    setLastName: Dispatch<SetStateAction<string>>;
+    name: string;
+    setName: Dispatch<SetStateAction<string>>;
     visible: boolean;
     onClose: () => void;
 }
 
-const LastNameModal: React.FC<Props> = ({ lastName, setLastName, visible, onClose }) => {
-    const handleChange = (newLastName: string) => {
-        setLastName(newLastName); 
+const LastNameModal: React.FC<Props> = ({ name, setName, visible, onClose }) => {
+    const handleChange = (newName: string) => {
+        setName(newName); 
     };
 
     return (
@@ -32,10 +32,10 @@ const LastNameModal: React.FC<Props> = ({ lastName, setLastName, visible, onClos
                             </View>
 
                             <View>
-                                <Text style={styles.inputHeader}>Type last name:</Text>
+                                <Text style={styles.inputHeader}>Type name:</Text>
                                 <TextInput
                                     style={styles.inputText}
-                                    value={lastName}
+                                    value={name}
                                     onChangeText={handleChange}
                                     onSubmitEditing={onClose}
                                 />
