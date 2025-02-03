@@ -1,0 +1,1 @@
+export const girlNames: string[] = ['Lia', 'Jessica', 'Carol', 'Rebeca', 'Elizabeth', 'Sarah', 'Eve']

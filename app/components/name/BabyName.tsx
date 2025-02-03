@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
 import { AutoSizeText, ResizeTextMode } from "react-native-auto-size-text";
-import LastNameModal from "./LastNameModal";
+import TypeNameModal from "./TypeNameModal";
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import RandomNameModal from "./RandomNameModal";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -33,7 +34,7 @@ export default function BabyName() {
             </View>
 
             {firstNameModalVisible && (
-                <LastNameModal
+                <RandomNameModal
                     visible={firstNameModalVisible}
                     name={firstName}
                     setName={setFirstName}
@@ -42,7 +43,7 @@ export default function BabyName() {
             )}
 
             {middleNameModalVisible && (
-                <LastNameModal
+                <TypeNameModal
                     visible={middleNameModalVisible}
                     name={middleName}
                     setName={setMiddleName}
@@ -51,7 +52,7 @@ export default function BabyName() {
             )}
 
             {lastNameModalVisible && (
-                <LastNameModal
+                <TypeNameModal
                     visible={lastNameModalVisible}
                     name={lastName}
                     setName={setLastName}

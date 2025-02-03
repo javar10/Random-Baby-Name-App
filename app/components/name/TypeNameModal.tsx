@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Dispatch, SetStateAction } from 'react';
 import Modal from "react-native-modal";
 
@@ -26,9 +26,9 @@ const LastNameModal: React.FC<Props> = ({ name, setName, visible, onClose }) => 
                     <View style={styles.modalOverlay}>
                         <View style={styles.modalContainer}>
                             <View style={styles.modalHeader}>
-                                <Pressable onPress={onClose}>
+                                <TouchableOpacity onPress={onClose}>
                                     <Text style={styles.closeButtonText}>X</Text>
-                                </Pressable>
+                                </TouchableOpacity>
                             </View>
 
                             <View>
@@ -38,6 +38,8 @@ const LastNameModal: React.FC<Props> = ({ name, setName, visible, onClose }) => 
                                     value={name}
                                     onChangeText={handleChange}
                                     onSubmitEditing={onClose}
+                                    clearTextOnFocus={true}
+                                    autoFocus={true}
                                 />
                             </View>
                         </View>
