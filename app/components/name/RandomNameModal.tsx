@@ -28,7 +28,7 @@ const RandomNameModal: React.FC<Props> = ({ name, setName, visible, onClose }) =
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContainer}>
                         <View style={styles.header}>
-                        <Text style={styles.headerText}>Select a name:</Text>
+                            <Text style={styles.headerText}>Select a name:</Text>
 
                         </View>
 
@@ -37,15 +37,22 @@ const RandomNameModal: React.FC<Props> = ({ name, setName, visible, onClose }) =
                                 data={girlNames}
                                 keyExtractor={(item, index) => index.toString()}
                                 renderItem={({ item }) =>
-                                    <Text style={styles.nameListText}>
-                                        {item}
-                                    </Text>}
+                                    <TouchableOpacity onPress={() => {
+                                        setName(item);
+                                        onClose();
+                                    }}
+                                    >
+                                        <Text style={styles.nameListText}>
+                                            {item}
+                                        </Text>
+                                    </TouchableOpacity>
+                                }
                             >
 
                             </FlatList>
                         </View>
                         <View>
-                        <TouchableOpacity style={styles.footer} onPress={onClose}>
+                            <TouchableOpacity style={styles.footer} onPress={onClose}>
                                 <Text style={styles.closeButtonText}>X</Text>
                             </TouchableOpacity>
                         </View>
