@@ -16,8 +16,8 @@ export default function BabyName() {
     const [middleNameModalVisible, setMiddleNameModalVisible] = useState<boolean>(false);
     const [lastNameModalVisible, setLastNameModalVisible] = useState<boolean>(false);
 
-    const [randomlySelectedNamesList, setRandomlySelectedNamesList] = useState<string[]>([]);
-    const [listExists, setListExists] = useState<boolean>(false);
+    const [randomlySelectedFirstNamesList, setRandomlySelectedFirstNamesList] = useState<string[]>([]);
+    const [firstNameListExists, setFirstNameListExists] = useState<boolean>(false);
 
     return (
         <View>
@@ -42,10 +42,10 @@ export default function BabyName() {
                     name={firstName}
                     setName={setFirstName}
                     onClose={() => setFirstNameModalVisible(false)}
-                    listExists={listExists}
-                    setListExists={setListExists}
-                    randomlySelectedNamesList={randomlySelectedNamesList}
-                    setRandomlySelectedNamesList={setRandomlySelectedNamesList}
+                    listExists={firstNameListExists}
+                    setListExists={setFirstNameListExists}
+                    randomlySelectedNamesList={randomlySelectedFirstNamesList}
+                    setRandomlySelectedNamesList={setRandomlySelectedFirstNamesList}
                 />
             )}
 

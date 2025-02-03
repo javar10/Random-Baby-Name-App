@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList } from 'r
 import { Dispatch, SetStateAction } from 'react';
 import Modal from "react-native-modal";
 import { girlNames } from '@/app/constants/girlNames';
+import TypeNameModal from './TypeNameModal';
 
 interface Props {
     name: string;
@@ -17,6 +18,10 @@ interface Props {
 }
 
 const RandomNameModal: React.FC<Props> = ({ name, setName, visible, onClose, listExists, setListExists, randomlySelectedNamesList, setRandomlySelectedNamesList }) => {
+    const [typeNameModalIsVisible, setTypeNameModalIsVisible] = useState<boolean>(false);
+    // TODO *** consider using a string to set visible to name the modal to open rather than a boolean. Then, if modalselected===textmodal, textmodal opens, or if modalselected===randommodal, randommodal opens. 
+    // 
+    //
 
     useEffect(() => {
         if (!listExists) {
@@ -73,18 +78,36 @@ const RandomNameModal: React.FC<Props> = ({ name, setName, visible, onClose, lis
                                     </TouchableOpacity>
                                 }
                             >
-
                             </FlatList>
                         </View>
-                        <View>
-                            <TouchableOpacity style={styles.footer} onPress={onClose}>
-                                <Text style={styles.closeButtonText}>X</Text>
+                        <View style={styles.footer}>
+                            <TouchableOpacity style={styles.footerButton} onPress={() => selectRandomNames(girlNames)}>
+                                <Text style={styles.closeButtonText}>New List</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.footerButton} onPress={onClose}>
+                                <Text style={styles.closeButtonText}>Close</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.footerButton}
+                                onPress={() => {
+                                    onClose();
+                                    setTypeNameModalIsVisible(true);
+                                    console.log(typeNameModalIsVisible)
+                                }}>
+                                <Text style={styles.closeButtonText}>Type Name</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
-            </Modal>
-        </View>
+            </Modal >
+            {typeNameModalIsVisible && (
+                <TypeNameModal
+                    name={name}
+                    setName={setName}
+                    visible={typeNameModalIsVisible}
+                    onClose={onClose}
+                />
+            )}
+        </View >
     );
 };
 
@@ -108,7 +131,7 @@ const styles = StyleSheet.create({
     },
     closeButtonText: {
         color: 'gray',
-        fontSize: 32,
+        fontSize: 24,
         borderWidth: 1,
         borderRadius: 5,
         padding: 3,
@@ -116,7 +139,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     headerText: {
-        // marginBottom: 5,
         fontSize: 32
     },
     nameList: {
@@ -131,8 +153,10 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        // borderTopWidth: 1,
-    }
+    },
+    footerButton: {
+
+    },
 });
 
 export default RandomNameModal
