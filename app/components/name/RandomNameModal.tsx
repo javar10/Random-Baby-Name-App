@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import { Dispatch, SetStateAction } from 'react';
@@ -10,12 +10,37 @@ interface Props {
     setName: Dispatch<SetStateAction<string>>;
     visible: boolean;
     onClose: () => void;
+    setListExists: Dispatch<SetStateAction<boolean>>;
+    listExists: boolean;
+    randomlySelectedNamesList: string[];
+    setRandomlySelectedNamesList: Dispatch<SetStateAction<string[]>>;
 }
 
-const RandomNameModal: React.FC<Props> = ({ name, setName, visible, onClose }) => {
-    const handleChange = (newName: string) => {
-        setName(newName);
-    };
+const RandomNameModal: React.FC<Props> = ({ name, setName, visible, onClose, listExists, setListExists, randomlySelectedNamesList, setRandomlySelectedNamesList }) => {
+
+    useEffect(() => {
+        if (!listExists) {
+            selectRandomNames(girlNames)
+        }
+        setListExists(true)
+    }, [])
+
+    const selectRandomNames = (list: string[], count = 5) => {
+        if (list.length < count) throw new Error("List is too small");
+        const usedIndexes = new Set<number>();
+        const selectedNames: string[] = [];
+
+        while (selectedNames.length < count) {
+            const randomIndex = Math.floor(Math.random() * list.length);
+            if (!usedIndexes.has(randomIndex)) {
+                usedIndexes.add(randomIndex);
+                selectedNames.push(list[randomIndex])
+            }
+        }
+
+        setRandomlySelectedNamesList(selectedNames);
+        console.log(randomlySelectedNamesList)
+    }
 
     return (
         <View>
@@ -34,7 +59,7 @@ const RandomNameModal: React.FC<Props> = ({ name, setName, visible, onClose }) =
 
                         <View style={styles.nameList}>
                             <FlatList
-                                data={girlNames}
+                                data={randomlySelectedNamesList}
                                 keyExtractor={(item, index) => index.toString()}
                                 renderItem={({ item }) =>
                                     <TouchableOpacity onPress={() => {
