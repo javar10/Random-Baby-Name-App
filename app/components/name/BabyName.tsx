@@ -12,12 +12,12 @@ export default function BabyName() {
     const [middleName, setMiddleName] = useState<string>('Middle');
     const [lastName, setLastName] = useState<string>('Last');
 
-    const [firstNameModalVisible, setFirstNameModalVisible] = useState<boolean>(false);
-    const [middleNameModalVisible, setMiddleNameModalVisible] = useState<boolean>(false);
-    const [lastNameModalVisible, setLastNameModalVisible] = useState<boolean>(false);
+    const [modalVisible, setModalVisible] = useState<string>('');
 
     const [randomlySelectedFirstNamesList, setRandomlySelectedFirstNamesList] = useState<string[]>([]);
     const [firstNameListExists, setFirstNameListExists] = useState<boolean>(false);
+    const [randomlySelectedMiddleNamesList, setRandomlySelectedMiddleNamesList] = useState<string[]>([]);
+    const [middleNameListExists, setMiddleNameListExists] = useState<boolean>(false);
 
     return (
         <View>
@@ -28,42 +28,69 @@ export default function BabyName() {
                     mode={ResizeTextMode.max_lines}
                     style={styles.text}
                 >
-                    <Text onPress={() => setFirstNameModalVisible(true)}>{firstName}</Text>
+                    <Text onPress={() => setModalVisible('firstRandomNameModal')}>{firstName}</Text>
                     <Text> </Text>
-                    <Text onPress={() => setMiddleNameModalVisible(true)}>{middleName}</Text>
+                    <Text onPress={() => setModalVisible('middleRandomNameModal')}>{middleName}</Text>
                     <Text> </Text>
-                    <Text onPress={() => setLastNameModalVisible(true)}>{lastName}</Text>
+                    <Text onPress={() => setModalVisible('lastTypeNameModal')}>{lastName}</Text>
                 </AutoSizeText>
             </View>
 
-            {firstNameModalVisible && (
+            {/* First Name Modals */}
+            {(modalVisible === 'firstRandomNameModal') && (
                 <RandomNameModal
-                    visible={firstNameModalVisible}
-                    name={firstName}
+                    visible={true}
+                    setModalVisible={setModalVisible}
+                    name='first'
                     setName={setFirstName}
-                    onClose={() => setFirstNameModalVisible(false)}
                     listExists={firstNameListExists}
                     setListExists={setFirstNameListExists}
                     randomlySelectedNamesList={randomlySelectedFirstNamesList}
                     setRandomlySelectedNamesList={setRandomlySelectedFirstNamesList}
+                    onClose={() => setModalVisible('')}
                 />
             )}
 
-            {middleNameModalVisible && (
+            {(modalVisible === 'firstTypeNameModal') && (
                 <TypeNameModal
-                    visible={middleNameModalVisible}
+                    visible={true}
+                    name={firstName}
+                    setName={setFirstName}
+                    onClose={() => setModalVisible('')}
+                />
+            )}
+
+            {/* Middle Name Modals */}
+            {(modalVisible === 'middleRandomNameModal') && (
+                <RandomNameModal
+                    visible={true}
+                    setModalVisible={setModalVisible}
+                    name='middle'
+                    setName={setMiddleName}
+                    onClose={() => setModalVisible('')}
+                    listExists={middleNameListExists}
+                    setListExists={setMiddleNameListExists}
+                    randomlySelectedNamesList={randomlySelectedMiddleNamesList}
+                    setRandomlySelectedNamesList={setRandomlySelectedMiddleNamesList}
+                />
+            )}
+
+            {(modalVisible === 'middleTypeNameModal') && (
+                <TypeNameModal
+                    visible={true}
                     name={middleName}
                     setName={setMiddleName}
-                    onClose={() => setMiddleNameModalVisible(false)}
+                    onClose={() => setModalVisible('')}
                 />
             )}
 
-            {lastNameModalVisible && (
+            {/* Last Name Modals */}
+            {(modalVisible === 'lastTypeNameModal') && (
                 <TypeNameModal
-                    visible={lastNameModalVisible}
+                    visible={true}
                     name={lastName}
                     setName={setLastName}
-                    onClose={() => setLastNameModalVisible(false)}
+                    onClose={() => setModalVisible('')}
                 />
             )}
 

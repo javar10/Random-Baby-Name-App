@@ -7,21 +7,18 @@ import { girlNames } from '@/app/constants/girlNames';
 import TypeNameModal from './TypeNameModal';
 
 interface Props {
-    name: string;
-    setName: Dispatch<SetStateAction<string>>;
     visible: boolean;
-    onClose: () => void;
-    setListExists: Dispatch<SetStateAction<boolean>>;
+    setModalVisible: Dispatch<SetStateAction<string>>;
+    name: string;
+    setName: Dispatch<SetStateAction<string>>;    
     listExists: boolean;
+    setListExists: Dispatch<SetStateAction<boolean>>;
     randomlySelectedNamesList: string[];
     setRandomlySelectedNamesList: Dispatch<SetStateAction<string[]>>;
+    onClose: () => void;
 }
 
-const RandomNameModal: React.FC<Props> = ({ name, setName, visible, onClose, listExists, setListExists, randomlySelectedNamesList, setRandomlySelectedNamesList }) => {
-    const [typeNameModalIsVisible, setTypeNameModalIsVisible] = useState<boolean>(false);
-    // TODO *** consider using a string to set visible to name the modal to open rather than a boolean. Then, if modalselected===textmodal, textmodal opens, or if modalselected===randommodal, randommodal opens. 
-    // 
-    //
+const RandomNameModal: React.FC<Props> = ({ visible, setModalVisible, name, setName, listExists, setListExists, randomlySelectedNamesList, setRandomlySelectedNamesList, onClose }) => {
 
     useEffect(() => {
         if (!listExists) {
@@ -90,23 +87,14 @@ const RandomNameModal: React.FC<Props> = ({ name, setName, visible, onClose, lis
                             <TouchableOpacity style={styles.footerButton}
                                 onPress={() => {
                                     onClose();
-                                    setTypeNameModalIsVisible(true);
-                                    console.log(typeNameModalIsVisible)
+                                    setModalVisible(`${name}TypeNameModal`);
                                 }}>
-                                <Text style={styles.closeButtonText}>Type Name</Text>
+                                <Text style={styles.closeButtonText}>Enter a Name</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
             </Modal >
-            {typeNameModalIsVisible && (
-                <TypeNameModal
-                    name={name}
-                    setName={setName}
-                    visible={typeNameModalIsVisible}
-                    onClose={onClose}
-                />
-            )}
         </View >
     );
 };
