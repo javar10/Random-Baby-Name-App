@@ -1,5 +1,6 @@
 import { Text, View } from "react-native";
 import BabyName from "./components/name/BabyName";
+import Home from "./components/Home";
 
 export default function Index() {
   return (
@@ -10,7 +11,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <BabyName />
+      <Home />
     </View>
   );
 }
