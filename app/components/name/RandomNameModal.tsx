@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import { Dispatch, SetStateAction } from 'react';
 import Modal from "react-native-modal";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { girlNames } from '@/app/constants/girlNames';
-import TypeNameModal from './TypeNameModal';
 
 interface Props {
     visible: boolean;
     setModalVisible: Dispatch<SetStateAction<string>>;
     name: string;
-    setName: Dispatch<SetStateAction<string>>;    
+    setName: Dispatch<SetStateAction<string>>;
     listExists: boolean;
     setListExists: Dispatch<SetStateAction<boolean>>;
     randomlySelectedNamesList: string[];
@@ -79,18 +82,21 @@ const RandomNameModal: React.FC<Props> = ({ visible, setModalVisible, name, setN
                         </View>
                         <View style={styles.footer}>
                             <TouchableOpacity style={styles.footerButton} onPress={() => selectRandomNames(girlNames)}>
-                                <Text style={styles.closeButtonText}>New List</Text>
+                                <FontAwesomeIcon style={styles.footerIcon} icon={faArrowsRotate} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.footerButton} onPress={onClose}>
-                                <Text style={styles.closeButtonText}>Close</Text>
-                            </TouchableOpacity>
+
                             <TouchableOpacity style={styles.footerButton}
                                 onPress={() => {
                                     onClose();
                                     setModalVisible(`${name}TypeNameModal`);
                                 }}>
-                                <Text style={styles.closeButtonText}>Enter a Name</Text>
+                                <FontAwesomeIcon style={styles.footerIcon} icon={faPenToSquare} />
                             </TouchableOpacity>
+
+                            <TouchableOpacity style={styles.footerButton} onPress={onClose}>
+                                <FontAwesomeIcon style={styles.footerIcon} icon={faXmark} />
+                            </TouchableOpacity>
+
                         </View>
                     </View>
                 </View>
@@ -131,20 +137,31 @@ const styles = StyleSheet.create({
     },
     nameList: {
         paddingVertical: 5,
-        borderTopWidth: 1,
-        borderBottomWidth: 1
+        borderTopWidth: 2,
+        borderBottomWidth: 2
     },
     nameListText: {
         fontSize: 28,
     },
     footer: {
-        marginBottom: 10,
+        // marginBottom: 10,
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
     footerButton: {
-
+        // borderWidth: 2,
+        borderRadius: 5,
+        padding: 10,
+        justifyContent: 'center',
+        alignContent: 'center',
+        // marginVertical: 10
+        // paddingHorizontal: 10,
+        // marginTop: 10,
     },
+    footerIcon: {
+        // color: 'gray',
+        padding: 16,
+    }
 });
 
 export default RandomNameModal
