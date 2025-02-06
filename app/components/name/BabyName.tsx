@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
 import { AutoSizeText, ResizeTextMode } from "react-native-auto-size-text";
 import TypeNameModal from "./TypeNameModal";
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import RandomNameModal from "./RandomNameModal";
 
 const { width: screenWidth } = Dimensions.get("window");
