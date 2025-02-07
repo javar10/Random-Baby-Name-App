@@ -11,11 +11,12 @@ interface Props {
     setMiddleName: Dispatch<SetStateAction<string>>;
     lastName: string;
     setLastName: Dispatch<SetStateAction<string>>;
+    gender: string;
 }
 
 const { width: screenWidth } = Dimensions.get("window");
 
-const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMiddleName, lastName, setLastName }) => {
+const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMiddleName, lastName, setLastName, gender }) => {
     
     const [modalVisible, setModalVisible] = useState<string>('');
 
@@ -52,6 +53,7 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
                     setListExists={setFirstNameListExists}
                     randomlySelectedNamesList={randomlySelectedFirstNamesList}
                     setRandomlySelectedNamesList={setRandomlySelectedFirstNamesList}
+                    gender={gender}
                     onClose={() => setModalVisible('')}
                 />
             )}
@@ -72,11 +74,12 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
                     setModalVisible={setModalVisible}
                     name='middle'
                     setName={setMiddleName}
-                    onClose={() => setModalVisible('')}
                     listExists={middleNameListExists}
                     setListExists={setMiddleNameListExists}
                     randomlySelectedNamesList={randomlySelectedMiddleNamesList}
                     setRandomlySelectedNamesList={setRandomlySelectedMiddleNamesList}
+                    gender={gender}
+                    onClose={() => setModalVisible('')}
                 />
             )}
 

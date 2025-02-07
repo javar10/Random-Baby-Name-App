@@ -1,8 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import BabyName from "./name/BabyName";
 import { useState } from "react";
+import SelectGender from "./SelectGender";
 
 export default function Home() {
+    const [gender, setGender] = useState<string>('');
+
     const [firstName, setFirstName] = useState<string>('First');
     const [middleName, setMiddleName] = useState<string>('Middle');
     const [lastName, setLastName] = useState<string>('Last');
@@ -11,23 +14,34 @@ export default function Home() {
         setFirstName('First');
         setMiddleName('Middle');
         setLastName('Last');
+        setGender('');
     }
 
     return (
         <View>
-            <BabyName
-                firstName={firstName}
-                setFirstName={setFirstName}
-                middleName={middleName}
-                setMiddleName={setMiddleName}
-                lastName={lastName}
-                setLastName={setLastName}
-            />
-            <View style={styles.optionsMenu}>
-            <TouchableOpacity style={styles.optionsMenuButton} onPress={resetName} >
-                <Text style={styles.optionsMenuButtonText}>Start Over</Text>
-            </TouchableOpacity>
-            </View>
+            {!gender && <SelectGender gender={gender} setGender={setGender} />}
+            
+            {gender &&
+                <View>
+                    <BabyName
+                        firstName={firstName}
+                        setFirstName={setFirstName}
+                        middleName={middleName}
+                        setMiddleName={setMiddleName}
+                        lastName={lastName}
+                        setLastName={setLastName}
+                        gender={gender}
+                    />
+                    <View style={styles.optionsMenu}>
+                        <TouchableOpacity style={styles.optionsMenuButton} onPress={resetName} >
+                            <Text style={styles.optionsMenuButtonText}>Start Over</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+            }
+
+
 
         </View>
     );
@@ -36,7 +50,7 @@ export default function Home() {
 const styles = StyleSheet.create({
     optionsMenu: {
         margin: 20,
-        
+
     },
     optionsMenuButton: {
         borderRadius: 5,

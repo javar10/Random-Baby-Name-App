@@ -8,6 +8,8 @@ import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { girlNames } from '@/app/constants/girlNames';
+import { boyNames } from '@/app/constants/boyNames';
+import { neutralNames } from '@/app/constants/neutralNames';
 
 interface Props {
     visible: boolean;
@@ -18,14 +20,15 @@ interface Props {
     setListExists: Dispatch<SetStateAction<boolean>>;
     randomlySelectedNamesList: string[];
     setRandomlySelectedNamesList: Dispatch<SetStateAction<string[]>>;
+    gender: string
     onClose: () => void;
 }
 
-const RandomNameModal: React.FC<Props> = ({ visible, setModalVisible, name, setName, listExists, setListExists, randomlySelectedNamesList, setRandomlySelectedNamesList, onClose }) => {
+const RandomNameModal: React.FC<Props> = ({ visible, setModalVisible, name, setName, listExists, setListExists, randomlySelectedNamesList, setRandomlySelectedNamesList, gender, onClose }) => {
 
     useEffect(() => {
         if (!listExists) {
-            selectRandomNames(girlNames)
+            selectRandomNames(gender === 'girl' ? girlNames : gender === 'boy' ? boyNames : gender === 'neutral' ? neutralNames : [])
         }
         setListExists(true)
     }, [])
@@ -81,7 +84,7 @@ const RandomNameModal: React.FC<Props> = ({ visible, setModalVisible, name, setN
                             </FlatList>
                         </View>
                         <View style={styles.footer}>
-                            <TouchableOpacity style={styles.footerButton} onPress={() => selectRandomNames(girlNames)}>
+                            <TouchableOpacity style={styles.footerButton} onPress={() => selectRandomNames(gender === 'girl' ? girlNames : gender === 'boy' ? boyNames : gender === 'neutral' ? neutralNames : [])}>
                                 <FontAwesomeIcon style={styles.footerIcon} icon={faArrowsRotate} />
                             </TouchableOpacity>
 
