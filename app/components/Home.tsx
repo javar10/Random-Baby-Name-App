@@ -38,11 +38,7 @@ export default function Home() {
                         </TouchableOpacity>
                     </View>
                 </View>
-
             }
-
-
-
         </View>
     );
 }
