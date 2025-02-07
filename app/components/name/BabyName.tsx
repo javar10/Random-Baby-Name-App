@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
 import { AutoSizeText, ResizeTextMode } from "react-native-auto-size-text";
 import TypeNameModal from "./TypeNameModal";
 import RandomNameModal from "./RandomNameModal";
 
+interface Props {
+    firstName: string;
+    setFirstName: Dispatch<SetStateAction<string>>;
+    middleName: string;
+    setMiddleName: Dispatch<SetStateAction<string>>;
+    lastName: string;
+    setLastName: Dispatch<SetStateAction<string>>;
+}
+
 const { width: screenWidth } = Dimensions.get("window");
 
-export default function BabyName() {
-    const [firstName, setFirstName] = useState<string>('First');
-    const [middleName, setMiddleName] = useState<string>('Middle');
-    const [lastName, setLastName] = useState<string>('Last');
-
+const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMiddleName, lastName, setLastName }) => {
+    
     const [modalVisible, setModalVisible] = useState<string>('');
 
     const [randomlySelectedFirstNamesList, setRandomlySelectedFirstNamesList] = useState<string[]>([]);
@@ -123,3 +129,5 @@ const styles = StyleSheet.create({
     }
 
 })
+
+export default BabyName
