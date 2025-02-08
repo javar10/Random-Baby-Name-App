@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import SelectGender from "./SelectGender";
 import React from "react";
 import StartOver from "./options/StartOver";
+import SendName from "./options/ShareName";
+import OptionsMenu from "./options/OptionsMenu";
 
 export default function Home() {
     const [gender, setGender] = useState<string>('');
@@ -60,14 +62,15 @@ export default function Home() {
                                 setLastName={setLastName}
                                 gender={gender}
                             />
-                            <View style={styles.optionsMenu}>
-                                <StartOver
-                                    setFirstName={setFirstName}
-                                    setMiddleName={setMiddleName}
-                                    setLastName={setLastName}
-                                    setGender={setGender}
-                                />
-                            </View>
+                            <OptionsMenu
+                                firstName={firstName}
+                                setFirstName={setFirstName}
+                                middleName={middleName}
+                                setMiddleName={setMiddleName}
+                                lastName={lastName}
+                                setLastName={setLastName}
+                                setGender={setGender}
+                            />
                         </View>
                     </View>
                 </ImageBackground>
@@ -93,26 +96,5 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    optionsMenu: {
-        margin: 20,
-    },
-    optionsMenuButton: {
-        borderRadius: 5,
-        borderWidth: 2,
-        borderColor: "#F0F0F0",
-        backgroundColor: "#ffffff",
-        width: '20%',
-        padding: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 5,
-        elevation: 5,
-    },
-    optionsMenuButtonText: {
-        fontSize: 20,
-        color: "#909090",
-    }
+
 })

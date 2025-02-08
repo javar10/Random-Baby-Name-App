@@ -2,14 +2,19 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     optionsMenu: {
-        margin: 20,
+        position: 'absolute',
+        bottom: '15%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: 40,
     },
     optionsMenuButton: {
         borderRadius: 5,
         borderWidth: 2,
         borderColor: "#F0F0F0",
         backgroundColor: "#ffffff",
-        width: '20%',
+        width: 60,
+        aspectRatio: 1,
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',
