@@ -9,7 +9,7 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import girlNames from '@/app/constants/girlNames';
 import boyNames from '@/app/constants/boyNames';
 import neutralNames from '@/app/constants/neutralNames';
-import styles from './modalStyle';
+import styles from './ModalStyles';
 
 interface Props {
     setModalVisible: Dispatch<SetStateAction<string>>;

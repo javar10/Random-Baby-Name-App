@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 import Modal from "react-native-modal";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import styles from './modalStyle';
+import styles from './ModalStyles';
 
 interface Props {
     name: string;

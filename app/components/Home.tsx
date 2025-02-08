@@ -3,6 +3,7 @@ import BabyName from "./name/BabyName";
 import { useEffect, useState } from "react";
 import SelectGender from "./SelectGender";
 import React from "react";
+import StartOver from "./options/StartOver";
 
 export default function Home() {
     const [gender, setGender] = useState<string>('');
@@ -60,9 +61,12 @@ export default function Home() {
                                 gender={gender}
                             />
                             <View style={styles.optionsMenu}>
-                                <TouchableOpacity style={styles.optionsMenuButton} onPress={resetName} >
-                                    <Text style={styles.optionsMenuButtonText}>Start Over</Text>
-                                </TouchableOpacity>
+                                <StartOver
+                                    setFirstName={setFirstName}
+                                    setMiddleName={setMiddleName}
+                                    setLastName={setLastName}
+                                    setGender={setGender}
+                                />
                             </View>
                         </View>
                     </View>
