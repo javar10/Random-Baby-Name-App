@@ -26,7 +26,7 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
     const [middleNameListExists, setMiddleNameListExists] = useState<boolean>(false);
 
     return (
-        <View>
+        <View style={styles.container}>
             <View style={styles.box}>
                 <AutoSizeText
                     fontSize={90}
@@ -107,6 +107,13 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
 }
 
 const styles = StyleSheet.create({
+    container: {
+        // flex: 1,
+        // justifyContent: "center",
+        // alignItems: "center",
+        // width: "100%", 
+        // height: "100%",
+    },
     box: {
         maxWidth: screenWidth * 0.8,
         flexDirection: 'row',

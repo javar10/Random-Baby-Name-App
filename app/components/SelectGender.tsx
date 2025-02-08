@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Dimensions, TouchableOpacity, ImageBackground } from "react-native";
+// import backgroundImage from '../../assets/images/clouds.png';
 
 interface Props {
     gender: string;
@@ -8,24 +9,26 @@ interface Props {
 
 const SelectGender: React.FC<Props> = ({ gender, setGender }) => {
     return (
+
+
         <View style={styles.container}>
             <TouchableOpacity
-                style={[styles.button, {backgroundColor: '#FFD5E7'}]}
+                style={[styles.button, { backgroundColor: '#FFD5E7' }]}
                 onPress={() => setGender('girl')}
             >
                 <Text style={styles.text}>Girl</Text>
             </TouchableOpacity>
             <TouchableOpacity
-                style={[styles.button, {backgroundColor: '#BCF0FF'}]}
+                style={[styles.button, { backgroundColor: '#BCF0FF' }]}
                 onPress={() => setGender('boy')}
             >
                 <Text style={styles.text}>Boy</Text>
             </TouchableOpacity>
             <TouchableOpacity
-                style={[styles.button, {backgroundColor: '#DFEFDF'}]}
+                style={[styles.button, { backgroundColor: '#DFEFDF' }]}
                 onPress={() => setGender('neutral')}
             >
-                <Text style={styles.text}>Unisex</Text>
+                <Text style={styles.text}>Gender Neutral</Text>
             </TouchableOpacity>
         </View>
     )
@@ -34,8 +37,9 @@ const SelectGender: React.FC<Props> = ({ gender, setGender }) => {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 20
     },
