@@ -62,7 +62,7 @@ const RandomNameModal: React.FC<Props> = ({ visible, setModalVisible, name, setN
                     <View style={styles.modalContainer}>
 
                         <View style={styles.header}>
-                            <Text style={styles.headerText}>Select a name:</Text>
+                            <Text style={styles.headerText}>Select a name</Text>
                         </View>
 
                         <View style={styles.content}>
