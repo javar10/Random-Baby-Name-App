@@ -11,6 +11,11 @@ export default function Home() {
     const [middleName, setMiddleName] = useState<string>('Middle');
     const [lastName, setLastName] = useState<string>('Last');
 
+    const defaultBackground = require("../../assets/images/clouds.png");
+    const girlBackground = require("../../assets/images/girl-background.png");
+    const boyBackground = require("../../assets/images/boy-background.png");
+    const neutralBackground = require("../../assets/images/neutral-background.png");
+
     const resetName = () => {
         setFirstName('First');
         setMiddleName('Middle');
@@ -22,7 +27,7 @@ export default function Home() {
         <>
             {!gender &&
                 <ImageBackground
-                    source={require("../../assets/images/clouds.png")}
+                    source={defaultBackground}
                     style={styles.backgroundImage}
                     resizeMode="cover"
                 >
@@ -34,74 +39,85 @@ export default function Home() {
             }
 
             {gender &&
-                <View style={[styles.container,
-                {
-                    backgroundColor:
-                        gender === 'girl' ? '#FFD5E7'
-                            : gender === 'boy' ? '#BCF0FF'
-                                : gender === 'neutral' ? '#DFEFDF'
-                                    : '#F0F0F0'
+                <ImageBackground
+                    source={
+                        gender === 'girl' ? girlBackground
+                                    : gender === 'boy' ? boyBackground
+                                        : gender === 'neutral' ? neutralBackground
+                                            : defaultBackground}
+                    style={styles.backgroundImage}
+                    resizeMode="cover"
+                >
+                    <View style={[styles.container,
+                    // {
+                    //     backgroundColor:
+                    //         gender === 'girl' ? '#FFD5E7'
+                    //             : gender === 'boy' ? '#BCF0FF'
+                    //                 : gender === 'neutral' ? '#DFEFDF'
+                    //                     : '#F0F0F0'
 
-                }]}>
-                    <View style={styles.content}>
-                        <BabyName
-                            firstName={firstName}
-                            setFirstName={setFirstName}
-                            middleName={middleName}
-                            setMiddleName={setMiddleName}
-                            lastName={lastName}
-                            setLastName={setLastName}
-                            gender={gender}
-                        />
-                        <View style={styles.optionsMenu}>
-                            <TouchableOpacity style={styles.optionsMenuButton} onPress={resetName} >
-                                <Text style={styles.optionsMenuButtonText}>Start Over</Text>
-                            </TouchableOpacity>
+                    // }
+                    ]}>
+                        <View style={styles.content}>
+                            <BabyName
+                                firstName={firstName}
+                                setFirstName={setFirstName}
+                                middleName={middleName}
+                                setMiddleName={setMiddleName}
+                                lastName={lastName}
+                                setLastName={setLastName}
+                                gender={gender}
+                            />
+                            <View style={styles.optionsMenu}>
+                                <TouchableOpacity style={styles.optionsMenuButton} onPress={resetName} >
+                                    <Text style={styles.optionsMenuButtonText}>Start Over</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                </View>
+                    </ImageBackground>
             }
-        </>
+                </>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        width: "100%",
-        height: "100%",
+            const styles = StyleSheet.create({
+                container: {
+                flex: 1,
+            width: "100%",
+            height: "100%",
     },
-    backgroundImage: {
-        // position: "absolute",
-        width: "100%",
-        height: "100%",
-        flex: 1
+            backgroundImage: {
+                // position: "absolute",
+                width: "100%",
+            height: "100%",
+            flex: 1
     },
-    content: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+            content: {
+                flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
     },
-    optionsMenu: {
-        margin: 20,
+            optionsMenu: {
+                margin: 20,
     },
-    optionsMenuButton: {
-        borderRadius: 5,
-        borderWidth: 2,
-        borderColor: "#F0F0F0",
-        backgroundColor: "#ffffff",
-        width: '20%',
-        padding: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 5,
-        elevation: 5,
+            optionsMenuButton: {
+                borderRadius: 5,
+            borderWidth: 2,
+            borderColor: "#F0F0F0",
+            backgroundColor: "#ffffff",
+            width: '20%',
+            padding: 5,
+            justifyContent: 'center',
+            alignItems: 'center',
+            shadowColor: "#000",
+            shadowOffset: {width: 0, height: 2 },
+            shadowOpacity: 0.2,
+            shadowRadius: 5,
+            elevation: 5,
     },
-    optionsMenuButtonText: {
-        fontSize: 20,
-        color: "#909090",
+            optionsMenuButtonText: {
+                fontSize: 20,
+            color: "#909090",
     }
 })
