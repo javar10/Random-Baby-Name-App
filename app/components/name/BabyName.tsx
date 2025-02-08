@@ -54,7 +54,6 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
             {/* First Name Modals */}
             {(modalVisible === 'firstRandomNameModal') && (
                 <RandomNameModal
-                    visible={true}
                     setModalVisible={setModalVisible}
                     name='first'
                     setName={setFirstName}
@@ -69,7 +68,6 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
 
             {(modalVisible === 'firstTypeNameModal') && (
                 <TypeNameModal
-                    visible={true}
                     name={firstName}
                     setName={setFirstName}
                     onClose={() => setModalVisible('')}
@@ -79,7 +77,6 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
             {/* Middle Name Modals */}
             {(modalVisible === 'middleRandomNameModal') && (
                 <RandomNameModal
-                    visible={true}
                     setModalVisible={setModalVisible}
                     name='middle'
                     setName={setMiddleName}
@@ -94,7 +91,6 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
 
             {(modalVisible === 'middleTypeNameModal') && (
                 <TypeNameModal
-                    visible={true}
                     name={middleName}
                     setName={setMiddleName}
                     onClose={() => setModalVisible('')}
@@ -104,7 +100,6 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
             {/* Last Name Modals */}
             {(modalVisible === 'lastTypeNameModal') && (
                 <TypeNameModal
-                    visible={true}
                     name={lastName}
                     setName={setLastName}
                     onClose={() => setModalVisible('')}

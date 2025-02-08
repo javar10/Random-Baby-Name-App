@@ -3,17 +3,17 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import Modal from "react-native-modal";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import styles from './modalStyle';
 
 interface Props {
-    visible: boolean;
     name: string;
     setName: Dispatch<SetStateAction<string>>;
     onClose: () => void;
 }
 
-const LastNameModal: React.FC<Props> = ({ visible, name, setName, onClose }) => {
+const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
+
     const handleChange = (newName: string) => {
         setName(newName);
     };
@@ -21,7 +21,7 @@ const LastNameModal: React.FC<Props> = ({ visible, name, setName, onClose }) => 
     return (
         <View>
             <Modal
-                isVisible={visible}
+                isVisible={true}
                 avoidKeyboard={true}
                 onBackdropPress={onClose}
             >
@@ -45,9 +45,8 @@ const LastNameModal: React.FC<Props> = ({ visible, name, setName, onClose }) => 
                         </View>
                         <View style={styles.footer}>
                             <TouchableOpacity style={styles.footerButton} onPress={onClose}>
-                                <FontAwesomeIcon style={styles.footerIcon} icon={faXmark} />
+                                <FontAwesomeIcon style={styles.footerIcon} icon={faCheck} />
                             </TouchableOpacity>
-
                         </View>
                     </View>
                 </View>

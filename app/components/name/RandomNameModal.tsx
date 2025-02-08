@@ -12,7 +12,6 @@ import neutralNames from '@/app/constants/neutralNames';
 import styles from './modalStyle';
 
 interface Props {
-    visible: boolean;
     setModalVisible: Dispatch<SetStateAction<string>>;
     name: string;
     setName: Dispatch<SetStateAction<string>>;
@@ -24,7 +23,7 @@ interface Props {
     onClose: () => void;
 }
 
-const RandomNameModal: React.FC<Props> = ({ visible, setModalVisible, name, setName, listExists, setListExists, randomlySelectedNamesList, setRandomlySelectedNamesList, gender, onClose }) => {
+const RandomNameModal: React.FC<Props> = ({ setModalVisible, name, setName, listExists, setListExists, randomlySelectedNamesList, setRandomlySelectedNamesList, gender, onClose }) => {
 
     useEffect(() => {
         if (!listExists) {
@@ -53,7 +52,7 @@ const RandomNameModal: React.FC<Props> = ({ visible, setModalVisible, name, setN
     return (
         <View>
             <Modal
-                isVisible={visible}
+                isVisible={true}
                 avoidKeyboard={true}
                 onBackdropPress={onClose}
             >
