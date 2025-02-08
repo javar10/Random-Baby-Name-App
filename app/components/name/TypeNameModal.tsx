@@ -8,7 +8,6 @@ import styles from './modalStyle';
 
 interface Props {
     visible: boolean;
-    // nameSelected: string;
     name: string;
     setName: Dispatch<SetStateAction<string>>;
     onClose: () => void;

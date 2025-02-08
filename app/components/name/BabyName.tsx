@@ -70,7 +70,6 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
             {(modalVisible === 'firstTypeNameModal') && (
                 <TypeNameModal
                     visible={true}
-                    // nameSelected = 'first'
                     name={firstName}
                     setName={setFirstName}
                     onClose={() => setModalVisible('')}

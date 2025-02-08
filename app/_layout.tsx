@@ -5,10 +5,10 @@ export default function RootLayout() {
     <Stack
       screenOptions={{
         headerStyle: { backgroundColor: '#F0F0F0' },
-        // contentStyle: { backgroundColor: "#DFEFDF" }
+        contentStyle: { backgroundColor: '#F0F0F0' }
       }}
     >
-      <Stack.Screen name="index" options={{ title: 'Name My Baby!' }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
     </Stack>
   )
     ;
