@@ -60,12 +60,12 @@ const RandomNameModal: React.FC<Props> = ({ visible, setModalVisible, name, setN
 
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContainer}>
+
                         <View style={styles.header}>
                             <Text style={styles.headerText}>Select a name:</Text>
-
                         </View>
 
-                        <View style={styles.nameList}>
+                        <View style={styles.content}>
                             <FlatList
                                 data={randomlySelectedNamesList}
                                 keyExtractor={(item, index) => index.toString()}
@@ -83,6 +83,7 @@ const RandomNameModal: React.FC<Props> = ({ visible, setModalVisible, name, setN
                             >
                             </FlatList>
                         </View>
+
                         <View style={styles.footer}>
                             <TouchableOpacity style={styles.footerButton} onPress={() => selectRandomNames(gender === 'girl' ? girlNames : gender === 'boy' ? boyNames : gender === 'neutral' ? neutralNames : [])}>
                                 <FontAwesomeIcon style={styles.footerIcon} icon={faArrowsRotate} />
@@ -120,25 +121,13 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     header: {
-        // alignItems: "flex-end",
-        // marginBottom: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // borderBottomWidth: 1,
-    },
-    closeButtonText: {
-        color: 'gray',
-        fontSize: 24,
-        borderWidth: 1,
-        borderRadius: 5,
-        padding: 3,
-        paddingHorizontal: 10,
-        marginTop: 10,
     },
     headerText: {
         fontSize: 32
     },
-    nameList: {
+    content: {
         paddingVertical: 5,
         borderTopWidth: 2,
         borderBottomWidth: 2
@@ -147,19 +136,14 @@ const styles = StyleSheet.create({
         fontSize: 28,
     },
     footer: {
-        // marginBottom: 10,
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
     footerButton: {
-        // borderWidth: 2,
         borderRadius: 5,
         padding: 10,
         justifyContent: 'center',
         alignContent: 'center',
-        // marginVertical: 10
-        // paddingHorizontal: 10,
-        // marginTop: 10,
     },
     footerIcon: {
         // color: 'gray',
