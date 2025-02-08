@@ -51,4 +51,4 @@ const boyNames: string[] = ['Liam', 'Noah', 'Oliver', 'Elijah', 'William', 'Jame
     'Xzavier', 'Rene', 'Vance', 'Duncan', 'Frankie', 'Bishop', 'Davian', 'Everest', 'Heath', 'Jaxen', 'Marlon', 'Maxton', 'Reginald', 'Harris', 'Jericho', 'Keenan', 'Korbyn', 'Wes', 'Eliezer',
     'Jeffery', 'Kalel', 'Kylian', 'Turner', 'Willie', 'Rogelio', 'Ephraim'];
 
-    export default boyNames;
+export default boyNames;

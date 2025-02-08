@@ -7,9 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { girlNames } from '@/app/constants/girlNames';
+import girlNames from '@/app/constants/girlNames';
 import boyNames from '@/app/constants/boyNames';
-import { neutralNames } from '@/app/constants/neutralNames';
+import neutralNames from '@/app/constants/neutralNames';
 
 interface Props {
     visible: boolean;

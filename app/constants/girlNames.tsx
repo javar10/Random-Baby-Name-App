@@ -1,4 +1,4 @@
-export const girlNames: string[] = ['Olivia', 'Emma', 'Charlotte', 'Amelia', 'Ava', 'Sophia', 'Isabella', 'Mia', 'Evelyn', 'Harper', 'Luna', 'Camila', 'Gianna', 'Elizabeth', 'Eleanor', 'Ella', 'Abigail', 'Sofia', 'Avery',
+const girlNames: string[] = ['Olivia', 'Emma', 'Charlotte', 'Amelia', 'Ava', 'Sophia', 'Isabella', 'Mia', 'Evelyn', 'Harper', 'Luna', 'Camila', 'Gianna', 'Elizabeth', 'Eleanor', 'Ella', 'Abigail', 'Sofia', 'Avery',
     'Scarlett', 'Emily', 'Aria', 'Penelope', 'Chloe', 'Layla', 'Mila', 'Nora', 'Hazel', 'Madison', 'Ellie', 'Lily', 'Nova', 'Isla', 'Grace', 'Violet', 'Aurora', 'Riley', 'Zoey', 'Willow',
     'Emilia', 'Stella', 'Zoe', 'Victoria', 'Hannah', 'Addison', 'Leah', 'Lucy', 'Eliana', 'Ivy', 'Everly', 'Lillian', 'Paisley', 'Elena', 'Naomi', 'Maya', 'Natalie', 'Kinsley', 'Delilah',
     'Claire', 'Audrey', 'Aaliyah', 'Ruby', 'Brooklyn', 'Alice', 'Aubrey', 'Autumn', 'Leilani', 'Savannah', 'Valentina', 'Kennedy', 'Madelyn', 'Josephine', 'Bella', 'Skylar', 'Genesis',
@@ -52,3 +52,5 @@ export const girlNames: string[] = ['Olivia', 'Emma', 'Charlotte', 'Amelia', 'Av
     'Aubrielle', 'Rylan', 'Ainhoa', 'Aspyn', 'Elina', 'Elsa', 'Magdalena', 'Kailey', 'Arleth', 'Joyce', 'Judith', 'Crystal', 'Emberlynn', 'Landry', 'Paola', 'Braylee', 'Guinevere', 'Aarna',
     'Aiyana', 'Kahlani', 'Lyanna', 'Sariah', 'Itzayana', 'Aniya', 'Frida', 'Jaylene', 'Kiera', 'Loyalty', 'Azaria', 'Jaylee', 'Kamilah', 'Keyla', 'Kyleigh', 'Micah', 'Nataly', 'Kathleen',
     'Zoya', 'Meghan', 'Soraya', 'Zoie', 'Arlette', 'Zola', 'Luisa', 'Vida', 'Ryder', 'Tatiana', 'Tori', 'Aarya', 'Eleanora', 'Sandra', 'Soleil', 'Annabella'];
+
+export default girlNames;
