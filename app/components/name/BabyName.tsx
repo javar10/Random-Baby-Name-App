@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
 import { AutoSizeText, ResizeTextMode } from "react-native-auto-size-text";
 import TypeNameModal from "./TypeNameModal";
@@ -25,6 +25,17 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
     const [randomlySelectedMiddleNamesList, setRandomlySelectedMiddleNamesList] = useState<string[]>([]);
     const [middleNameListExists, setMiddleNameListExists] = useState<boolean>(false);
 
+    useEffect(() => {
+        if (modalVisible === '') {
+            if (firstName === '') {
+                setFirstName('First')
+            }
+            else if (lastName === '') {
+                setLastName('Last')
+            }
+        }
+    }, [modalVisible])
+
     return (
         <View style={styles.container}>
             <View style={styles.box}>
@@ -34,10 +45,8 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
                     mode={ResizeTextMode.max_lines}
                     style={styles.text}
                 >
-                    <Text onPress={() => setModalVisible('firstRandomNameModal')}>{firstName}</Text>
-                    <Text> </Text>
-                    <Text onPress={() => setModalVisible('middleRandomNameModal')}>{middleName}</Text>
-                    <Text> </Text>
+                    <Text onPress={() => setModalVisible('firstRandomNameModal')}>{firstName} </Text>
+                    <Text onPress={() => setModalVisible('middleRandomNameModal')}>{middleName} </Text>
                     <Text onPress={() => setModalVisible('lastTypeNameModal')}>{lastName}</Text>
                 </AutoSizeText>
             </View>
@@ -61,6 +70,7 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
             {(modalVisible === 'firstTypeNameModal') && (
                 <TypeNameModal
                     visible={true}
+                    // nameSelected = 'first'
                     name={firstName}
                     setName={setFirstName}
                     onClose={() => setModalVisible('')}

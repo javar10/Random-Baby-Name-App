@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { Dispatch, SetStateAction } from 'react';
 import Modal from "react-native-modal";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -10,6 +9,7 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import girlNames from '@/app/constants/girlNames';
 import boyNames from '@/app/constants/boyNames';
 import neutralNames from '@/app/constants/neutralNames';
+import styles from './modalStyle';
 
 interface Props {
     visible: boolean;
@@ -75,7 +75,7 @@ const RandomNameModal: React.FC<Props> = ({ visible, setModalVisible, name, setN
                                         onClose();
                                     }}
                                     >
-                                        <Text style={styles.nameListText}>
+                                        <Text style={styles.contentText}>
                                             {item}
                                         </Text>
                                     </TouchableOpacity>
@@ -108,47 +108,5 @@ const RandomNameModal: React.FC<Props> = ({ visible, setModalVisible, name, setN
         </View >
     );
 };
-
-const styles = StyleSheet.create({
-    modalOverlay: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    modalContainer: {
-        width: 300,
-        backgroundColor: 'white',
-        padding: 10,
-        borderRadius: 10,
-    },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    headerText: {
-        fontSize: 32
-    },
-    content: {
-        paddingVertical: 5,
-        borderTopWidth: 2,
-        borderBottomWidth: 2
-    },
-    nameListText: {
-        fontSize: 28,
-    },
-    footer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-    },
-    footerButton: {
-        borderRadius: 5,
-        padding: 10,
-        justifyContent: 'center',
-        alignContent: 'center',
-    },
-    footerIcon: {
-        // color: 'gray',
-        padding: 16,
-    }
-});
 
 export default RandomNameModal

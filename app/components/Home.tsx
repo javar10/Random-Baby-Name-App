@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View, ImageBackground } from "react-native";
 import BabyName from "./name/BabyName";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectGender from "./SelectGender";
 import React from "react";
 
@@ -42,22 +42,13 @@ export default function Home() {
                 <ImageBackground
                     source={
                         gender === 'girl' ? girlBackground
-                                    : gender === 'boy' ? boyBackground
-                                        : gender === 'neutral' ? neutralBackground
-                                            : defaultBackground}
+                            : gender === 'boy' ? boyBackground
+                                : gender === 'neutral' ? neutralBackground
+                                    : defaultBackground}
                     style={styles.backgroundImage}
                     resizeMode="cover"
                 >
-                    <View style={[styles.container,
-                    // {
-                    //     backgroundColor:
-                    //         gender === 'girl' ? '#FFD5E7'
-                    //             : gender === 'boy' ? '#BCF0FF'
-                    //                 : gender === 'neutral' ? '#DFEFDF'
-                    //                     : '#F0F0F0'
-
-                    // }
-                    ]}>
+                    <View style={styles.container}>
                         <View style={styles.content}>
                             <BabyName
                                 firstName={firstName}
@@ -75,49 +66,48 @@ export default function Home() {
                             </View>
                         </View>
                     </View>
-                    </ImageBackground>
+                </ImageBackground>
             }
-                </>
+        </>
     );
 }
 
-            const styles = StyleSheet.create({
-                container: {
-                flex: 1,
-            width: "100%",
-            height: "100%",
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        width: "100%",
+        height: "100%",
     },
-            backgroundImage: {
-                // position: "absolute",
-                width: "100%",
-            height: "100%",
-            flex: 1
+    backgroundImage: {
+        width: "100%",
+        height: "100%",
+        flex: 1
     },
-            content: {
-                flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
+    content: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
     },
-            optionsMenu: {
-                margin: 20,
+    optionsMenu: {
+        margin: 20,
     },
-            optionsMenuButton: {
-                borderRadius: 5,
-            borderWidth: 2,
-            borderColor: "#F0F0F0",
-            backgroundColor: "#ffffff",
-            width: '20%',
-            padding: 5,
-            justifyContent: 'center',
-            alignItems: 'center',
-            shadowColor: "#000",
-            shadowOffset: {width: 0, height: 2 },
-            shadowOpacity: 0.2,
-            shadowRadius: 5,
-            elevation: 5,
+    optionsMenuButton: {
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: "#F0F0F0",
+        backgroundColor: "#ffffff",
+        width: '20%',
+        padding: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        elevation: 5,
     },
-            optionsMenuButtonText: {
-                fontSize: 20,
-            color: "#909090",
+    optionsMenuButtonText: {
+        fontSize: 20,
+        color: "#909090",
     }
 })
