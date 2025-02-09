@@ -27,7 +27,7 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
             >
 
                 <View style={styles.modalOverlay}>
-                    <View style={styles.modalContainer}>
+                    <View style={styles.container}>
 
                         <View style={styles.header}>
                             <Text style={styles.headerText}>Enter a name</Text>

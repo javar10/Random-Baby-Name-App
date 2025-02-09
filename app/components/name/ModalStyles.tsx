@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    modalContainer: {
+    container: {
         width: 300,
         backgroundColor: 'white',
         padding: 10,
