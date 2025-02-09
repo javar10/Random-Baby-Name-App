@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import { loadFavorites, FavoriteItem, saveFavorites } from '../storage/favoritesStorage'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faReply, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faReply, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import styles from './name/ModalStyles';
 
 interface Props {
@@ -32,27 +32,29 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.favoritesContainer}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>Favorites</Text>
             </View>
 
-            <View style={styles.content}>
+            <View style={styles.favoritesContent}>
                 <FlatList
                     data={favorites}
+                    showsVerticalScrollIndicator={false}
                     keyExtractor={item => item.id.toString()}
-                    renderItem={({ item }) =>
-                        <View style={styles.favoritesList}>
+                    renderItem={({ item, index }) =>
+                        <View style={[styles.favoritesItem, {borderBottomWidth: index === favorites.length - 1 ? 0 : 1}]}>
                             <Text style={styles.contentText}>
                                 {item.firstName} {item.middleName}{item.middleName ? ' ' : ''}{item.lastName}
                             </Text>
                             <TouchableOpacity onPress={() => removeFavorite(item.id.toString())}>
-                                <FontAwesomeIcon style={styles.contentIcon} icon={faTrash} />
+                                <FontAwesomeIcon style={styles.contentIcon} icon={faTrashCan} />
                             </TouchableOpacity>
                         </View>
                     }
-                >
-                </FlatList>
+                    style={styles.favoritesList}
+                    contentContainerStyle={styles.favoritesListContent}
+                />
             </View>
 
             <View style={styles.footer}>

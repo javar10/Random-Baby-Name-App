@@ -3,8 +3,6 @@ import BabyName from "./name/BabyName";
 import { useEffect, useState } from "react";
 import SelectGender from "./SelectGender";
 import React from "react";
-import StartOver from "./options/StartOver";
-import SendName from "./options/ShareName";
 import OptionsMenu from "./options/OptionsMenu";
 import ViewFavorites from "./ViewFavorites";
 
@@ -31,13 +29,27 @@ const Home = () => {
                     resizeMode="cover"
                 >
                     <View style={styles.container}>
-                        <SelectGender gender={gender} setGender={setGender} viewFavorites={viewFavorites} setViewFavorites={setViewFavorites} />
+                        <View style={styles.content}>
+                            <SelectGender gender={gender} setGender={setGender} viewFavorites={viewFavorites} setViewFavorites={setViewFavorites} />
+                        </View>
                     </View>
-
-                </ImageBackground>           
+                </ImageBackground>
             }
-            
-            {viewFavorites && <ViewFavorites setViewFavorites={setViewFavorites} />}
+
+            {viewFavorites &&
+                <ImageBackground
+                    source={defaultBackground}
+                    style={styles.backgroundImage}
+                    resizeMode="cover"
+                >
+                    <View style={styles.container}>
+                        <View style={styles.content}>
+                            <ViewFavorites setViewFavorites={setViewFavorites} />
+                        </View>
+                    </View>
+                </ImageBackground>
+
+            }
 
             {gender &&
                 <ImageBackground

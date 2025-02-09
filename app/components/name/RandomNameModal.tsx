@@ -79,8 +79,10 @@ const RandomNameModal: React.FC<Props> = ({ setModalVisible, name, setName, list
                                         </Text>
                                     </TouchableOpacity>
                                 }
-                            >
-                            </FlatList>
+                                style={styles.favoritesList}
+                                contentContainerStyle={styles.favoritesListContent}
+                            />
+                            {/* </FlatList> */}
                         </View>
 
                         <View style={styles.footer}>

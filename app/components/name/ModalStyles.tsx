@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
     modalOverlay: {
         justifyContent: 'center',
         alignItems: 'center',
+        maxHeight: '90%'
     },
     container: {
         width: 300,
@@ -13,24 +14,20 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
     },
     headerText: {
-        fontSize: 32
+        fontSize: 32,
+        fontWeight: 'bold'
     },
     content: {
-        paddingVertical: 15,
+        marginVertical: 5,
         borderTopWidth: 2,
         borderBottomWidth: 2,
-        // maxHeight: 120,
-    },
-    favoritesList: {
-        flexDirection: 'row',
-        borderBottomWidth: 1,
-        padding: 8,
     },
     contentText: {
         fontSize: 28,
+        paddingVertical: 5
     },
     contentIcon: {
         padding: 14,
@@ -46,9 +43,33 @@ const styles = StyleSheet.create({
         alignContent: 'center',
     },
     footerIcon: {
-        // color: 'gray',
         padding: 16,
-    }
+    },
+    favoritesContainer: {
+        width: 300,
+        backgroundColor: 'white',
+        padding: 10,
+        borderRadius: 10,
+        maxHeight: '90%', // Limits the total height
+    },
+    favoritesContent: {
+        flexShrink: 1, // Ensures it takes up available space
+        maxHeight: '80%', // Keeps FlatList contained
+        borderTopWidth: 2,
+        borderBottomWidth: 2,
+    },
+    favoritesItem: {
+        flexDirection: 'row',
+        borderBottomWidth: 1,
+        alignItems: 'center',
+        paddingVertical: 5,
+    },
+    favoritesList: {
+        flexGrow: 1, // Allows scrolling inside
+    },
+    favoritesListContent: {
+        paddingBottom: 10, // Avoids cutoff at the bottom
+    },
 });
 
 export default styles;
