@@ -36,27 +36,27 @@ export const loadFavorites = async (): Promise<FavoriteItem[]> => {
   }
 };
 
-// Add or remove a favorite (toggle)
-export const toggleFavorite = async (item: FavoriteItem): Promise<FavoriteItem[]> => {
+// Add favorite
+export const addFavorite = async (item: FavoriteItem): Promise<FavoriteItem[]> => {
   try {
     let favorites = await loadFavorites();
-    const index = favorites.findIndex((fav) => fav.id === item.id);
 
-    if (index > -1) {
-      // Remove from favorites
-      favorites.splice(index, 1);
+    if (!favorites.some((fav) => fav.id === item.id)) {
+      favorites = [...favorites, item]; // Ensure immutability
+      await saveFavorites(favorites);
+      console.log('Added:', item);
     } else {
-      // Add to favorites
-      favorites.push(item);
+      console.log('Already in favorites:', item);
     }
 
-    await saveFavorites(favorites);
     return favorites;
   } catch (error) {
-    console.error('Error toggling favorite:', error);
+    console.error('Error adding favorite:', error);
     return [];
   }
 };
+
+
 
 // Get the count of favorite items
 export const getFavoritesCount = async (): Promise<number> => {

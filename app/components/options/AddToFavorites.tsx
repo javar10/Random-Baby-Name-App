@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, TouchableOpacity } from 'react-native';
-import { loadFavorites, toggleFavorite, FavoriteItem } from '../../storage/favoritesStorage'
+import { loadFavorites, addFavorite, FavoriteItem } from '../../storage/favoritesStorage'
 import styles from './OptionsMenuStyles';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +16,7 @@ interface Props {
 const AddToFavorites: React.FC<Props> = ({ firstName, middleName, lastName, gender }) => {
   const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
   const itemToAdd: FavoriteItem = {
-    id: favorites.length + 1,
+    id: Date.now(),
     firstName: firstName,
     middleName: middleName,
     lastName: lastName,
@@ -43,14 +43,14 @@ const AddToFavorites: React.FC<Props> = ({ firstName, middleName, lastName, gend
   };
 
   // Function to add or remove an item from favorites
-  const handleToggleFavorite = async () => {
-    const updatedFavorites = await toggleFavorite(itemToAdd);
+  const handleAddFavorite = async () => {
+    const updatedFavorites = await addFavorite(itemToAdd);
     setFavorites(updatedFavorites);
     showAlert();
   };
 
   return (
-    <TouchableOpacity style={styles.optionsMenuButton} onPress={handleToggleFavorite} >
+    <TouchableOpacity style={styles.optionsMenuButton} onPress={handleAddFavorite} >
       <FontAwesomeIcon style={styles.optionsMenuIcon} icon={faHeart} />
     </TouchableOpacity>
   );
