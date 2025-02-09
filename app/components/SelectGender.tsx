@@ -2,6 +2,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Text, View, StyleSheet, Dimensions, TouchableOpacity, ImageBackground } from "react-native";
 import ViewFavorites from "./ViewFavorites";
 import AddToFavorites from "./options/AddToFavorites";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faHeart, faMars, faVenus, faVenusMars } from "@fortawesome/free-solid-svg-icons";
 // import backgroundImage from '../../assets/images/clouds.png';
 
 interface Props {
@@ -20,26 +22,30 @@ const SelectGender: React.FC<Props> = ({ gender, setGender, viewFavorites, setVi
                     style={[styles.button, { backgroundColor: '#FFD5E7' }]}
                     onPress={() => setGender('girl')}
                 >
-                    <Text style={styles.text}>Girl</Text>
+                    <FontAwesomeIcon style={styles.icon} icon={faVenus} />
                 </TouchableOpacity>
+
                 <TouchableOpacity
                     style={[styles.button, { backgroundColor: '#BCF0FF' }]}
                     onPress={() => setGender('boy')}
                 >
-                    <Text style={styles.text}>Boy</Text>
+                    <FontAwesomeIcon style={styles.icon} icon={faMars} />
                 </TouchableOpacity>
             </View>
+
             <View style={styles.buttonGrid}>
                 <TouchableOpacity
                     style={[styles.button, { backgroundColor: '#DFEFDF' }]}
                     onPress={() => setGender('neutral')}
                 >
-                    <Text style={styles.text}>Gender Neutral</Text>
+                    <FontAwesomeIcon style={styles.icon} icon={faVenusMars} />
                 </TouchableOpacity>
+
                 <TouchableOpacity
-                    style={[styles.button, { backgroundColor: 'white' }]}
-                    onPress={() => setViewFavorites(!viewFavorites)}>
-                    <Text style={styles.text}>View Favorites</Text>
+                    style={[styles.button, { backgroundColor: '#E0E0E0' }]}
+                    onPress={() => setViewFavorites(!viewFavorites)}
+                >
+                    <FontAwesomeIcon style={styles.icon} icon={faHeart} />
                 </TouchableOpacity>
             </View>
         </View>
@@ -52,15 +58,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        // paddingHorizontal: 20,
-        // flexDirection: 'row'
     },
     buttonGrid: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
         alignItems: 'center',
-        // width: '80%',
     },
     button: {
         width: 150,
@@ -70,7 +73,6 @@ const styles = StyleSheet.create({
         margin: 15,
         borderWidth: 2,
         borderColor: "#F0F0F0",
-        // backgroundColor: "#ffffff",
         borderRadius: 10,
         paddingTop: 5,
         paddingBottom: 5,
@@ -85,6 +87,10 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 32,
         textAlign: 'center'
+    },
+    icon: {
+        padding: 48,
+        color: "white",
     }
 
 })

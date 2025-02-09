@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     text: {
-        color: "#C0C0C0",
+        color: "#909090",
         textAlign: "center",
     }
 
