@@ -7,7 +7,7 @@ import StartOver from "./options/StartOver";
 import SendName from "./options/ShareName";
 import OptionsMenu from "./options/OptionsMenu";
 
-export default function Home() {
+const Home = () => {
     const [gender, setGender] = useState<string>('');
 
     const [firstName, setFirstName] = useState<string>('First');
@@ -69,6 +69,7 @@ export default function Home() {
                                 setMiddleName={setMiddleName}
                                 lastName={lastName}
                                 setLastName={setLastName}
+                                gender={gender}
                                 setGender={setGender}
                             />
                         </View>
@@ -98,3 +99,5 @@ const styles = StyleSheet.create({
     },
 
 })
+
+export default Home

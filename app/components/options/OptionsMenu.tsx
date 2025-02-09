@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faReply } from "@fortawesome/free-solid-svg-icons";
 import ShareName from "./ShareName";
 import StartOver from "./StartOver";
+import AddToFavorites from "./AddToFavorites";
 
 interface Props {
     firstName: string;
@@ -13,13 +14,20 @@ interface Props {
     setMiddleName: Dispatch<SetStateAction<string>>;
     lastName: string;
     setLastName: Dispatch<SetStateAction<string>>;
+    gender: string;
     setGender: Dispatch<SetStateAction<string>>;
 }
 
-const OptionsMenu: React.FC<Props> = ({ firstName, setFirstName, middleName, setMiddleName, lastName, setLastName, setGender }) => {
+const OptionsMenu: React.FC<Props> = ({ firstName, setFirstName, middleName, setMiddleName, lastName, setLastName, gender, setGender }) => {
 
     return (
         <View style={styles.optionsMenu}>
+            <AddToFavorites 
+                firstName={firstName}
+                middleName={middleName}
+                lastName={lastName}
+                gender={gender}
+            />
             <ShareName 
                 firstName={firstName}
                 middleName={middleName}
