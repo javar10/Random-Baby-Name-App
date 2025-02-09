@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { loadFavorites, FavoriteItem } from '../storage/favoritesStorage'
+import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { loadFavorites, FavoriteItem, saveFavorites } from '../storage/favoritesStorage'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faReply } from '@fortawesome/free-solid-svg-icons';
+import { faReply, faTrash } from '@fortawesome/free-solid-svg-icons';
 import styles from './name/ModalStyles';
 
 interface Props {
@@ -16,6 +16,21 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
         loadFavorites().then(setFavorites);
     }, []);
 
+    const removeFavorite = async (id: string) => {
+        // Load current favorites
+        const currentFavorites = await loadFavorites();
+
+        // Filter out the item with the specified ID
+        const updatedFavorites = currentFavorites.filter(item => item.id.toString() !== id);
+
+        // Save the updated favorites list back to storage
+        await saveFavorites(updatedFavorites);
+
+        // Update state and count
+        setFavorites(updatedFavorites);
+        console.log('deleted')
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -23,14 +38,21 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
             </View>
 
             <View style={styles.content}>
-                {favorites.map((fav) => (
-                    <Text
-                        // style={styles.contentText}
-                        key={fav.id}
-                    >
-                        • {fav.firstName} {fav.middleName}{fav.middleName ? ' ' : ''}{fav.lastName}
-                    </Text>
-                ))}
+                <FlatList
+                    data={favorites}
+                    keyExtractor={item => item.id.toString()}
+                    renderItem={({ item }) =>
+                        <View style={styles.favoritesList}>
+                            <Text style={styles.contentText}>
+                                {item.firstName} {item.middleName}{item.middleName ? ' ' : ''}{item.lastName}
+                            </Text>
+                            <TouchableOpacity onPress={() => removeFavorite(item.id.toString())}>
+                                <FontAwesomeIcon style={styles.contentIcon} icon={faTrash} />
+                            </TouchableOpacity>
+                        </View>
+                    }
+                >
+                </FlatList>
             </View>
 
             <View style={styles.footer}>

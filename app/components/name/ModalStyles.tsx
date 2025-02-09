@@ -21,21 +21,19 @@ const styles = StyleSheet.create({
     content: {
         paddingVertical: 15,
         borderTopWidth: 2,
-        borderBottomWidth: 2
+        borderBottomWidth: 2,
+        // maxHeight: 120,
+    },
+    favoritesList: {
+        flexDirection: 'row',
+        borderBottomWidth: 1,
+        padding: 8,
     },
     contentText: {
         fontSize: 28,
     },
-    nameListText: {
-        fontSize: 28,
-    },
-    inputText: {
-        borderColor: 'gray',
-        borderWidth: 1,
-        borderRadius: 5,
-        padding: 5,
-        cursor: 'auto',
-        fontSize: 28,
+    contentIcon: {
+        padding: 14,
     },
     footer: {
         flexDirection: 'row',
