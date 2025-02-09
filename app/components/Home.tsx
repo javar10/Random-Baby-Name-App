@@ -37,7 +37,7 @@ const Home = () => {
                 </ImageBackground>           
             }
             
-            {viewFavorites && <ViewFavorites />}
+            {viewFavorites && <ViewFavorites setViewFavorites={setViewFavorites} />}
 
             {gender &&
                 <ImageBackground
