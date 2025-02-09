@@ -6,6 +6,7 @@ import React from "react";
 import StartOver from "./options/StartOver";
 import SendName from "./options/ShareName";
 import OptionsMenu from "./options/OptionsMenu";
+import ViewFavorites from "./ViewFavorites";
 
 const Home = () => {
     const [gender, setGender] = useState<string>('');
@@ -19,27 +20,24 @@ const Home = () => {
     const boyBackground = require("../../assets/images/boy-background.png");
     const neutralBackground = require("../../assets/images/neutral-background.png");
 
-    const resetName = () => {
-        setFirstName('First');
-        setMiddleName('Middle');
-        setLastName('Last');
-        setGender('');
-    }
+    const [viewFavorites, setViewFavorites] = useState<boolean>(false)
 
     return (
         <>
-            {!gender &&
+            {!gender && !viewFavorites &&
                 <ImageBackground
                     source={defaultBackground}
                     style={styles.backgroundImage}
                     resizeMode="cover"
                 >
                     <View style={styles.container}>
-                        <SelectGender gender={gender} setGender={setGender} />
-
+                        <SelectGender gender={gender} setGender={setGender} viewFavorites={viewFavorites} setViewFavorites={setViewFavorites} />
                     </View>
-                </ImageBackground>
+
+                </ImageBackground>           
             }
+            
+            {viewFavorites && <ViewFavorites />}
 
             {gender &&
                 <ImageBackground

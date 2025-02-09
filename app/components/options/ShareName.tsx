@@ -30,10 +30,6 @@ const ShareName: React.FC<Props> = ({ firstName, middleName, lastName }) => {
         }
     };
 
-    const shareName = () => {
-        console.log('sent')
-    }
-
     return (
         <TouchableOpacity style={styles.optionsMenuButton} onPress={onShare} >
             <FontAwesomeIcon style={styles.optionsMenuIcon} icon={faArrowUpFromBracket} />
