@@ -1,9 +1,10 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
-import { loadFavorites, FavoriteItem, saveFavorites } from '../storage/favoritesStorage'
+import { loadFavorites, FavoriteItem, saveFavorites } from '../../storage/favoritesStorage'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faReply, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import styles from './name/ModalStyles';
+import styles from '../name/ModalStyles';
+import SwipeableRow from './SwipeableRow';
 
 interface Props {
     setViewFavorites: Dispatch<SetStateAction<boolean>>;
@@ -43,14 +44,11 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
                     showsVerticalScrollIndicator={false}
                     keyExtractor={item => item.id.toString()}
                     renderItem={({ item, index }) =>
-                        <View style={[styles.favoritesItem, {borderBottomWidth: index === favorites.length - 1 ? 0 : 1}]}>
-                            <Text style={styles.contentText}>
-                                {item.firstName} {item.middleName}{item.middleName ? ' ' : ''}{item.lastName}
-                            </Text>
-                            <TouchableOpacity onPress={() => removeFavorite(item.id.toString())}>
-                                <FontAwesomeIcon style={styles.contentIcon} icon={faTrashCan} />
-                            </TouchableOpacity>
-                        </View>
+                        <SwipeableRow
+                            item={item} 
+                            onDelete={() => removeFavorite(item.id.toString())}
+                            hasBottomBorder={index === favorites.length - 1 ? false : true}
+                        />
                     }
                     style={styles.favoritesList}
                     contentContainerStyle={styles.favoritesListContent}

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import SelectGender from "./SelectGender";
 import React from "react";
 import OptionsMenu from "./options/OptionsMenu";
-import ViewFavorites from "./ViewFavorites";
+import ViewFavorites from "./favorites/ViewFavorites";
 
 const Home = () => {
     const [gender, setGender] = useState<string>('');

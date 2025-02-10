@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { Text, View, StyleSheet, Dimensions, TouchableOpacity, ImageBackground } from "react-native";
-import ViewFavorites from "./ViewFavorites";
+import ViewFavorites from "./favorites/ViewFavorites";
 import AddToFavorites from "./options/AddToFavorites";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faHeart, faMars, faVenus, faVenusMars } from "@fortawesome/free-solid-svg-icons";
