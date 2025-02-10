@@ -5,6 +5,7 @@ import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-na
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FavoriteItem } from "@/app/storage/favoritesStorage";
+import ShareName from "../options/ShareName";
 
 const SWIPE_THRESHOLD = -50; // Adjust based on how far you want it to swipe
 
@@ -18,11 +19,11 @@ const SwipeableRow: React.FC<Props> = ({ item, onDelete, hasBottomBorder }) => {
 
     const panGesture = Gesture.Pan()
         .onUpdate((event) => {
-            translateX.value = Math.max(-75, Math.min(0, event.translationX)); // Limit swipe distance
+            translateX.value = Math.max(-150, Math.min(0, event.translationX)); // Limit swipe distance
         })
         .onEnd(() => {
             if (translateX.value < SWIPE_THRESHOLD) {
-                translateX.value = withSpring(-75); // Snap open
+                translateX.value = withSpring(-150); // Snap open
             } else {
                 translateX.value = withSpring(0); // Snap closed
             }
@@ -35,20 +36,31 @@ const SwipeableRow: React.FC<Props> = ({ item, onDelete, hasBottomBorder }) => {
     return (
         <View style={styles.container}>
             {/* Hidden options (Delete button) */}
-            <View style={styles.hiddenOptions}>
+            <View style={[styles.hiddenOptions, styles.deleteOption]}>
                 <TouchableOpacity onPress={onDelete}>
                     <FontAwesomeIcon style={styles.contentIcon} icon={faTrashCan} />
                 </TouchableOpacity>
             </View>
 
+            {/* Hidden options (Share) */}
+            <View style={[styles.hiddenOptions, styles.shareOption]}>
+                <ShareName firstName={item.firstName} middleName={item.middleName} lastName={item.lastName}/>
+            </View>
+
             {/* Swipeable content */}
             <GestureDetector gesture={panGesture}>
-                <Animated.View style={[styles.swipeableRow, animatedStyle, styles.favoritesItem,
-                     {borderBottomWidth: !hasBottomBorder ? 0 : 1}
-                     ]}>
-                    <Text style={styles.itemText}>{item.firstName} {item.middleName}{item.middleName ? ' ' : ''}{item.lastName}</Text>
+                <Animated.View
+                    style={[
+                        styles.swipeableRow,
+                        animatedStyle,
+                        { borderBottomWidth: !hasBottomBorder ? 0 : 1 }
+                    ]}>
+                    <Text style={styles.itemText}>
+                        {item.firstName} {item.middleName}{item.middleName ? ' ' : ''}{item.lastName}
+                    </Text>
                 </Animated.View>
             </GestureDetector>
+
         </View>
     );
 };
@@ -62,21 +74,26 @@ const styles = StyleSheet.create({
     },
     hiddenOptions: {
         position: "absolute",
-        right: 0,
         width: 75,
         height: "100%",
-        backgroundColor: "red",
         justifyContent: "center",
         alignItems: "center",
     },
+    deleteOption: {
+        // backgroundColor: "red",
+        right: 0,
+    },
+    shareOption: {
+        // backgroundColor: "blue",
+        right: 75,
+    },
     deleteButton: {
-        backgroundColor: "red",
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 5,
     },
     deleteText: {
-        color: "white",
+        // color: "white",
         fontWeight: "bold",
     },
     swipeableRow: {
@@ -93,10 +110,10 @@ const styles = StyleSheet.create({
     },
     contentIcon: {
         padding: 14,
-        color: 'white'
+        // color: 'white'
     },
     favoritesItem: {
-  
+
     },
 });
 
