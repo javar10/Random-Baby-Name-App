@@ -1,5 +1,65 @@
+// import { FavoriteItem } from '@/app/storage/favoritesStorage';
+// import React from 'react';
+// import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+// import { SwipeListView } from 'react-native-swipe-list-view';
+// import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+// import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+
+// const data = [
+//   { key: '1', text: 'Swipe me!' },
+//   { key: '2', text: 'Swipe me too!' },
+// ];
+
+
+// interface Props {
+//   item: FavoriteItem;
+//   onDelete: () => void;
+//   hasBottomBorder: boolean;
+// }
+
+// const SwipeableRow: React.FC<Props> = ({ item, onDelete, hasBottomBorder }) => {
+//   const renderItem = () => (
+//     <Text style={styles.itemText}>
+//       {item.firstName} {item.middleName}{item.middleName ? ' ' : ''}{item.lastName}
+//     </Text>
+//   );
+
+//   const renderHiddenItem = () => (
+//     <View style={[styles.hiddenOptions, styles.deleteOption]}>
+//       <TouchableOpacity onPress={onDelete}>
+//         <FontAwesomeIcon style={styles.contentIcon} icon={faTrashCan} />
+//       </TouchableOpacity>
+//     </View>
+//   );
+
+//   return (
+//     <View style={styles.container}>
+//       <SwipeListView
+//         data={data}
+//         renderItem={renderItem}
+//         renderHiddenItem={renderHiddenItem}
+//         rightOpenValue={-75}
+//       />
+//     </View>
+//   );
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { Dispatch, SetStateAction } from "react";
-import { View, Text, Pressable, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Pressable, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -44,7 +104,11 @@ const SwipeableRow: React.FC<Props> = ({ item, onDelete, hasBottomBorder }) => {
 
             {/* Hidden options (Share) */}
             <View style={[styles.hiddenOptions, styles.shareOption]}>
-                <ShareName firstName={item.firstName} middleName={item.middleName} lastName={item.lastName}/>
+                <ShareName 
+                buttonType={'swipeable'}
+                firstName={item.firstName} 
+                middleName={item.middleName} 
+                lastName={item.lastName}/>
             </View>
 
             {/* Swipeable content */}
@@ -62,59 +126,60 @@ const SwipeableRow: React.FC<Props> = ({ item, onDelete, hasBottomBorder }) => {
             </GestureDetector>
 
         </View>
+
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginVertical: 8,
-        overflow: "hidden",
-    },
-    hiddenOptions: {
-        position: "absolute",
-        width: 75,
-        height: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    deleteOption: {
-        // backgroundColor: "red",
-        right: 0,
-    },
-    shareOption: {
-        // backgroundColor: "blue",
-        right: 75,
-    },
-    deleteButton: {
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-    },
-    deleteText: {
-        // color: "white",
-        fontWeight: "bold",
-    },
-    swipeableRow: {
-        backgroundColor: "white",
-        width: "100%",
-        flexDirection: 'row',
-        borderBottomWidth: 1,
-        alignItems: 'center',
-        paddingVertical: 5,
-    },
-    itemText: {
-        fontSize: 28,
-        paddingVertical: 5
-    },
-    contentIcon: {
-        padding: 14,
-        // color: 'white'
-    },
-    favoritesItem: {
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 8,
+    overflow: "hidden",
+  },
+  hiddenOptions: {
+    position: "absolute",
+    width: 75,
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  deleteOption: {
+    // backgroundColor: "red",
+    right: 0,
+  },
+  shareOption: {
+    // backgroundColor: "blue",
+    right: 75,
+  },
+  deleteButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  deleteText: {
+    // color: "white",
+    fontWeight: "bold",
+  },
+  swipeableRow: {
+    backgroundColor: "white",
+    width: "100%",
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    alignItems: 'center',
+    paddingVertical: 5,
+  },
+  itemText: {
+    fontSize: 28,
+    paddingVertical: 5
+  },
+  contentIcon: {
+    padding: 14,
+    // color: 'white'
+  },
+  favoritesItem: {
 
-    },
+  },
 });
 
 export default SwipeableRow;

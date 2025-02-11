@@ -5,12 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
+    buttonType: string;
     firstName: string;
     middleName: string;
     lastName: string;
 }
 
-const ShareName: React.FC<Props> = ({ firstName, middleName, lastName }) => {
+const ShareName: React.FC<Props> = ({ buttonType, firstName, middleName, lastName }) => {
     const onShare = async () => {
         try {
             const result = await Share.share({

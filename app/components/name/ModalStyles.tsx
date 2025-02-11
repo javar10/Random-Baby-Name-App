@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5
     },
     contentIcon: {
-        padding: 14,
+        padding: 16,
     },
     footer: {
         flexDirection: 'row',
@@ -70,6 +70,26 @@ const styles = StyleSheet.create({
     favoritesListContent: {
         paddingBottom: 10, // Avoids cutoff at the bottom
     },
+
+    itemText: {
+        fontSize: 28,
+        paddingVertical: 10,
+        width: '100%',
+        backgroundColor: 'white',
+        borderBottomWidth: 1,
+      },
+      hiddenOptions: {
+        position: "absolute",
+        width: 75,
+        height: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        // backgroundColor: '#909090',
+        borderBottomWidth: 1,
+      },
+      deleteOption: {
+        right: 0,
+      },
 });
 
 export default styles;
