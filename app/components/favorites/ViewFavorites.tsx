@@ -1,118 +1,134 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, FlatList, TouchableWithoutFeedback } from 'react-native';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { View, Text, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import { loadFavorites, FavoriteItem, saveFavorites } from '../../storage/favoritesStorage'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faReply } from '@fortawesome/free-solid-svg-icons';
-import styles from '../name/ModalStyles';
-import SwipeableRow from './SwipeableRow';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import ShareName from '../options/ShareName';
+import { default as modalStyles } from '../name/ModalStyles';
 
 interface Props {
     setViewFavorites: Dispatch<SetStateAction<boolean>>;
 }
-
 const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
-
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+
+    // Track the currently open row
+    const openRowRef = useRef<any>(null);
 
     useEffect(() => {
         loadFavorites().then(setFavorites);
     }, []);
 
     const removeFavorite = async (id: string) => {
-        // Load current favorites
         const currentFavorites = await loadFavorites();
-
-        // Filter out the item with the specified ID
         const updatedFavorites = currentFavorites.filter(item => item.id.toString() !== id);
-
-        // Save the updated favorites list back to storage
         await saveFavorites(updatedFavorites);
-
-        // Update state and count
         setFavorites(updatedFavorites);
-        console.log('deleted')
-    }
+        console.log('Deleted');
+    };
+
+    // Close row when tapping outside
+    const handleOutsidePress = () => {
+        if (openRowRef.current) {
+            openRowRef.current.closeRow();
+            openRowRef.current = null;
+        }
+    };
 
     const renderItem = ({ item }: { item: FavoriteItem }) => (
-        <Text style={styles.itemText}>
-            {item.firstName} {item.middleName}{item.middleName ? ' ' : ''}{item.lastName}
-        </Text>
+        <View 
+        >
+            <Text style={styles.itemText}>
+                {item.firstName} {item.middleName ? `${item.middleName} ` : ''}{item.lastName}
+            </Text>
+        </View>
     );
 
     const renderHiddenItem = ({ item }: { item: FavoriteItem }) => (
-        // <View style={[styles.hiddenOptions, styles.deleteOption]}>
-            <TouchableOpacity
-                style={[styles.hiddenOptions, styles.deleteOption]}
-                onPress={() => removeFavorite(item.id.toString())}
-            >
-                <View>
-                    <FontAwesomeIcon style={styles.contentIcon} icon={faTrashCan} />
-                </View>
-
+        <View style={styles.hiddenOptions}>
+            <ShareName firstName={item.firstName} middleName={item.middleName} lastName={item.lastName} />
+            <TouchableOpacity style={styles.deleteOption} onPress={() => removeFavorite(item.id.toString())}>
+                <FontAwesomeIcon style={modalStyles.contentIcon} icon={faTrashCan} />
             </TouchableOpacity>
-        // </View>
+        </View>
     );
 
     return (
-        <View style={styles.favoritesContainer}>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>Favorites</Text>
+        <TouchableWithoutFeedback onPress={handleOutsidePress}>
+            <View style={styles.favoritesContainer}>
+                <View style={modalStyles.header}>
+                    <Text style={modalStyles.headerText}>Favorites</Text>
+                </View>
+                <View style={styles.favoritesContent}>
+                    <SwipeListView
+                        data={favorites}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={renderItem}
+                        renderHiddenItem={renderHiddenItem}
+                        rightOpenValue={-75}
+                        leftOpenValue={75}
+                        closeOnScroll
+                    />
+                </View>
+                <View style={modalStyles.footer}>
+                    <TouchableOpacity style={modalStyles.footerButton} onPress={() => setViewFavorites(false)}>
+                        <FontAwesomeIcon style={[modalStyles.footerIcon, { transform: [{ scaleY: -1 }] }]} icon={faReply} />
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style={styles.favoritesContent}>
-
-
-                <SwipeListView
-                    data={favorites}
-                    renderItem={renderItem}
-                    renderHiddenItem={renderHiddenItem}
-                    rightOpenValue={-75}
-                    // leftOpenValue={75}
-                    closeOnScroll
-                />
-
-
-
-
-
-
-
-
-
-                {/* <FlatList
-                    data={favorites}
-                    keyExtractor={item => item.id.toString()}
-                    renderItem={({ item, index }) =>
-                        // <TouchableWithoutFeedback>
-                            <SwipeableRow
-                                item={item}
-                                onDelete={() => removeFavorite(item.id.toString())}
-                                hasBottomBorder={index === favorites.length - 1 ? false : true}
-                            />
-                        // </TouchableWithoutFeedback>
-
-
-                    }
-                    style={styles.favoritesList}
-                    contentContainerStyle={styles.favoritesListContent}
-                    keyboardShouldPersistTaps='handled'
-                    showsVerticalScrollIndicator={false}
-                    scrollEnabled={true}
-                /> */}
-
-
-
-            </View>
-            <View style={styles.footer}>
-                <TouchableOpacity style={styles.footerButton} onPress={() => setViewFavorites(false)} >
-                    <FontAwesomeIcon style={[styles.footerIcon, { transform: [{ scaleY: -1 }] }]} icon={faReply} />
-                </TouchableOpacity>
-            </View>
-
-        </View>
+        </TouchableWithoutFeedback>
     );
 };
+
+
+
+const styles = StyleSheet.create({
+    favoritesContainer: {
+        width: 300,
+        backgroundColor: 'white',
+        padding: 10,
+        borderRadius: 10,
+        maxHeight: '90%', // Limits the total height
+    },
+    favoritesContent: {
+        flexShrink: 1, // Ensures it takes up available space
+        maxHeight: '80%', // Keeps FlatList contained
+        borderTopWidth: 2,
+        borderBottomWidth: 2,
+    },
+    favoritesItem: {
+        flexDirection: 'row',
+        borderBottomWidth: 1,
+        alignItems: 'center',
+        paddingVertical: 5,
+    },
+    favoritesList: {
+        flexGrow: 1,
+    },
+    favoritesListContent: {
+        paddingBottom: 10,
+    },
+
+    itemText: {
+        fontSize: 28,
+        paddingVertical: 10,
+        width: '100%',
+        backgroundColor: 'white',
+        borderBottomWidth: 1,
+      },
+      hiddenOptions: {
+        borderBottomWidth: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "100%",
+        height: '100%',
+      },
+      deleteOption: {
+        marginRight: '5%',
+      },
+});
 
 export default ViewFavorites;
