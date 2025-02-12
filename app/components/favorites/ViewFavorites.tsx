@@ -15,12 +15,13 @@ interface Props {
 
 const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+    const [favsIsUpdated, setFavsIsUpdated] = useState<boolean>(false)
 
     const openRowRef = useRef<any>(null);
 
     useEffect(() => {
         loadFavorites().then(setFavorites);
-    }, []);
+    }, [favsIsUpdated]);
 
     const removeFavorite = async (id: string) => {
         const currentFavorites = await loadFavorites();
@@ -48,8 +49,18 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
 
     const renderHiddenItem = ({ item }: { item: FavoriteItem }) => (
         <View style={styles.hiddenOptions}>
-            <ShareName buttonType='fav' firstName={item.firstName} middleName={item.middleName} lastName={item.lastName} />
-            <DeleteFavorite item={item} setViewFavorites={setViewFavorites} />
+            <ShareName
+                buttonType='fav'
+                firstName={item.firstName}
+                middleName={item.middleName}
+                lastName={item.lastName}
+            />
+            <DeleteFavorite
+                item={item}
+                setViewFavorites={setViewFavorites}
+                favsIsUpdated={favsIsUpdated}
+                setFavsIsUpdated={setFavsIsUpdated}
+            />
         </View>
     );
 
