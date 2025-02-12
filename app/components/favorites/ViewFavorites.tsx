@@ -19,17 +19,11 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
 
     const openRowRef = useRef<any>(null);
 
+
+    // TODO: alphabetize favorites
     useEffect(() => {
         loadFavorites().then(setFavorites);
     }, [favsIsUpdated]);
-
-    const removeFavorite = async (id: string) => {
-        const currentFavorites = await loadFavorites();
-        const updatedFavorites = currentFavorites.filter(item => item.id.toString() !== id);
-        await saveFavorites(updatedFavorites);
-        setFavorites(updatedFavorites);
-        console.log('Deleted');
-    };
 
     const handleOutsidePress = () => {
         if (openRowRef.current) {
@@ -79,9 +73,12 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
                         rightOpenValue={-75}
                         leftOpenValue={75}
                         closeOnScroll
+                        // TODO: bug fix - swipe max needs to be set
                     />
                 </View>
                 <View style={modalStyles.footer}>
+                    {/* TODO: filter feature */}
+
                     <TouchableOpacity style={modalStyles.footerButton} onPress={() => setViewFavorites(false)}>
                         <FontAwesomeIcon style={modalStyles.footerIcon} icon={faHome} />
                     </TouchableOpacity>

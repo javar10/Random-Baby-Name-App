@@ -25,3 +25,31 @@ const ChooseFont: React.FC<Props> = ({ setFirstName, setMiddleName, setLastName,
 }
 
 export default ChooseFont
+
+// Font Picker Code from Chat
+// import React, { useState } from "react";
+// import { View, Text } from "react-native";
+// import DropDownPicker from "react-native-dropdown-picker";
+// import fontList from "../fontList"; // Import font list
+
+// const FontPicker = () => {
+//   const [open, setOpen] = useState(false);
+//   const [selectedFont, setSelectedFont] = useState("Roboto-Regular");
+
+//   return (
+//     <View>
+//       <DropDownPicker
+//         open={open}
+//         value={selectedFont}
+//         items={fontList}
+//         setOpen={setOpen}
+//         setValue={setSelectedFont}
+//       />
+//       <Text style={{ fontFamily: selectedFont, fontSize: 20, marginTop: 20 }}>
+//         This text uses {selectedFont}
+//       </Text>
+//     </View>
+//   );
+// };
+
+// export default FontPicker;
