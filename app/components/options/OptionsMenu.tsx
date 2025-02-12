@@ -4,6 +4,7 @@ import styles from "./OptionsMenuStyles";
 import ShareName from "./ShareName";
 import StartOver from "./StartOver";
 import AddToFavorites from "./AddToFavorites";
+import ChooseFont from "./ChooseFont";
 
 interface Props {
     firstName: string;
@@ -25,6 +26,12 @@ const OptionsMenu: React.FC<Props> = ({ firstName, setFirstName, middleName, set
                 middleName={middleName}
                 lastName={lastName}
                 gender={gender}
+            />
+            <ChooseFont
+                setFirstName={setFirstName}
+                setMiddleName={setMiddleName}
+                setLastName={setLastName}
+                setGender={setGender}
             />
             <ShareName
                 buttonType='share'
