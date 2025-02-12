@@ -1,8 +1,6 @@
-import { TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import { Dispatch, SetStateAction } from 'react';
 import styles from "./OptionsMenuStyles";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faReply } from "@fortawesome/free-solid-svg-icons";
 import ShareName from "./ShareName";
 import StartOver from "./StartOver";
 import AddToFavorites from "./AddToFavorites";
@@ -22,13 +20,14 @@ const OptionsMenu: React.FC<Props> = ({ firstName, setFirstName, middleName, set
 
     return (
         <View style={styles.optionsMenu}>
-            <AddToFavorites 
+            <AddToFavorites
                 firstName={firstName}
                 middleName={middleName}
                 lastName={lastName}
                 gender={gender}
             />
-            <ShareName 
+            <ShareName
+                buttonType='share'
                 firstName={firstName}
                 middleName={middleName}
                 lastName={lastName}

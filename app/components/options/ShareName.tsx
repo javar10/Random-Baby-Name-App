@@ -1,18 +1,19 @@
 import { TouchableOpacity, Alert, Share } from "react-native";
 import React, { Dispatch, SetStateAction } from 'react';
 import styles from "./OptionsMenuStyles";
+import { default as favStyles } from '../favorites/FavoritesStyles'
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
-    // buttonType: string;
+    buttonType: string;
     firstName: string;
     middleName: string;
     lastName: string;
 }
 
 const ShareName: React.FC<Props> = ({
-    // buttonType,
+    buttonType,
     firstName,
     middleName,
     lastName
@@ -37,8 +38,14 @@ const ShareName: React.FC<Props> = ({
     };
 
     return (
-        <TouchableOpacity style={styles.optionsMenuButton} onPress={onShare} >
-            <FontAwesomeIcon style={styles.optionsMenuIcon} icon={faArrowUpFromBracket} />
+        <TouchableOpacity
+            style={buttonType === 'fav' ? favStyles.shareOption : styles.optionsMenuButton}
+            onPress={onShare}
+        >
+            <FontAwesomeIcon
+                style={buttonType === 'fav' ? favStyles.hiddenIcon : styles.optionsMenuIcon}
+                icon={faArrowUpFromBracket}
+            />
         </TouchableOpacity>
     );
 }

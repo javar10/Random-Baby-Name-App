@@ -3,10 +3,11 @@ import { View, Text, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } fr
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { loadFavorites, FavoriteItem, saveFavorites } from '../../storage/favoritesStorage'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faReply } from '@fortawesome/free-solid-svg-icons';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import ShareName from '../options/ShareName';
 import { default as modalStyles } from '../name/ModalStyles';
+import styles from './FavoritesStyles';
 
 interface Props {
     setViewFavorites: Dispatch<SetStateAction<boolean>>;
@@ -38,7 +39,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
     };
 
     const renderItem = ({ item }: { item: FavoriteItem }) => (
-        <View 
+        <View
         >
             <Text style={styles.itemText}>
                 {item.firstName} {item.middleName ? `${item.middleName} ` : ''}{item.lastName}
@@ -48,9 +49,9 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
 
     const renderHiddenItem = ({ item }: { item: FavoriteItem }) => (
         <View style={styles.hiddenOptions}>
-            <ShareName firstName={item.firstName} middleName={item.middleName} lastName={item.lastName} />
+            <ShareName buttonType='fav' firstName={item.firstName} middleName={item.middleName} lastName={item.lastName} />
             <TouchableOpacity style={styles.deleteOption} onPress={() => removeFavorite(item.id.toString())}>
-                <FontAwesomeIcon style={modalStyles.contentIcon} icon={faTrashCan} />
+                <FontAwesomeIcon style={styles.hiddenIcon} icon={faTrashCan} />
             </TouchableOpacity>
         </View>
     );
@@ -74,7 +75,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
                 </View>
                 <View style={modalStyles.footer}>
                     <TouchableOpacity style={modalStyles.footerButton} onPress={() => setViewFavorites(false)}>
-                        <FontAwesomeIcon style={[modalStyles.footerIcon, { transform: [{ scaleY: -1 }] }]} icon={faReply} />
+                        <FontAwesomeIcon style={modalStyles.footerIcon} icon={faHome} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -83,52 +84,5 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
 };
 
 
-
-const styles = StyleSheet.create({
-    favoritesContainer: {
-        width: 300,
-        backgroundColor: 'white',
-        padding: 10,
-        borderRadius: 10,
-        maxHeight: '90%', // Limits the total height
-    },
-    favoritesContent: {
-        flexShrink: 1, // Ensures it takes up available space
-        maxHeight: '80%', // Keeps FlatList contained
-        borderTopWidth: 2,
-        borderBottomWidth: 2,
-    },
-    favoritesItem: {
-        flexDirection: 'row',
-        borderBottomWidth: 1,
-        alignItems: 'center',
-        paddingVertical: 5,
-    },
-    favoritesList: {
-        flexGrow: 1,
-    },
-    favoritesListContent: {
-        paddingBottom: 10,
-    },
-
-    itemText: {
-        fontSize: 28,
-        paddingVertical: 10,
-        width: '100%',
-        backgroundColor: 'white',
-        borderBottomWidth: 1,
-      },
-      hiddenOptions: {
-        borderBottomWidth: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        width: "100%",
-        height: '100%',
-      },
-      deleteOption: {
-        marginRight: '5%',
-      },
-});
 
 export default ViewFavorites;

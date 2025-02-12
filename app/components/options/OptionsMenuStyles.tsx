@@ -24,10 +24,6 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 5,
     },
-    // optionsMenuButtonText: {
-    //     fontSize: 28,
-    //     color: "#909090",
-    // },
     optionsMenuIcon: {
         padding: 20,
         color: "#909090",
