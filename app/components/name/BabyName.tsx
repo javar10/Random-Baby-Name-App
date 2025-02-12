@@ -12,11 +12,21 @@ interface Props {
     lastName: string;
     setLastName: Dispatch<SetStateAction<string>>;
     gender: string;
+    nameFont: string;
 }
 
 const { width: screenWidth } = Dimensions.get("window");
 
-const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMiddleName, lastName, setLastName, gender }) => {
+const BabyName: React.FC<Props> = ({
+    firstName,
+    setFirstName,
+    middleName,
+    setMiddleName,
+    lastName,
+    setLastName,
+    gender,
+    nameFont
+}) => {
 
     const [modalVisible, setModalVisible] = useState<string>('');
 
@@ -43,7 +53,7 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
                     fontSize={90}
                     numberOfLines={1}
                     mode={ResizeTextMode.max_lines}
-                    style={styles.text}
+                    style={[styles.text, {fontFamily: nameFont}]}
                 >
                     <Text onPress={() => setModalVisible('firstRandomNameModal')}>{firstName} </Text>
                     <Text onPress={() => setModalVisible('middleRandomNameModal')}>{middleName}{middleName ? ' ' : ''}</Text>
@@ -140,6 +150,7 @@ const styles = StyleSheet.create({
     text: {
         color: "#909090",
         textAlign: "center",
+        fontFamily: 'Bebas Neue'
     }
 
 })

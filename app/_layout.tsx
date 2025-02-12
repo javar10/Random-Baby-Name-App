@@ -2,11 +2,10 @@ import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as Font from "expo-font";
 import { useState, useEffect } from "react";
+import fontList from "./constants/fontList";
 
 const loadFonts = async () => {
-  await Font.loadAsync({
-    'Bebas-Neue': require('../assets/fonts/BebasNeue-Regular.ttf'),
-  });
+  await Font.loadAsync(fontList);
 };
 
 export default function RootLayout() {

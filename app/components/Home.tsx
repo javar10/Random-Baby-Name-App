@@ -20,6 +20,8 @@ const Home = () => {
 
     const [viewFavorites, setViewFavorites] = useState<boolean>(false)
 
+    const [nameFont, setNameFont] = useState<string>('Roboto');
+
     return (
         <>
             {!gender && !viewFavorites &&
@@ -75,6 +77,7 @@ const Home = () => {
                                 lastName={lastName}
                                 setLastName={setLastName}
                                 gender={gender}
+                                nameFont={nameFont}
                             />
                             <OptionsMenu
                                 firstName={firstName}
@@ -85,6 +88,8 @@ const Home = () => {
                                 setLastName={setLastName}
                                 gender={gender}
                                 setGender={setGender}
+                                nameFont={nameFont}
+                                setNameFont={setNameFont}
                             />
                         </View>
                     </View>

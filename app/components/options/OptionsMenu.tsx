@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import styles from "./OptionsMenuStyles";
 import ShareName from "./ShareName";
 import StartOver from "./StartOver";
@@ -15,9 +15,22 @@ interface Props {
     setLastName: Dispatch<SetStateAction<string>>;
     gender: string;
     setGender: Dispatch<SetStateAction<string>>;
+    nameFont: string;
+    setNameFont: Dispatch<SetStateAction<string>>;
 }
 
-const OptionsMenu: React.FC<Props> = ({ firstName, setFirstName, middleName, setMiddleName, lastName, setLastName, gender, setGender }) => {
+const OptionsMenu: React.FC<Props> = ({
+    firstName,
+    setFirstName,
+    middleName,
+    setMiddleName,
+    lastName,
+    setLastName,
+    gender,
+    setGender,
+    nameFont,
+    setNameFont
+}) => {
 
     return (
         <View style={styles.optionsMenu}>
@@ -28,10 +41,8 @@ const OptionsMenu: React.FC<Props> = ({ firstName, setFirstName, middleName, set
                 gender={gender}
             />
             <ChooseFont
-                setFirstName={setFirstName}
-                setMiddleName={setMiddleName}
-                setLastName={setLastName}
-                setGender={setGender}
+            nameFont={nameFont}
+            setNameFont={setNameFont}
             />
             <ShareName
                 buttonType='share'

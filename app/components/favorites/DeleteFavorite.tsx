@@ -26,6 +26,8 @@ const DeleteFavorite: React.FC<Props> = ({ item, setViewFavorites, favsIsUpdated
         setFavorites(updatedFavorites);
         setFavsIsUpdated(true);
         console.log('Deleted');
+
+        // TODO: Bug Fix - can only delete one name. The button works, but it's not re-rendering the list.
     };
 
     return (

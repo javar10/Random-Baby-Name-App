@@ -52,6 +52,8 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
                             <TouchableOpacity style={styles.footerButton} onPress={onClose}>
                                 <FontAwesomeIcon style={styles.footerIcon} icon={faCheck} />
                             </TouchableOpacity>
+
+                            {/* TODO: add an X button that also closes the Modal, but keeps the original text */}
                         </View>
                     </View>
                 </View>
