@@ -15,7 +15,6 @@ interface Props {
     setLastName: Dispatch<SetStateAction<string>>;
     gender: string;
     setGender: Dispatch<SetStateAction<string>>;
-    nameFont: string;
     setNameFont: Dispatch<SetStateAction<string>>;
 }
 
@@ -28,7 +27,6 @@ const OptionsMenu: React.FC<Props> = ({
     setLastName,
     gender,
     setGender,
-    nameFont,
     setNameFont
 }) => {
 
@@ -41,8 +39,7 @@ const OptionsMenu: React.FC<Props> = ({
                 gender={gender}
             />
             <ChooseFont
-            nameFont={nameFont}
-            setNameFont={setNameFont}
+                setNameFont={setNameFont}
             />
             <ShareName
                 buttonType='share'
@@ -55,6 +52,7 @@ const OptionsMenu: React.FC<Props> = ({
                 setMiddleName={setMiddleName}
                 setLastName={setLastName}
                 setGender={setGender}
+                setNameFont={setNameFont}
             />
         </View>
     );

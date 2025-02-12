@@ -7,15 +7,7 @@ import { faFont } from "@fortawesome/free-solid-svg-icons";
 import DropDownPicker from "react-native-dropdown-picker";
 import fontList from "@/app/constants/fontList";
 
-
 interface Props {
-    // setFirstName: Dispatch<SetStateAction<string>>;
-    // setMiddleName: Dispatch<SetStateAction<string>>;
-    // setLastName: Dispatch<SetStateAction<string>>;
-    // setGender: Dispatch<SetStateAction<string>>;
-    // fontsOpen: boolean;
-    // setFontsOpen: Dispatch<SetStateAction<boolean>>;
-    nameFont: string;
     setNameFont: Dispatch<SetStateAction<string>>;
 }
 
@@ -24,10 +16,7 @@ const fontArray = Object.keys(fontList).map((key) => ({
     value: key,
 }));
 
-const ChooseFont: React.FC<Props>= ({
-    // setFirstName, setMiddleName, setLastName, setGender, fontsOpen, setFontsOpen 
-    nameFont, setNameFont
-}) => {
+const ChooseFont: React.FC<Props> = ({ setNameFont }) => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [fontsOpen, setFontsOpen] = useState<boolean>(false);
     const [selectedFont, setSelectedFont] = useState<string>('Space Mono')
@@ -44,8 +33,8 @@ const ChooseFont: React.FC<Props>= ({
                     items={fontArray}
                     setOpen={setFontsOpen}
                     setValue={setSelectedFont}
-                    textStyle={{fontFamily: selectedFont}}
-                    
+                    textStyle={{ fontFamily: selectedFont }}
+
                     renderListItem={(props) => {
                         const { item, onPress } = props;
                         return (
@@ -82,31 +71,3 @@ const ChooseFont: React.FC<Props>= ({
 }
 
 export default ChooseFont
-
-// Font Picker Code from Chat
-// import React, { useState } from "react";
-// import { View, Text } from "react-native";
-// import DropDownPicker from "react-native-dropdown-picker";
-// import fontList from "../fontList"; // Import font list
-
-// const FontPicker = () => {
-//   const [open, setOpen] = useState(false);
-//   const [selectedFont, setSelectedFont] = useState("Roboto-Regular");
-
-//   return (
-//     <View>
-//       <DropDownPicker
-//         open={open}
-//         value={selectedFont}
-//         items={fontList}
-//         setOpen={setOpen}
-//         setValue={setSelectedFont}
-//       />
-//       <Text style={{ fontFamily: selectedFont, fontSize: 20, marginTop: 20 }}>
-//         This text uses {selectedFont}
-//       </Text>
-//     </View>
-//   );
-// };
-
-// export default FontPicker;

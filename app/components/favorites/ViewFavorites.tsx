@@ -74,6 +74,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
                         leftOpenValue={75}
                         closeOnScroll
                         // TODO: bug fix - swipe max needs to be set
+                        // TODO: Consider tapping name leads to edit name
                     />
                 </View>
                 <View style={modalStyles.footer}>

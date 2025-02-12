@@ -9,15 +9,17 @@ interface Props {
     setMiddleName: Dispatch<SetStateAction<string>>;
     setLastName: Dispatch<SetStateAction<string>>;
     setGender: Dispatch<SetStateAction<string>>;
+    setNameFont: Dispatch<SetStateAction<string>>;
 }
 
-const StartOver: React.FC<Props> = ({ setFirstName, setMiddleName, setLastName, setGender }) => {
+const StartOver: React.FC<Props> = ({ setFirstName, setMiddleName, setLastName, setGender, setNameFont }) => {
 
     const startOver = () => {
         setFirstName('First');
         setMiddleName('Middle');
         setLastName('Last');
         setGender('');
+        setNameFont('Roboto')
     }
 
     return (
