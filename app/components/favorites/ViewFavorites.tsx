@@ -8,14 +8,15 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import ShareName from '../options/ShareName';
 import { default as modalStyles } from '../name/ModalStyles';
 import styles from './FavoritesStyles';
+import DeleteFavorite from './DeleteFavorite';
 
 interface Props {
     setViewFavorites: Dispatch<SetStateAction<boolean>>;
 }
+
 const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
 
-    // Track the currently open row
     const openRowRef = useRef<any>(null);
 
     useEffect(() => {
@@ -50,9 +51,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
     const renderHiddenItem = ({ item }: { item: FavoriteItem }) => (
         <View style={styles.hiddenOptions}>
             <ShareName buttonType='fav' firstName={item.firstName} middleName={item.middleName} lastName={item.lastName} />
-            <TouchableOpacity style={styles.deleteOption} onPress={() => removeFavorite(item.id.toString())}>
-                <FontAwesomeIcon style={styles.hiddenIcon} icon={faTrashCan} />
-            </TouchableOpacity>
+            <DeleteFavorite item={item} setViewFavorites={setViewFavorites}/>
         </View>
     );
 
@@ -82,7 +81,5 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
         </TouchableWithoutFeedback>
     );
 };
-
-
 
 export default ViewFavorites;
