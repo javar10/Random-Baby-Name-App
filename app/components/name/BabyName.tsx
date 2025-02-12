@@ -17,7 +17,7 @@ interface Props {
 const { width: screenWidth } = Dimensions.get("window");
 
 const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMiddleName, lastName, setLastName, gender }) => {
-    
+
     const [modalVisible, setModalVisible] = useState<string>('');
 
     const [randomlySelectedFirstNamesList, setRandomlySelectedFirstNamesList] = useState<string[]>([]);
@@ -46,7 +46,7 @@ const BabyName: React.FC<Props> = ({ firstName, setFirstName, middleName, setMid
                     style={styles.text}
                 >
                     <Text onPress={() => setModalVisible('firstRandomNameModal')}>{firstName} </Text>
-                    <Text onPress={() => setModalVisible('middleRandomNameModal')}>{middleName}{middleName? ' ' : ''}</Text>
+                    <Text onPress={() => setModalVisible('middleRandomNameModal')}>{middleName}{middleName ? ' ' : ''}</Text>
                     <Text onPress={() => setModalVisible('lastTypeNameModal')}>{lastName}</Text>
                 </AutoSizeText>
             </View>

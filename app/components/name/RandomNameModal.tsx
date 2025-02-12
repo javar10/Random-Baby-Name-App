@@ -23,7 +23,17 @@ interface Props {
     onClose: () => void;
 }
 
-const RandomNameModal: React.FC<Props> = ({ setModalVisible, name, setName, listExists, setListExists, randomlySelectedNamesList, setRandomlySelectedNamesList, gender, onClose }) => {
+const RandomNameModal: React.FC<Props> = ({
+    setModalVisible,
+    name,
+    setName,
+    listExists,
+    setListExists,
+    randomlySelectedNamesList,
+    setRandomlySelectedNamesList,
+    gender,
+    onClose
+}) => {
 
     useEffect(() => {
         if (!listExists) {
@@ -79,14 +89,14 @@ const RandomNameModal: React.FC<Props> = ({ setModalVisible, name, setName, list
                                         </Text>
                                     </TouchableOpacity>
                                 }
-                                style={styles.favoritesList}
-                                contentContainerStyle={styles.favoritesListContent}
                             />
-                            {/* </FlatList> */}
                         </View>
 
                         <View style={styles.footer}>
-                            <TouchableOpacity style={styles.footerButton} onPress={() => selectRandomNames(gender === 'girl' ? girlNames : gender === 'boy' ? boyNames : gender === 'neutral' ? neutralNames : [])}>
+                            <TouchableOpacity
+                                style={styles.footerButton}
+                                onPress={() => selectRandomNames(gender === 'girl' ? girlNames : gender === 'boy' ? boyNames : gender === 'neutral' ? neutralNames : [])}
+                            >
                                 <FontAwesomeIcon style={styles.footerIcon} icon={faArrowsRotate} />
                             </TouchableOpacity>
 

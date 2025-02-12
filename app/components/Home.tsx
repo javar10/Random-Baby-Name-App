@@ -1,6 +1,6 @@
-import { StyleSheet, Text, TouchableOpacity, View, ImageBackground } from "react-native";
+import { StyleSheet, View, ImageBackground } from "react-native";
 import BabyName from "./name/BabyName";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SelectGender from "./SelectGender";
 import React from "react";
 import OptionsMenu from "./options/OptionsMenu";
@@ -30,7 +30,11 @@ const Home = () => {
                 >
                     <View style={styles.container}>
                         <View style={styles.content}>
-                            <SelectGender gender={gender} setGender={setGender} viewFavorites={viewFavorites} setViewFavorites={setViewFavorites} />
+                            <SelectGender 
+                            gender={gender} 
+                            setGender={setGender} 
+                            viewFavorites={viewFavorites} 
+                            setViewFavorites={setViewFavorites} />
                         </View>
                     </View>
                 </ImageBackground>

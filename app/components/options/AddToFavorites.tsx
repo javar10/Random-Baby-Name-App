@@ -23,26 +23,24 @@ const AddToFavorites: React.FC<Props> = ({ firstName, middleName, lastName, gend
     gender: gender
   };
 
-  // Load favorites when the component mounts
   useEffect(() => {
     loadFavorites().then(setFavorites);
   }, []);
 
   const showAlert = () => {
     Alert.alert(
-      'Added to Favorites', // Alert Title
-      `${firstName} ${middleName}${middleName ? ' ' : ''}${lastName}`, // Alert message
+      'Added to Favorites', 
+      `${firstName} ${middleName}${middleName ? ' ' : ''}${lastName}`, 
       [
         {
-          text: "OK", // Button text
-          onPress: () => console.log("OK Pressed"), // Button action
+          text: "OK", 
+          onPress: () => console.log("OK Pressed"), 
         },
       ],
-      { cancelable: true } // If the alert can be dismissed by tapping outside
+      { cancelable: true } 
     );
   };
 
-  // Function to add or remove an item from favorites
   const handleAddFavorite = async () => {
     const updatedFavorites = await addFavorite(itemToAdd);
     setFavorites(updatedFavorites);

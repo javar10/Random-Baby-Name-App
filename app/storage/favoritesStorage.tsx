@@ -1,16 +1,15 @@
 import * as FileSystem from 'expo-file-system';
 
 export interface FavoriteItem {
-    id: number;
-    firstName: string;
-    middleName: string;
-    lastName: string;
-    gender: string;
-  }
+  id: number;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  gender: string;
+}
 
 const favoritesFilePath = FileSystem.documentDirectory + 'favorites.json';
 
-// Save favorites to file
 export const saveFavorites = async (favorites: FavoriteItem[]): Promise<void> => {
   try {
     const jsonValue = JSON.stringify(favorites);
@@ -21,7 +20,6 @@ export const saveFavorites = async (favorites: FavoriteItem[]): Promise<void> =>
   }
 };
 
-// Load favorites from file
 export const loadFavorites = async (): Promise<FavoriteItem[]> => {
   try {
     const fileInfo = await FileSystem.getInfoAsync(favoritesFilePath);
@@ -36,7 +34,6 @@ export const loadFavorites = async (): Promise<FavoriteItem[]> => {
   }
 };
 
-// Add favorite
 export const addFavorite = async (item: FavoriteItem): Promise<FavoriteItem[]> => {
   try {
     let favorites = await loadFavorites();
@@ -56,9 +53,6 @@ export const addFavorite = async (item: FavoriteItem): Promise<FavoriteItem[]> =
   }
 };
 
-
-
-// Get the count of favorite items
 export const getFavoritesCount = async (): Promise<number> => {
   try {
     const favorites = await loadFavorites();

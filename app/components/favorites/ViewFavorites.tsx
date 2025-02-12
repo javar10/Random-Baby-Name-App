@@ -1,10 +1,9 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { loadFavorites, FavoriteItem, saveFavorites } from '../../storage/favoritesStorage'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import ShareName from '../options/ShareName';
 import { default as modalStyles } from '../name/ModalStyles';
 import styles from './FavoritesStyles';
@@ -31,7 +30,6 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
         console.log('Deleted');
     };
 
-    // Close row when tapping outside
     const handleOutsidePress = () => {
         if (openRowRef.current) {
             openRowRef.current.closeRow();
@@ -51,7 +49,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
     const renderHiddenItem = ({ item }: { item: FavoriteItem }) => (
         <View style={styles.hiddenOptions}>
             <ShareName buttonType='fav' firstName={item.firstName} middleName={item.middleName} lastName={item.lastName} />
-            <DeleteFavorite item={item} setViewFavorites={setViewFavorites}/>
+            <DeleteFavorite item={item} setViewFavorites={setViewFavorites} />
         </View>
     );
 

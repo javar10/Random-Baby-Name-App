@@ -4,16 +4,16 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function Index() {
   return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Home />
-      </View>
-   
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Home />
+    </View>
+
 
   );
 }

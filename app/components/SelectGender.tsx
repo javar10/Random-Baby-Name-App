@@ -1,10 +1,7 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { Text, View, StyleSheet, Dimensions, TouchableOpacity, ImageBackground } from "react-native";
-import ViewFavorites from "./favorites/ViewFavorites";
-import AddToFavorites from "./options/AddToFavorites";
+import { Dispatch, SetStateAction } from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";;
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faHeart, faMars, faVenus, faVenusMars } from "@fortawesome/free-solid-svg-icons";
-// import backgroundImage from '../../assets/images/clouds.png';
 
 interface Props {
     gender: string;

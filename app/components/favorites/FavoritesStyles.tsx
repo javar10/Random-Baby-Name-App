@@ -6,11 +6,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 10,
         borderRadius: 10,
-        maxHeight: '90%', // Limits the total height
+        maxHeight: '90%',
     },
     favoritesContent: {
-        flexShrink: 1, // Ensures it takes up available space
-        maxHeight: '80%', // Keeps FlatList contained
+        flexShrink: 1,
+        maxHeight: '80%',
         borderTopWidth: 2,
         borderBottomWidth: 2,
     },
