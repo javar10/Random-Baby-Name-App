@@ -28,14 +28,13 @@ const ChooseFont: React.FC<Props> = ({ nameFont, setNameFont }) => {
                 onBackdropPress={() => setModalOpen(false)}
             >
                 <View style={modalStyles.modalOverlay}>
-                    <View style={modalStyles.container}>
+                    <View style={[modalStyles.container, {width: 325}]}>
 
                         <View style={modalStyles.header}>
                             <Text style={modalStyles.headerText}>Select a font</Text>
                         </View>
                         <View style={favStyles.favoritesContent}>
                             <FlatList
-
                                 data={fontArray}
                                 keyExtractor={(item) => item.value}
                                 renderItem={({ item }) => (
