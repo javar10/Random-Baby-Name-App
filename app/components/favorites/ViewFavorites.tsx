@@ -66,10 +66,13 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={renderItem}
                         renderHiddenItem={renderHiddenItem}
-                        rightOpenValue={-75}
-                        leftOpenValue={75}
+                        rightOpenValue={-60}
+                        leftOpenValue={60}
+                        stopRightSwipe={-90}
+                        stopLeftSwipe={90}
+                        friction={10}
+                        tension={50}
                         closeOnScroll
-                        // TODO: bug fix - swipe max needs to be set
                         // TODO: Consider tapping name leads to edit name
                     />
                 </View>
