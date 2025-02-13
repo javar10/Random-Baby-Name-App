@@ -23,7 +23,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
     // TODO: alphabetize favorites
     useEffect(() => {
         loadFavorites().then(setFavorites);
-    }, [favsIsUpdated]);
+    }, [favorites]);
 
     const handleOutsidePress = () => {
         if (openRowRef.current) {
@@ -53,7 +53,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
                 item={item}
                 setViewFavorites={setViewFavorites}
                 favsIsUpdated={favsIsUpdated}
-                setFavsIsUpdated={setFavsIsUpdated}
+                setFavsIsUpdated={setFavsIsUpdated} 
             />
         </View>
     );
