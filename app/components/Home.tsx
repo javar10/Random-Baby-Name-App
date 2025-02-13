@@ -88,6 +88,7 @@ const Home = () => {
                                 setLastName={setLastName}
                                 gender={gender}
                                 setGender={setGender}
+                                nameFont={nameFont}
                                 setNameFont={setNameFont}
                             />
                         </View>

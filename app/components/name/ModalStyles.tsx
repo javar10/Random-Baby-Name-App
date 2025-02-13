@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 10,
         borderRadius: 10,
+        height: 'auto'
     },
     header: {
         flexDirection: 'row',

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     },
     favoritesContent: {
         flexShrink: 1,
-        maxHeight: '80%',
+        maxHeight: '90%',
         borderTopWidth: 2,
         borderBottomWidth: 2,
     },
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     },
     itemText: {
         fontSize: 28,
-        paddingVertical: 10,
+        padding: 10,
         width: '100%',
         backgroundColor: 'white',
         borderBottomWidth: 1,
