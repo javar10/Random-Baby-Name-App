@@ -20,12 +20,15 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
         setOriginalName(name);
     }, [])
 
+    const onSubmitName = () => {
+        setName(name.trim());
+        onClose();
+    }
+
     const onCancel = () => {
         setName(originalName);
         onClose();
     }
-
-    // TODO: trim to remove any spaces after the name has been submited
 
     const handleChange = (newName: string) => {
         setName(newName);
@@ -36,7 +39,7 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
             <Modal
                 isVisible={true}
                 avoidKeyboard={true}
-                onBackdropPress={onClose}
+                onBackdropPress={onCancel}
             >
 
                 <View style={styles.modalOverlay}>
@@ -51,7 +54,7 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
                                 style={styles.contentText}
                                 value={name}
                                 onChangeText={handleChange}
-                                onSubmitEditing={onClose}
+                                onSubmitEditing={onSubmitName}
                                 clearTextOnFocus={true}
                                 autoFocus={true}
                             />
@@ -61,7 +64,7 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
                                 name={name}
                                 setName={setName}
                             />
-                            <TouchableOpacity style={styles.footerButton} onPress={onClose}>
+                            <TouchableOpacity style={styles.footerButton} onPress={onSubmitName}>
                                 <FontAwesomeIcon style={styles.footerIcon} icon={faCheck} />
                             </TouchableOpacity>
 
