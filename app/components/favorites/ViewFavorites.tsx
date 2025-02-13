@@ -18,11 +18,20 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
 
     const openRowRef = useRef<any>(null);
 
-    // TODO: alphabetize favorites
-
     useEffect(() => {
-        loadFavorites().then(setFavorites);
-    }, [favorites]);
+        loadFavorites().then((data) => {
+            const sortedFavorites = data.sort((a, b) => {
+                return (
+                    a.firstName.localeCompare(b.firstName) ||
+                    (a.middleName && b.middleName
+                        ? a.middleName.localeCompare(b.middleName)
+                        : a.lastName.localeCompare(b.lastName)) ||
+                    a.lastName.localeCompare(b.lastName)
+                );
+            });
+            setFavorites(sortedFavorites);
+        });
+    }, [favorites]);    
 
     const handleOutsidePress = () => {
         if (openRowRef.current) {

@@ -23,6 +23,8 @@ interface Props {
     onClose: () => void;
 }
 
+// TODO: Filter options for type of names, ie start with M, start with vowel, length of name
+
 const RandomNameModal: React.FC<Props> = ({
     setModalVisible,
     name,

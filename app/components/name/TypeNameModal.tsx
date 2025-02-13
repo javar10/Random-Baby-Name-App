@@ -25,6 +25,8 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
         onClose();
     }
 
+    // TODO: trim to remove any spaces after the name has been submited
+
     const handleChange = (newName: string) => {
         setName(newName);
     };
