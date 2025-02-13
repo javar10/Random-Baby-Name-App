@@ -8,11 +8,9 @@ import styles from './FavoritesStyles';
 interface Props {
     item: FavoriteItem;
     setViewFavorites: Dispatch<SetStateAction<boolean>>;
-    favsIsUpdated: boolean;
-    setFavsIsUpdated: Dispatch<SetStateAction<boolean>>;
 }
 
-const DeleteFavorite: React.FC<Props> = ({ item, setViewFavorites, favsIsUpdated, setFavsIsUpdated }) => {
+const DeleteFavorite: React.FC<Props> = ({ item, setViewFavorites }) => {
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
 
     useEffect(() => {
@@ -24,7 +22,6 @@ const DeleteFavorite: React.FC<Props> = ({ item, setViewFavorites, favsIsUpdated
         const updatedFavorites = currentFavorites.filter(item => item.id.toString() !== id);
         await saveFavorites(updatedFavorites);
         setFavorites(updatedFavorites);
-        setFavsIsUpdated(true);
         console.log('Deleted');
     };
 

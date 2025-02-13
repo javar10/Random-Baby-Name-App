@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { loadFavorites, FavoriteItem, saveFavorites } from '../../storage/favoritesStorage'
+import { loadFavorites, FavoriteItem } from '../../storage/favoritesStorage'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import ShareName from '../options/ShareName';
@@ -15,12 +15,11 @@ interface Props {
 
 const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
-    const [favsIsUpdated, setFavsIsUpdated] = useState<boolean>(false)
 
     const openRowRef = useRef<any>(null);
 
-
     // TODO: alphabetize favorites
+
     useEffect(() => {
         loadFavorites().then(setFavorites);
     }, [favorites]);
@@ -33,8 +32,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
     };
 
     const renderItem = ({ item }: { item: FavoriteItem }) => (
-        <View
-        >
+        <View>
             <Text style={styles.itemText}>
                 {item.firstName} {item.middleName ? `${item.middleName} ` : ''}{item.lastName}
             </Text>
@@ -52,8 +50,6 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
             <DeleteFavorite
                 item={item}
                 setViewFavorites={setViewFavorites}
-                favsIsUpdated={favsIsUpdated}
-                setFavsIsUpdated={setFavsIsUpdated} 
             />
         </View>
     );
