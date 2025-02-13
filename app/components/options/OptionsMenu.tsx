@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import styles from "./OptionsMenuStyles";
 import ShareName from "./ShareName";
 import StartOver from "./StartOver";

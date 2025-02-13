@@ -59,43 +59,6 @@ const ChooseFont: React.FC<Props> = ({ nameFont, setNameFont }) => {
                                     </TouchableOpacity>
                                 )}
                             />
-
-                            {/* <DropDownPicker
-                                open={fontsOpen}
-                                value={selectedFont}
-                                items={fontArray}
-                                setOpen={setFontsOpen}
-                                setValue={setSelectedFont}
-                                textStyle={[modalStyles.contentText, { fontFamily: selectedFont }]}
-                                style={{marginVertical: 10}}
-                                renderListItem={(props) => {
-                                    const { item, onPress } = props;
-                                    return (
-                                        <TouchableOpacity
-                                            onPress={() => {
-                                                setSelectedFont(String(item.value))
-                                                setModalOpen(false)
-                                                setFontsOpen(false)
-                                                setNameFont(String(item.value))
-                                                console.log(selectedFont)
-                                            }}
-                                            style={{
-                                                padding: 10,
-                                                borderBottomWidth: 1,
-                                                borderBottomColor: "#ddd",
-                                            }}
-                                        >
-                                            <Text 
-                                            // style={{ fontFamily: item.value, fontSize: 18, color: "black" }}
-                                            style={[modalStyles.contentText, { fontFamily: item.value }]}
-                                            >
-                                                {item.label}
-                                            </Text>
-                                        </TouchableOpacity>
-                                    );
-                                }}
-
-                            /> */}
                         </View>
                         <View style={modalStyles.footer}>
                             <TouchableOpacity style={modalStyles.footerButton} onPress={() => setModalOpen(false)}>
@@ -106,7 +69,6 @@ const ChooseFont: React.FC<Props> = ({ nameFont, setNameFont }) => {
                     </View>
                 </View>
             </Modal >
-
 
             <TouchableOpacity style={optionsStyles.optionsMenuButton} onPress={() => setModalOpen(true)} >
                 <FontAwesomeIcon style={optionsStyles.optionsMenuIcon} icon={faFont} />

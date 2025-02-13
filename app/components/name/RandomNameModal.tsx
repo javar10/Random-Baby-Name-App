@@ -54,7 +54,6 @@ const RandomNameModal: React.FC<Props> = ({
                 selectedNames.push(list[randomIndex])
             }
         }
-
         setRandomlySelectedNamesList(selectedNames);
         console.log(randomlySelectedNamesList)
     }
