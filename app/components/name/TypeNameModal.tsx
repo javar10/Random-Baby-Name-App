@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Dispatch, SetStateAction } from 'react';
 import Modal from "react-native-modal";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 import styles from './ModalStyles';
 import DeleteText from './DeleteText';
 
@@ -14,6 +14,16 @@ interface Props {
 }
 
 const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
+    const [originalName, setOriginalName] = useState<string>('');
+
+    useEffect(() => {
+        setOriginalName(name);
+    }, [])
+
+    const onCancel = () => {
+        setName(originalName);
+        onClose();
+    }
 
     const handleChange = (newName: string) => {
         setName(newName);
@@ -45,7 +55,7 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
                             />
                         </View>
                         <View style={styles.footer}>
-                            <DeleteText 
+                            <DeleteText
                                 name={name}
                                 setName={setName}
                             />
@@ -54,6 +64,9 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
                             </TouchableOpacity>
 
                             {/* TODO: add an X button that also closes the Modal, but keeps the original text */}
+                            <TouchableOpacity style={styles.footerButton} onPress={onCancel}>
+                                <FontAwesomeIcon style={styles.footerIcon} icon={faXmark} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>

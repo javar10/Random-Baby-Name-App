@@ -47,6 +47,10 @@ const AddToFavorites: React.FC<Props> = ({ firstName, middleName, lastName, gend
     showAlert();
   };
 
+  // TODO: change heart from outline to solid after added
+  // TODO: tap heart again to remove name from favorites
+  // TODO: don't add names that already exists
+
   return (
     <TouchableOpacity style={styles.optionsMenuButton} onPress={handleAddFavorite} >
       <FontAwesomeIcon style={styles.optionsMenuIcon} icon={faHeart} />
