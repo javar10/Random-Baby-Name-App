@@ -4,6 +4,8 @@ import { loadFavorites, addFavorite, FavoriteItem } from '../../storage/favorite
 import styles from './OptionsMenuStyles';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import {faHeart as faHeartOutline} from '@fortawesome/free-regular-svg-icons';
+
 
 
 interface Props {
@@ -15,45 +17,43 @@ interface Props {
 
 const AddToFavorites: React.FC<Props> = ({ firstName, middleName, lastName, gender }) => {
   const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+  const [ isFav, setIsFav ] = useState<boolean>(false);
+
   const itemToAdd: FavoriteItem = {
     id: Date.now(),
     firstName: firstName,
     middleName: middleName,
     lastName: lastName,
-    gender: gender
+    gender: gender,
+    // favorite: true **Consider adding this as a control
   };
 
   useEffect(() => {
     loadFavorites().then(setFavorites);
   }, []);
 
-  const showAlert = () => {
-    Alert.alert(
-      'Added to Favorites', 
-      `${firstName} ${middleName}${middleName ? ' ' : ''}${lastName}`, 
-      [
-        {
-          text: "OK", 
-          onPress: () => console.log("OK Pressed"), 
-        },
-      ],
-      { cancelable: true } 
-    );
-  };
-
   const handleAddFavorite = async () => {
+    const exists = favorites.some((fav) =>
+      fav.firstName === itemToAdd.firstName &&
+      fav.middleName === itemToAdd.middleName &&
+      fav.lastName === itemToAdd.lastName &&
+      fav.gender === itemToAdd.gender
+    );
+    setIsFav(!isFav);
+    if (exists) return;
+
     const updatedFavorites = await addFavorite(itemToAdd);
     setFavorites(updatedFavorites);
-    showAlert();
   };
 
   // TODO: change heart from outline to solid after added
   // TODO: tap heart again to remove name from favorites
-  // TODO: don't add names that already exists
+  // TODO: don't add names that already exists and show the heart as filled
+  // TODO: reset heart status when name changes
 
   return (
     <TouchableOpacity style={styles.optionsMenuButton} onPress={handleAddFavorite} >
-      <FontAwesomeIcon style={styles.optionsMenuIcon} icon={faHeart} />
+      <FontAwesomeIcon style={styles.optionsMenuIcon} icon={!isFav ? faHeartOutline : faHeart} />
     </TouchableOpacity>
   );
 };

@@ -6,6 +6,7 @@ export interface FavoriteItem {
   middleName: string;
   lastName: string;
   gender: string;
+  // favorite: boolean; **Consider adding this as a control
 }
 
 const favoritesFilePath = FileSystem.documentDirectory + 'favorites.json';
