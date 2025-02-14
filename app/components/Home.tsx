@@ -1,10 +1,9 @@
 import { StyleSheet, View, ImageBackground } from "react-native";
-import BabyName from "./name/BabyName";
 import { useState } from "react";
 import SelectGender from "./SelectGender";
 import React from "react";
-import OptionsMenu from "./options/OptionsMenu";
 import ViewFavorites from "./favorites/ViewFavorites";
+import DisplayNameMain from "./name/DisplayNameMain";
 
 const Home = () => {
     const [gender, setGender] = useState<string>('');
@@ -20,8 +19,6 @@ const Home = () => {
 
     const [viewFavorites, setViewFavorites] = useState<boolean>(false)
 
-    const [nameFont, setNameFont] = useState<string>('Roboto');
-
     return (
         <>
             {!gender && !viewFavorites &&
@@ -32,11 +29,11 @@ const Home = () => {
                 >
                     <View style={styles.container}>
                         <View style={styles.content}>
-                            <SelectGender 
-                            gender={gender} 
-                            setGender={setGender} 
-                            viewFavorites={viewFavorites} 
-                            setViewFavorites={setViewFavorites} />
+                            <SelectGender
+                                gender={gender}
+                                setGender={setGender}
+                                viewFavorites={viewFavorites}
+                                setViewFavorites={setViewFavorites} />
                         </View>
                     </View>
                 </ImageBackground>
@@ -58,42 +55,16 @@ const Home = () => {
             }
 
             {gender &&
-                <ImageBackground
-                    source={
-                        gender === 'girl' ? girlBackground
-                            : gender === 'boy' ? boyBackground
-                                : gender === 'neutral' ? neutralBackground
-                                    : defaultBackground}
-                    style={styles.backgroundImage}
-                    resizeMode="cover"
-                >
-                    <View style={styles.container}>
-                        <View style={styles.content}>
-                            <BabyName
-                                firstName={firstName}
-                                setFirstName={setFirstName}
-                                middleName={middleName}
-                                setMiddleName={setMiddleName}
-                                lastName={lastName}
-                                setLastName={setLastName}
-                                gender={gender}
-                                nameFont={nameFont}
-                            />
-                            <OptionsMenu
-                                firstName={firstName}
-                                setFirstName={setFirstName}
-                                middleName={middleName}
-                                setMiddleName={setMiddleName}
-                                lastName={lastName}
-                                setLastName={setLastName}
-                                gender={gender}
-                                setGender={setGender}
-                                nameFont={nameFont}
-                                setNameFont={setNameFont}
-                            />
-                        </View>
-                    </View>
-                </ImageBackground>
+                <DisplayNameMain
+                    firstName={firstName}
+                    setFirstName={setFirstName}
+                    middleName={middleName}
+                    setMiddleName={setMiddleName}
+                    lastName={lastName}
+                    setLastName={setLastName}
+                    gender={gender}
+                    setGender={setGender}
+                />
             }
         </>
     );
