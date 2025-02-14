@@ -6,7 +6,6 @@ export interface FavoriteItem {
   middleName: string;
   lastName: string;
   gender: string;
-  // favorite: boolean; **Consider adding this as a control
 }
 
 const favoritesFilePath = FileSystem.documentDirectory + 'favorites.json';
@@ -61,6 +60,24 @@ export const getFavoritesCount = async (): Promise<number> => {
   } catch (error) {
     console.error('Error getting favorites count:', error);
     return 0;
+  }
+};
+
+export const removeFavorite = async (item: FavoriteItem): Promise<FavoriteItem[]> => {
+  try {
+    let favorites = await loadFavorites();
+    favorites = favorites.filter((fav) =>
+      !(fav.firstName === item.firstName &&
+        fav.middleName === item.middleName &&
+        fav.lastName === item.lastName &&
+        fav.gender === item.gender)
+    );
+    await saveFavorites(favorites);
+    console.log('Removed:', item);
+    return favorites;
+  } catch (error) {
+    console.error('Error removing favorite:', error);
+    return [];
   }
 };
 

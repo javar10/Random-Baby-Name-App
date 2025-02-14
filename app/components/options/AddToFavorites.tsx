@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, TouchableOpacity } from 'react-native';
-import { loadFavorites, addFavorite, FavoriteItem } from '../../storage/favoritesStorage'
+import { TouchableOpacity } from 'react-native';
+import { loadFavorites, addFavorite, FavoriteItem, removeFavorite } from '../../storage/favoritesStorage'
 import styles from './OptionsMenuStyles';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import {faHeart as faHeartOutline} from '@fortawesome/free-regular-svg-icons';
-
-
+import { faHeart as faHeartOutline } from '@fortawesome/free-regular-svg-icons';
 
 interface Props {
   firstName: string;
@@ -17,7 +15,7 @@ interface Props {
 
 const AddToFavorites: React.FC<Props> = ({ firstName, middleName, lastName, gender }) => {
   const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
-  const [ isFav, setIsFav ] = useState<boolean>(false);
+  const [isFav, setIsFav] = useState<boolean>(false);
 
   const itemToAdd: FavoriteItem = {
     id: Date.now(),
@@ -25,34 +23,47 @@ const AddToFavorites: React.FC<Props> = ({ firstName, middleName, lastName, gend
     middleName: middleName,
     lastName: lastName,
     gender: gender,
-    // favorite: true **Consider adding this as a control
   };
 
   useEffect(() => {
-    loadFavorites().then(setFavorites);
-  }, []);
+    const fetchFavorites = async () => {
+      const loadedFavorites = await loadFavorites();
+      setFavorites(loadedFavorites);
+      const exists = loadedFavorites.some((fav) =>
+        fav.firstName === firstName &&
+        fav.middleName === middleName &&
+        fav.lastName === lastName &&
+        fav.gender === gender
+      );
+      setIsFav(exists);
+    };
 
-  const handleAddFavorite = async () => {
+    fetchFavorites();
+  }, [firstName, middleName, lastName, gender]);
+
+  const handleToggleFavorite = async () => {
     const exists = favorites.some((fav) =>
-      fav.firstName === itemToAdd.firstName &&
-      fav.middleName === itemToAdd.middleName &&
-      fav.lastName === itemToAdd.lastName &&
-      fav.gender === itemToAdd.gender
+      fav.firstName === firstName &&
+      fav.middleName === middleName &&
+      fav.lastName === lastName &&
+      fav.gender === gender
     );
-    setIsFav(!isFav);
-    if (exists) return;
 
-    const updatedFavorites = await addFavorite(itemToAdd);
-    setFavorites(updatedFavorites);
+    if (exists) {
+      // Remove favorite
+      const updatedFavorites = await removeFavorite(itemToAdd);
+      setFavorites(updatedFavorites);
+      setIsFav(false);
+    } else {
+      // Add favorite
+      const updatedFavorites = await addFavorite(itemToAdd);
+      setFavorites(updatedFavorites);
+      setIsFav(true);
+    }
   };
 
-  // TODO: change heart from outline to solid after added
-  // TODO: tap heart again to remove name from favorites
-  // TODO: don't add names that already exists and show the heart as filled
-  // TODO: reset heart status when name changes
-
   return (
-    <TouchableOpacity style={styles.optionsMenuButton} onPress={handleAddFavorite} >
+    <TouchableOpacity style={styles.optionsMenuButton} onPress={handleToggleFavorite} >
       <FontAwesomeIcon style={styles.optionsMenuIcon} icon={!isFav ? faHeartOutline : faHeart} />
     </TouchableOpacity>
   );

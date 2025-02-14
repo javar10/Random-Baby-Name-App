@@ -15,13 +15,15 @@ interface Props {
 
 const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
     const [originalName, setOriginalName] = useState<string>('');
+    const [tempName, setTempName] = useState<string>('');
 
     useEffect(() => {
         setOriginalName(name);
+        setTempName(name);
     }, [])
 
     const onSubmitName = () => {
-        setName(name.trim());
+        setName(tempName.trim());
         onClose();
     }
 
@@ -31,7 +33,7 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
     }
 
     const handleChange = (newName: string) => {
-        setName(newName);
+        setTempName(newName);
     };
 
     return (
@@ -52,17 +54,15 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
                         <View style={styles.content}>
                             <TextInput
                                 style={styles.contentText}
-                                value={name}
+                                value={tempName}
                                 onChangeText={handleChange}
                                 onSubmitEditing={onSubmitName}
-                                clearTextOnFocus={true}
                                 autoFocus={true}
                             />
                         </View>
                         <View style={styles.footer}>
                             <DeleteText
-                                name={name}
-                                setName={setName}
+                                setName={setTempName}
                             />
                             <TouchableOpacity style={styles.footerButton} onPress={onSubmitName}>
                                 <FontAwesomeIcon style={styles.footerIcon} icon={faCheck} />

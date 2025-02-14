@@ -5,19 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faEraser } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-    name: string,
     setName: Dispatch<SetStateAction<string>>
 }
 
-const DeleteText: React.FC<Props> = ({ name, setName }) => {
-
-    const deleteText = () => {
-        setName('');
-    }
-
+const DeleteText: React.FC<Props> = ({ setName }) => {
     return (
         <View style={styles.footer}>
-            <TouchableOpacity style={styles.footerButton} onPress={deleteText}>
+            <TouchableOpacity style={styles.footerButton} onPress={() => setName('')}>
                 <FontAwesomeIcon style={styles.footerIcon} icon={faEraser} />
             </TouchableOpacity>
         </View>
