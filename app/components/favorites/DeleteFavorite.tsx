@@ -1,32 +1,29 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { loadFavorites, FavoriteItem, saveFavorites } from '../../storage/favoritesStorage'
+import { loadFavorites, FavoriteItem, saveFavorites, removeFavorite } from '../../storage/favoritesStorage'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import styles from './FavoritesStyles';
 
 interface Props {
     item: FavoriteItem;
-    setViewFavorites: Dispatch<SetStateAction<boolean>>;
 }
 
-const DeleteFavorite: React.FC<Props> = ({ item, setViewFavorites }) => {
+const DeleteFavorite: React.FC<Props> = ({ item }) => {
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
 
     useEffect(() => {
         loadFavorites().then(setFavorites);
     }, []);
 
-    const removeFavorite = async (id: string) => {
-        const currentFavorites = await loadFavorites();
-        const updatedFavorites = currentFavorites.filter(item => item.id.toString() !== id);
-        await saveFavorites(updatedFavorites);
+    const handleRemoveFavorite = async () => {
+        const updatedFavorites = await removeFavorite(item);
         setFavorites(updatedFavorites);
         console.log('Deleted');
     };
 
     return (
-        <TouchableOpacity style={styles.deleteOption} onPress={() => removeFavorite(item.id.toString())}>
+        <TouchableOpacity style={styles.deleteOption} onPress={handleRemoveFavorite}>
             <FontAwesomeIcon style={styles.hiddenIcon} icon={faTrashCan} />
         </TouchableOpacity>
     );

@@ -58,7 +58,6 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
             />
             <DeleteFavorite
                 item={item}
-                setViewFavorites={setViewFavorites}
             />
         </View>
     );
