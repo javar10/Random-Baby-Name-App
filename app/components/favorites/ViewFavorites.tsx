@@ -109,22 +109,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                     </View>
                 </View>
             </TouchableWithoutFeedback>
-
-            {selectedName &&
-                <DisplayNameMain
-                    firstName={selectedName.firstName}
-                    setFirstName={setFirstName}
-                    middleName={selectedName.middleName}
-                    setMiddleName={setMiddleName}
-                    lastName={selectedName.lastName}
-                    setLastName={setLastName}
-                    gender={selectedName.gender}
-                    setGender={setGender}
-                />
-
-            }
         </>
-
     );
 };
 

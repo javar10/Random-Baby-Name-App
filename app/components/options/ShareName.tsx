@@ -12,6 +12,8 @@ interface Props {
     lastName: string;
 }
 
+// TODO: Consider sending a screenshot or the font somehow
+
 const ShareName: React.FC<Props> = ({
     buttonType,
     firstName,
