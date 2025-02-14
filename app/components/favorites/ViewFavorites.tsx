@@ -8,13 +8,19 @@ import ShareName from '../options/ShareName';
 import { default as modalStyles } from '../name/ModalStyles';
 import styles from './FavoritesStyles';
 import DeleteFavorite from './DeleteFavorite';
+import DisplayNameMain from '../name/DisplayNameMain';
 
 interface Props {
     setViewFavorites: Dispatch<SetStateAction<boolean>>;
+    setFirstName: Dispatch<SetStateAction<string>>;
+    setMiddleName: Dispatch<SetStateAction<string>>;
+    setLastName: Dispatch<SetStateAction<string>>;
+    setGender: Dispatch<SetStateAction<string>>;
 }
 
-const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
+const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMiddleName, setLastName, setGender }) => {
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+    const [selectedName, setSelectedName] = useState<FavoriteItem>();
 
     const openRowRef = useRef<any>(null);
 
@@ -31,7 +37,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
             });
             setFavorites(sortedFavorites);
         });
-    }, [favorites]);    
+    }, [favorites]);
 
     const handleOutsidePress = () => {
         if (openRowRef.current) {
@@ -40,9 +46,19 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
         }
     };
 
+    const editSelectedName = (item: FavoriteItem) => {
+        console.log(item)
+        setFirstName(item.firstName)
+        setMiddleName(item.middleName)
+        setLastName(item.lastName)
+        setViewFavorites(false);
+        setGender(item.gender)
+        // setSelectedName(item);
+    }
+
     const renderItem = ({ item }: { item: FavoriteItem }) => (
         <View>
-            <Text style={styles.itemText}>
+            <Text style={styles.itemText} onPress={() => editSelectedName(item)}>
                 {item.firstName} {item.middleName ? `${item.middleName} ` : ''}{item.lastName}
             </Text>
         </View>
@@ -63,37 +79,52 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
     );
 
     return (
-        <TouchableWithoutFeedback onPress={handleOutsidePress}>
-            <View style={styles.favoritesContainer}>
-                <View style={modalStyles.header}>
-                    <Text style={modalStyles.headerText}>Favorites</Text>
-                </View>
-                <View style={styles.favoritesContent}>
-                    <SwipeListView
-                        data={favorites}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={renderItem}
-                        renderHiddenItem={renderHiddenItem}
-                        rightOpenValue={-60}
-                        leftOpenValue={60}
-                        stopRightSwipe={-90}
-                        stopLeftSwipe={90}
-                        friction={10}
-                        tension={50}
-                        closeOnScroll
+        <>
+            <TouchableWithoutFeedback onPress={handleOutsidePress}>
+                <View style={styles.favoritesContainer}>
+                    <View style={modalStyles.header}>
+                        <Text style={modalStyles.headerText}>Favorites</Text>
+                    </View>
+                    <View style={styles.favoritesContent}>
+                        <SwipeListView
+                            data={favorites}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={renderItem}
+                            renderHiddenItem={renderHiddenItem}
+                            rightOpenValue={-60}
+                            leftOpenValue={60}
+                            stopRightSwipe={-90}
+                            stopLeftSwipe={90}
+                            friction={10}
+                            tension={50}
+                            closeOnScroll
+                        />
+                    </View>
+                    <View style={modalStyles.footer}>
+                        {/* TODO: filter feature */}
 
-                        // TODO: Consider tapping name leads to edit name
-                    />
+                        <TouchableOpacity style={modalStyles.footerButton} onPress={() => setViewFavorites(false)}>
+                            <FontAwesomeIcon style={modalStyles.footerIcon} icon={faHome} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={modalStyles.footer}>
-                    {/* TODO: filter feature */}
+            </TouchableWithoutFeedback>
 
-                    <TouchableOpacity style={modalStyles.footerButton} onPress={() => setViewFavorites(false)}>
-                        <FontAwesomeIcon style={modalStyles.footerIcon} icon={faHome} />
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </TouchableWithoutFeedback>
+            {selectedName &&
+                <DisplayNameMain
+                    firstName={selectedName.firstName}
+                    setFirstName={setFirstName}
+                    middleName={selectedName.middleName}
+                    setMiddleName={setMiddleName}
+                    lastName={selectedName.lastName}
+                    setLastName={setLastName}
+                    gender={selectedName.gender}
+                    setGender={setGender}
+                />
+
+            }
+        </>
+
     );
 };
 

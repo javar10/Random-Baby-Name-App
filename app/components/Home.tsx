@@ -47,7 +47,13 @@ const Home = () => {
                 >
                     <View style={styles.container}>
                         <View style={styles.content}>
-                            <ViewFavorites setViewFavorites={setViewFavorites} />
+                            <ViewFavorites
+                                setViewFavorites={setViewFavorites}
+                                setFirstName={setFirstName}
+                                setMiddleName={setMiddleName}
+                                setLastName={setLastName}
+                                setGender={setGender}
+                            />
                         </View>
                     </View>
                 </ImageBackground>
