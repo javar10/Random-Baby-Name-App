@@ -81,6 +81,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites }) => {
                         friction={10}
                         tension={50}
                         closeOnScroll
+
                         // TODO: Consider tapping name leads to edit name
                     />
                 </View>

@@ -23,7 +23,12 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
     }, [])
 
     const onSubmitName = () => {
-        setName(tempName.trim());
+        const formattedName = tempName
+            .trim()
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+        setName(formattedName);
         onClose();
     }
 
