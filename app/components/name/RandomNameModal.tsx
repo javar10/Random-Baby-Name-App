@@ -60,6 +60,15 @@ const RandomNameModal: React.FC<Props> = ({
         console.log(randomlySelectedNamesList)
     }
 
+    const renderItem = ({ item }: { item: string }) => (
+        <TouchableOpacity onPress={() => {
+            setName(item);
+            onClose();
+        }}>
+            <Text style={styles.contentText}>{item}</Text>
+        </TouchableOpacity>
+    );
+
     return (
         <View>
             <Modal
@@ -79,17 +88,7 @@ const RandomNameModal: React.FC<Props> = ({
                             <FlatList
                                 data={randomlySelectedNamesList}
                                 keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item }) =>
-                                    <TouchableOpacity onPress={() => {
-                                        setName(item);
-                                        onClose();
-                                    }}
-                                    >
-                                        <Text style={styles.contentText}>
-                                            {item}
-                                        </Text>
-                                    </TouchableOpacity>
-                                }
+                                renderItem={renderItem}
                             />
                         </View>
 

@@ -8,7 +8,7 @@ import ShareName from '../options/ShareName';
 import { default as modalStyles } from '../name/ModalStyles';
 import styles from './FavoritesStyles';
 import DeleteFavorite from './DeleteFavorite';
-import DisplayNameMain from '../name/DisplayNameMain';
+import FilterFavorites from './FilterFavorites';
 
 interface Props {
     setViewFavorites: Dispatch<SetStateAction<boolean>>;
@@ -20,7 +20,9 @@ interface Props {
 
 const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMiddleName, setLastName, setGender }) => {
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
-    const [selectedName, setSelectedName] = useState<FavoriteItem>();
+    const [isFiltered, setIsFiltered] = useState<boolean>(false);
+    const [filteredFavorites, setFilteredFavorites] = useState<string[]>([]);
+    const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
     const openRowRef = useRef<any>(null);
 
@@ -39,6 +41,10 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         });
     }, [favorites]);
 
+    useEffect(() => {
+        // this is to set the filteresFavorites list according to the selectedFilters array
+    }, [])
+
     const handleOutsidePress = () => {
         if (openRowRef.current) {
             openRowRef.current.closeRow();
@@ -53,7 +59,6 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         setLastName(item.lastName)
         setViewFavorites(false);
         setGender(item.gender)
-        // setSelectedName(item);
     }
 
     const renderItem = ({ item }: { item: FavoriteItem }) => (
@@ -87,7 +92,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                     </View>
                     <View style={styles.favoritesContent}>
                         <SwipeListView
-                            data={favorites}
+                            data={!isFiltered ? favorites : filteredFavorites}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={renderItem}
                             renderHiddenItem={renderHiddenItem}
@@ -102,6 +107,12 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                     </View>
                     <View style={modalStyles.footer}>
                         {/* TODO: filter feature */}
+                        <FilterFavorites
+                            selectedFilters={selectedFilters}
+                            setSelectedFilters={setSelectedFilters}
+                            isFiltered={isFiltered}
+                            setIsFiltered={setIsFiltered}
+                        />
 
                         <TouchableOpacity style={modalStyles.footerButton} onPress={() => setViewFavorites(false)}>
                             <FontAwesomeIcon style={modalStyles.footerIcon} icon={faHome} />
