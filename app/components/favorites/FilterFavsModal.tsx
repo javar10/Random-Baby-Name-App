@@ -24,16 +24,17 @@ const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSe
 
     useEffect(() => {
         loadFavorites().then((data) => {
-            const sortedFavorites = data.sort((a, b) => {
-                return (
-                    a.firstName.localeCompare(b.firstName) ||
-                    (a.middleName && b.middleName
-                        ? a.middleName.localeCompare(b.middleName)
-                        : a.lastName.localeCompare(b.lastName)) ||
-                    a.lastName.localeCompare(b.lastName)
-                );
-            });
-            setFavorites(sortedFavorites);
+            setFavorites(data);
+            // const sortedFavorites = data.sort((a, b) => {
+            //     return (
+            //         a.firstName.localeCompare(b.firstName) ||
+            //         (a.middleName && b.middleName
+            //             ? a.middleName.localeCompare(b.middleName)
+            //             : a.lastName.localeCompare(b.lastName)) ||
+            //         a.lastName.localeCompare(b.lastName)
+            //     );
+            // });
+            // setFavorites(sortedFavorites);
         });
     }, [favorites]);
 
