@@ -41,9 +41,51 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         });
     }, [favorites]);
 
+    // useEffect(() => {  // this is to set the filteredFavorites list according to the selectedFilters array
+    //     // select names that are meet the list criteria
+
+    //     let updatedFavorites: string[] = [];
+
+    //     if (selectedFilters.includes('first names')) {
+    //         const namesToAdd: string[] = favorites.map(name => name.firstName);
+    //         updatedFavorites = [...updatedFavorites, ...namesToAdd];
+    //     } 
+
+    //     if (selectedFilters.includes('middle names')) {
+    //         const namesToAdd: string[] = favorites.map(name => name.middleName);
+    //         updatedFavorites = [...updatedFavorites, ...namesToAdd];
+    //     } 
+
+    //     const uniqueFavorites = Array.from(new Set(updatedFavorites));
+    //     setFilteredFavorites(uniqueFavorites.sort());
+    //     setIsFiltered(selectedFilters.length > 0);
+
+    // }, [selectedFilters])
+
     useEffect(() => {
-        // this is to set the filteresFavorites list according to the selectedFilters array
-    }, [])
+        console.log(selectedFilters)
+        console.log(favorites)
+        if (selectedFilters.length === 0) {
+            setFilteredFavorites([]);
+            setIsFiltered(false);
+            setFavorites(favorites);
+        } else {
+            let updatedFavorites: string[] = [];
+
+            if (selectedFilters.includes('first names')) {
+                updatedFavorites = [...updatedFavorites, ...favorites.map(name => name.firstName)];
+            }
+            if (selectedFilters.includes('middle names')) {
+                updatedFavorites = [...updatedFavorites, ...favorites.map(name => name.middleName)];
+            }
+
+            const uniqueFavorites = Array.from(new Set(updatedFavorites));
+            setFilteredFavorites(uniqueFavorites.sort());
+            setIsFiltered(true);
+        }
+
+    }, [selectedFilters]);
+
 
     const handleOutsidePress = () => {
         if (openRowRef.current) {
@@ -64,7 +106,9 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
     const renderItem = ({ item }: { item: FavoriteItem }) => (
         <View>
             <Text style={styles.itemText} onPress={() => editSelectedName(item)}>
-                {item.firstName} {item.middleName ? `${item.middleName} ` : ''}{item.lastName}
+                {typeof item === 'string'
+                    ? item
+                    : `${item.firstName} ${item.middleName || ''} ${item.lastName}`}
             </Text>
         </View>
     );
@@ -93,7 +137,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                     <View style={styles.favoritesContent}>
                         <SwipeListView
                             data={!isFiltered ? favorites : filteredFavorites}
-                            keyExtractor={(item) => item.id.toString()}
+                            keyExtractor={(item, index) => index.toString()}
                             renderItem={renderItem}
                             renderHiddenItem={renderHiddenItem}
                             rightOpenValue={-60}
