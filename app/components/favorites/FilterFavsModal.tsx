@@ -69,6 +69,11 @@ const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSe
         setModalOpen(false)
     }
 
+    const clearFilters = () => {
+        setSelectedFilters([]);
+        setIsFiltered(false);
+    }
+
     return (
         <View>
             <Modal
@@ -91,7 +96,7 @@ const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSe
 
                         <View style={modalStyles.footer}>
                             {/* TODO: clear filters function */}
-                            <TouchableOpacity style={modalStyles.footerButton} onPress={() => console.log('clear filters')}>
+                            <TouchableOpacity style={modalStyles.footerButton} onPress={clearFilters}>
                                 <FontAwesomeIcon style={modalStyles.footerIcon} icon={faEraser} />
                             </TouchableOpacity>
                             <TouchableOpacity style={modalStyles.footerButton} onPress={acceptFilters}>

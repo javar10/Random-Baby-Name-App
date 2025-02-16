@@ -62,7 +62,6 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                 );
             });
             setFavorites(sortedFavorites);
-            // setGenderFilterFavs(sortedFavorites);
         });
     }, [favorites]);
 
@@ -123,26 +122,10 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
             tempFavs = [...nameFavs]
         }
 
-        // }
-        // if (selectedFilters.includes('boy names')) {
-        //     if (tempFavs.length > 0) {
-        //         tempFavs = tempFavs.filter(item => item.gender === 'boy');
-        //     } else {
-        //         // setIsFiltered(false)
-        //         // tempFavs = favorites
-        //         //     .filter(item => item.gender === 'boy')
-        //         //     .map(item => ({
-        //         //         name: `${item.firstName} ${item.middleName || ''} ${item.lastName}`,
-        //         //         place: 'full',
-        //         //         gender: item.gender
-        //         //     }));
-        //     }
-        // }
         tempFavs.sort((a, b) => a.name.localeCompare(b.name));
         setFilteredFavorites(tempFavs)
 
         const filteredData = favorites.filter(item => {
-            // Add your condition to skip items
             const showItem =
                 selectedFilters.length === 0 ||
                 (selectedFilters.includes('boy names') && item.gender === 'boy') ||
@@ -172,30 +155,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         setViewFavorites(false);
         setGender(item.gender)
     }
-
-    // const renderItem = ({ item }: { item: ListItem }) => {
-
-    //     if ('firstName' in item) {
-    //         return (
-    //             <View>
-    //                 <Text style={styles.itemText} onPress={() => editSelectedName(item)}>
-    //                     {item.firstName} {item.middleName || ''} {item.lastName}
-    //                 </Text>
-    //             </View>
-    //         );
-    //     }
-    //     return (
-    //         <View>
-    //             <Text style={styles.itemText} onPress={() => console.log(item)}>
-    //                 {item.name}
-    //             </Text>
-    //         </View>
-    //     )
-
-    // };
-
-
-    // *** use this one after i get a way to pass favorites again***
+    
     const renderItem = ({ item }: { item: ListItem }) => {
         if ('firstName' in item) {
             return (
