@@ -95,7 +95,6 @@ const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSe
                         </View>
 
                         <View style={modalStyles.footer}>
-                            {/* TODO: clear filters function */}
                             <TouchableOpacity style={modalStyles.footerButton} onPress={clearFilters}>
                                 <FontAwesomeIcon style={modalStyles.footerIcon} icon={faEraser} />
                             </TouchableOpacity>

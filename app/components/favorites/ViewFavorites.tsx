@@ -9,6 +9,7 @@ import { default as modalStyles } from '../name/ModalStyles';
 import styles from './FavoritesStyles';
 import DeleteFavorite from './DeleteFavorite';
 import FilterFavorites from './FilterFavorites';
+import ShareFavsList from './ShareFavsList';
 
 interface Props {
     setViewFavorites: Dispatch<SetStateAction<boolean>>;
@@ -130,7 +131,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                 selectedFilters.length === 0 ||
                 (selectedFilters.includes('boy names') && item.gender === 'boy') ||
                 (selectedFilters.includes('girl names') && item.gender === 'girl') ||
-                (selectedFilters.includes('gender neutral') && item.gender === 'neutral') ;
+                (selectedFilters.includes('gender neutral') && item.gender === 'neutral');
             return showItem;
         });
         setGenderFilterFavs(filteredData)
@@ -155,7 +156,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         setViewFavorites(false);
         setGender(item.gender)
     }
-    
+
     const renderItem = ({ item }: { item: ListItem }) => {
         if ('firstName' in item) {
             return (
@@ -169,6 +170,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
 
         return (
             <View>
+                {/* TODO: OnPress of single name, open up editing component */}
                 <Text style={styles.itemText} onPress={() => console.log(item)}>
                     {item.name}
                 </Text>
@@ -231,9 +233,8 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                         />
 
                         {/* TODO: add a send button to send the complete list of favorites.  */}
-                        <TouchableOpacity style={modalStyles.footerButton} onPress={() => console.log('sent')}>
-                            <FontAwesomeIcon style={modalStyles.footerIcon} icon={faArrowUpFromBracket} />
-                        </TouchableOpacity>
+                        <ShareFavsList /> 
+                        {/* Pass list of visible names, either filteredfavs or genderFilterFavs */}
 
                         <TouchableOpacity style={modalStyles.footerButton} onPress={() => setViewFavorites(false)}>
                             <FontAwesomeIcon style={modalStyles.footerIcon} icon={faHome} />
