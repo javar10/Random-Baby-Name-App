@@ -31,8 +31,24 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
     const [isFiltered, setIsFiltered] = useState<boolean>(false);
     const [filteredFavorites, setFilteredFavorites] = useState<FilteredItem[]>([]);
     const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+    const [genderFilterFavs, setGenderFilterFavs] = useState<FavoriteItem[]>([])
 
     const openRowRef = useRef<any>(null);
+    useEffect(() => {
+        loadFavorites().then((data) => {
+            const sortedFavorites = data.sort((a, b) => {
+                return (
+                    a.firstName.localeCompare(b.firstName) ||
+                    (a.middleName && b.middleName
+                        ? a.middleName.localeCompare(b.middleName)
+                        : a.lastName.localeCompare(b.lastName)) ||
+                    a.lastName.localeCompare(b.lastName)
+                );
+            });
+            // setFavorites(sortedFavorites);
+            setGenderFilterFavs(sortedFavorites);
+        });
+    }, []);
 
     useEffect(() => {
         loadFavorites().then((data) => {
@@ -46,55 +62,15 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                 );
             });
             setFavorites(sortedFavorites);
+            // setGenderFilterFavs(sortedFavorites);
         });
     }, [favorites]);
 
-    // useEffect(() => {  // this is to set the filteredFavorites list according to the selectedFilters array
-    //     // select names that are meet the list criteria
-
-    //     let updatedFavorites: string[] = [];
-
-    //     if (selectedFilters.includes('first names')) {
-    //         const namesToAdd: string[] = favorites.map(name => name.firstName);
-    //         updatedFavorites = [...updatedFavorites, ...namesToAdd];
-    //     } 
-
-    //     if (selectedFilters.includes('middle names')) {
-    //         const namesToAdd: string[] = favorites.map(name => name.middleName);
-    //         updatedFavorites = [...updatedFavorites, ...namesToAdd];
-    //     } 
-
-    //     const uniqueFavorites = Array.from(new Set(updatedFavorites));
-    //     setFilteredFavorites(uniqueFavorites.sort());
-    //     setIsFiltered(selectedFilters.length > 0);
-
-    // }, [selectedFilters])
-
-    // useEffect(() => { // This is working fine now, but I think what i really want is a function to view different parts of the FavoriteItem object. 
-    //     if (selectedFilters.length === 0) {
-    //         setIsFiltered(false);
-    //     } else {
-    //         let updatedFavorites: string[] = [];
-
-    //         if (selectedFilters.includes('first names')) {
-    //             updatedFavorites = [...updatedFavorites, ...favorites.map(name => name.firstName)];
-    //         }
-    //         if (selectedFilters.includes('middle names')) {
-    //             updatedFavorites = [...updatedFavorites, ...favorites.map(name => name.middleName)];
-    //         }
-
-    //         const uniqueFavorites = Array.from(new Set(updatedFavorites));
-    //         setFilteredFavorites(uniqueFavorites.sort());
-    //         setIsFiltered(true);
-    //     }
-    //     // console.log({ filteredFavorites })
-    // }, [selectedFilters, isFiltered]);
-
-
     useEffect(() => {
-        let tempFavs: FilteredItem[] = []
+        let nameFavs: FilteredItem[] = [];
+        let tempFavs: FilteredItem[] = [];
         let seenNames = new Set<string>(); // To track names we've already added
-    
+
         if (selectedFilters.includes('first names')) {
             tempFavs = [
                 ...tempFavs,
@@ -108,7 +84,9 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                         return true; // Keep this item
                     })
             ];
+            // nameFavs = [...tempFavs]
         }
+
         if (selectedFilters.includes('middle names')) {
             tempFavs = [
                 ...tempFavs,
@@ -122,11 +100,62 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                         return true; // Keep this item
                     })
             ];
+            // nameFavs = [...tempFavs]
         }
-        tempFavs.sort((a, b) => a.name.localeCompare(b.name));
 
+        // TODO: use nameFavs to set the favs from names
+        // then use nameFavs to filter based on each gender. 
+        // Add each gender list to the list if it's filter is selected.
+        // if (tempFavs.length > 0) {
+        if (selectedFilters.includes('boy names') || selectedFilters.includes('girl names') || selectedFilters.includes('gender neutral')) {
+            if (selectedFilters.includes('boy names')) {
+                const boyFavs = tempFavs.filter(item => item.gender === 'boy');
+                nameFavs = [...nameFavs, ...boyFavs];
+            }
+            if (selectedFilters.includes('girl names')) {
+                const girlFavs = tempFavs.filter(item => item.gender === 'girl');
+                nameFavs = [...nameFavs, ...girlFavs];
+            }
+            if (selectedFilters.includes('gender neutral')) {
+                const neutralFavs = tempFavs.filter(item => item.gender === 'neutral');
+                nameFavs = [...nameFavs, ...neutralFavs];
+            }
+            tempFavs = [...nameFavs]
+        }
+
+        // }
+        // if (selectedFilters.includes('boy names')) {
+        //     if (tempFavs.length > 0) {
+        //         tempFavs = tempFavs.filter(item => item.gender === 'boy');
+        //     } else {
+        //         // setIsFiltered(false)
+        //         // tempFavs = favorites
+        //         //     .filter(item => item.gender === 'boy')
+        //         //     .map(item => ({
+        //         //         name: `${item.firstName} ${item.middleName || ''} ${item.lastName}`,
+        //         //         place: 'full',
+        //         //         gender: item.gender
+        //         //     }));
+        //     }
+        // }
+        tempFavs.sort((a, b) => a.name.localeCompare(b.name));
         setFilteredFavorites(tempFavs)
-        setIsFiltered(selectedFilters.length > 0)
+
+
+        const filteredData = favorites.filter(item => {
+            // Add your condition to skip items
+            const showItem =
+                selectedFilters.length === 0 ||
+                (selectedFilters.includes('boy names') && item.gender === 'boy') ||
+                (selectedFilters.includes('girl names') && item.gender === 'girl') ||
+                // (selectedFilters.includes('gender neutral') && item.gender === 'neutral') || 
+                (selectedFilters.includes('boy names') && selectedFilters.includes('girl names'));
+            return showItem;
+        });
+        setGenderFilterFavs(filteredData)
+
+        console.log({ filteredData })
+        console.log({ tempFavs })
 
     }, [selectedFilters, isFiltered])
 
@@ -146,46 +175,30 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         setGender(item.gender)
     }
 
-    // const renderItem = ({ item }: { item: FavoriteItem }) => {
-    //     let nameList: string[] = [];
-    //     let firstNamesSelected: boolean = false;
+    // const renderItem = ({ item }: { item: ListItem }) => {
 
-    //     if (selectedFilters.includes('first names')) firstNamesSelected = true;
+    //     if ('firstName' in item) {
+    //         return (
+    //             <View>
+    //                 <Text style={styles.itemText} onPress={() => editSelectedName(item)}>
+    //                     {item.firstName} {item.middleName || ''} {item.lastName}
+    //                 </Text>
+    //             </View>
+    //         );
+    //     }
     //     return (
     //         <View>
-    //             <Text style={styles.itemText} onPress={() => editSelectedName(item)}>
-    //                 {/* {typeof item === 'string'  // Again, this works, but I don't think it's what I want
-    //                 ? item
-    //                 : `${item.firstName} ${item.middleName || ''} ${item.lastName}`} */}
-    //                 {/* {!isFiltered
-    //                 ? `${item.firstName} ${item.middleName || ''} ${item.lastName}`
-
-    //                 : selectedFilters.includes('first names')
-    //                     ? item.firstName
-    //                     : selectedFilters.includes()
-    //                     : ''
-    //             } */}
-    //                 {selectedFilters.includes('first names')
-    //                     ? item.firstName
-    //                     : selectedFilters.includes('middle names')
-    //                         ? item.middleName
-    //                         : `${item.firstName} ${item.middleName || ''} ${item.lastName}`
-    //                 }
+    //             <Text style={styles.itemText} onPress={() => console.log(item)}>
+    //                 {item.name}
     //             </Text>
     //         </View>
     //     )
+
     // };
 
+
+    // *** use this one after i get a way to pass favorites again***
     const renderItem = ({ item }: { item: ListItem }) => {
-        // const filteredFavorites: FilteredItem[] = [];
-
-        // if (selectedFilters.includes('first names')) filteredFavorites.push({name: item.firstName, place: 'first', gender: item.gender});
-        // if (selectedFilters.includes('middle names') && item.middleName) filteredFavorites.push({name: item.middleName, place: 'middle', gender: item.gender});
-
-        // If no filters are selected, show the full name
-        // if (filteredFavorites.length === 0) {
-        //     filteredFavorites.push(`${item.firstName} ${item.middleName || ''} ${item.lastName}`);
-        // }
         if ('firstName' in item) {
             return (
                 <View>
@@ -195,14 +208,14 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                 </View>
             );
         }
+
         return (
             <View>
                 <Text style={styles.itemText} onPress={() => console.log(item)}>
                     {item.name}
                 </Text>
             </View>
-        )
-
+        );
     };
 
     const renderHiddenItem = ({ item }: { item: ListItem }) => {
@@ -224,14 +237,6 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         return null;
     };
 
-    const renderFilteredItem = ({ item }: { item: FilteredItem }) => (
-        <View>
-            <Text style={styles.itemText} onPress={() => console.log(item)}>
-                {item.name}
-            </Text>
-        </View>
-    );
-
     return (
         <>
             <TouchableWithoutFeedback onPress={handleOutsidePress}>
@@ -240,13 +245,14 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                         <Text style={modalStyles.headerText}>Favorites</Text>
                     </View>
                     <View style={styles.favoritesContent}>
-                        {/* {!isFiltered && */}
                         <SwipeListView
-                            // data={!isFiltered ? favorites : filteredFavorites} // This also works, but again, I think not what I want. I should always pass favorites.
-                            data={isFiltered ? filteredFavorites : favorites}
+                            data={selectedFilters.includes('first names') || selectedFilters.includes('middle names')
+                                ? filteredFavorites
+                                : genderFilterFavs
+                            }
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={renderItem}
-                            renderHiddenItem={renderHiddenItem} // I want to conditionally render the hidden items or maybe just no 'trash'
+                            renderHiddenItem={renderHiddenItem}
                             rightOpenValue={-60}
                             leftOpenValue={60}
                             stopRightSwipe={-90}
@@ -255,14 +261,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                             tension={50}
                             closeOnScroll
                         />
-                        {/* } */}
-                        {/* {isFiltered &&
-                            <FlatList
-                                data={favorites}
-                                keyExtractor={(item, index) => index.toString()}
-                                renderItem={renderFilteredItem}
-                            />
-                        } */}
+
                     </View>
                     <View style={modalStyles.footer}>
                         {/* TODO: filter feature */}
