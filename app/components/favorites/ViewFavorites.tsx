@@ -141,15 +141,13 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         tempFavs.sort((a, b) => a.name.localeCompare(b.name));
         setFilteredFavorites(tempFavs)
 
-
         const filteredData = favorites.filter(item => {
             // Add your condition to skip items
             const showItem =
                 selectedFilters.length === 0 ||
                 (selectedFilters.includes('boy names') && item.gender === 'boy') ||
                 (selectedFilters.includes('girl names') && item.gender === 'girl') ||
-                // (selectedFilters.includes('gender neutral') && item.gender === 'neutral') || 
-                (selectedFilters.includes('boy names') && selectedFilters.includes('girl names'));
+                (selectedFilters.includes('gender neutral') && item.gender === 'neutral') ;
             return showItem;
         });
         setGenderFilterFavs(filteredData)
