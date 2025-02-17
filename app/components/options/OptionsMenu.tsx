@@ -46,9 +46,7 @@ const OptionsMenu: React.FC<Props> = ({
             />
             <ShareName
                 buttonType='share'
-                firstName={firstName}
-                middleName={middleName}
-                lastName={lastName}
+                name={`${firstName} ${middleName ? `${middleName} ` : ''}${lastName}`}
             />
             <StartOver
                 setFirstName={setFirstName}

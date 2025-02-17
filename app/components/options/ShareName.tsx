@@ -7,23 +7,19 @@ import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
     buttonType: string;
-    firstName: string;
-    middleName: string;
-    lastName: string;
+    name: string;
 }
 
 // TODO: Consider sending a screenshot or the font somehow
 
 const ShareName: React.FC<Props> = ({
     buttonType,
-    firstName,
-    middleName,
-    lastName
+    name
 }) => {
     const onShare = async () => {
         try {
             const result = await Share.share({
-                message: `How about ${firstName} ${middleName} ${lastName}?\nSuggested by Name My Baby!`,
+                message: `${name}\n\nSuggested by Name My Baby!\nWhat do you think?`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {

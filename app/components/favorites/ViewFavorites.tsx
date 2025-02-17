@@ -63,7 +63,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
             setFirstName('First')
             setMiddleName(item.name)
         }
-        console.log({item})
+        console.log({ item })
     }
 
     const renderItem = ({ item }: { item: ListItem }) => {
@@ -91,17 +91,22 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         if ('firstName' in item) {
             return (
                 <View style={styles.hiddenOptions}>
-                    <ShareName
+                    <ShareName //I DO want to share the single name
                         buttonType='fav'
-                        firstName={item.firstName}
-                        middleName={item.middleName}
-                        lastName={item.lastName}
+                        name={`${item.firstName} ${item.middleName ? `${item.middleName} ` : ''}${item.lastName}`}
                     />
                     <DeleteFavorite item={item} />
                 </View>
             )
         }
-        return null;
+        return (
+            <View style={styles.hiddenOptions}>
+                <ShareName
+                    buttonType='fav'
+                    name={item.name}
+                />
+            </View>
+        )
     };
 
     return (
