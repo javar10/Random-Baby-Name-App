@@ -28,6 +28,7 @@ interface FilteredItem {
 type ListItem = FavoriteItem | FilteredItem
 
 const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMiddleName, setLastName, setGender }) => {
+    const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
     const [isFiltered, setIsFiltered] = useState<boolean>(false);
     const [filteredFavorites, setFilteredFavorites] = useState<FilteredItem[]>([]);
     const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
@@ -51,6 +52,20 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         setGender(item.gender)
     }
 
+    const editFilteredName = (item: FilteredItem) => {
+        setLastName('Last')
+        setGender(item.gender)
+        setViewFavorites(false)
+        if (item.place === 'first') {
+            setFirstName(item.name)
+            setMiddleName('Middle')
+        } else if (item.place === 'middle') {
+            setFirstName('First')
+            setMiddleName(item.name)
+        }
+        console.log({item})
+    }
+
     const renderItem = ({ item }: { item: ListItem }) => {
         if ('firstName' in item) {
             return (
@@ -65,7 +80,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         return (
             <View>
                 {/* TODO: OnPress of single name, open up editing component */}
-                <Text style={styles.itemText} onPress={() => console.log(item)}>
+                <Text style={styles.itemText} onPress={() => editFilteredName(item)}>
                     {item.name}
                 </Text>
             </View>

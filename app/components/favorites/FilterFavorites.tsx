@@ -52,7 +52,7 @@ const FilterFavorites: React.FC<Props> = ({ selectedFilters, setSelectedFilters,
             });
             setGenderFilterFavs(sortedFavorites);
         });
-    }, []);
+    }, [favorites]);
 
     useEffect(() => {
         loadFavorites().then((data) => {

@@ -10,7 +10,7 @@ interface Props {
 }
 
 // BUG: Trashcan stays visible. When an item is deleted, the trash can stays visible on the item that replaces it's spot.
-
+// NEW ISSUE**** NOT RE_RENDERING UPON DELETE! 
 const DeleteFavorite: React.FC<Props> = ({ item }) => {
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
 
