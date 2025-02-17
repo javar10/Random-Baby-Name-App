@@ -1,39 +1,34 @@
 import { TouchableOpacity, Alert, Share } from "react-native";
-import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
-import { loadFavorites, FavoriteItem } from '../../storage/favoritesStorage'
+import { FavoriteItem } from '../../storage/favoritesStorage'
 import { default as modalStyles } from '../name/ModalStyles'
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 
-// interface Props {
-//     firstName: string;
-//     middleName: string;
-//     lastName: string;
-// }
+interface FilteredItem {
+    name: string,
+    place: string,
+    gender: string,
+}
 
-const ShareFavsList: React.FC = ({ }) => {
-    const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+type ListItem = FavoriteItem | FilteredItem
 
-    useEffect(() => {
-        loadFavorites().then((data) => {
-            const sortedFavorites = data.sort((a, b) => {
-                return (
-                    a.firstName.localeCompare(b.firstName) ||
-                    (a.middleName && b.middleName
-                        ? a.middleName.localeCompare(b.middleName)
-                        : a.lastName.localeCompare(b.lastName)) ||
-                    a.lastName.localeCompare(b.lastName)
-                );
-            });
-            setFavorites(sortedFavorites);
-        });
-    }, [favorites]);
+interface Props {
+    nameList: ListItem[]
+}
 
-
+const ShareFavsList: React.FC<Props> = ({ nameList }) => {
+   
     const onShare = async () => {
-        const formattedList = favorites
-        .map(item => `• ${item.firstName} ${item.middleName} ${item.lastName}`)
-        .join('\n');
+        const formattedList = nameList
+            .map(item => {
+                if ('firstName' in item) {
+                    return `• ${item.firstName} ${item.middleName || ''} ${item.lastName || ''}`;
+                } else if ('name' in item) {
+                    return `• ${item.name}`;
+                }
+                return '';
+            })
+            .join('\n');
 
         try {
             const result = await Share.share({
@@ -54,14 +49,8 @@ const ShareFavsList: React.FC = ({ }) => {
     };
 
     return (
-        <TouchableOpacity
-            style={modalStyles.footerButton}
-            onPress={onShare}
-        >
-            <FontAwesomeIcon
-                style={modalStyles.footerIcon}
-                icon={faArrowUpFromBracket}
-            />
+        <TouchableOpacity style={modalStyles.footerButton} onPress={onShare}>
+            <FontAwesomeIcon style={modalStyles.footerIcon} icon={faArrowUpFromBracket} />
         </TouchableOpacity>
     );
 }

@@ -233,7 +233,12 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                         />
 
                         {/* TODO: add a send button to send the complete list of favorites.  */}
-                        <ShareFavsList /> 
+                        <ShareFavsList
+                            nameList={selectedFilters.includes('first names') || selectedFilters.includes('middle names')
+                                ? filteredFavorites
+                                : genderFilterFavs
+                            }
+                        />
                         {/* Pass list of visible names, either filteredfavs or genderFilterFavs */}
 
                         <TouchableOpacity style={modalStyles.footerButton} onPress={() => setViewFavorites(false)}>
