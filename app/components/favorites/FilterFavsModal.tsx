@@ -39,7 +39,10 @@ const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSe
     }, [favorites]);
 
     const renderItem = ({ item }: { item: string }) => (
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{
+            flexDirection: 'row',
+            backgroundColor: selectedFilters.includes(item) ? '#909090' : ''
+        }}>
             <TouchableOpacity onPress={() => {
                 console.log(item)
                 if (selectedFilters.includes(item)) {
@@ -51,8 +54,9 @@ const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSe
             >
                 <Text
                     style={[
-                        modalStyles.contentText, // TODO: Update style: whole row gray and change font to white.
-                        { backgroundColor: selectedFilters.includes(item) ? '#909090' : '' }
+                        modalStyles.contentText,
+                        { paddingLeft: 5,
+                            color: selectedFilters.includes(item) ? 'white' : '' }
                     ]}>
                     {item}
                 </Text>
