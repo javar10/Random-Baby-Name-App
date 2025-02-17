@@ -51,7 +51,7 @@ const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSe
             >
                 <Text
                     style={[
-                        modalStyles.contentText,
+                        modalStyles.contentText, // TODO: Update style: whole row gray and change font to white.
                         { backgroundColor: selectedFilters.includes(item) ? '#909090' : '' }
                     ]}>
                     {item}
