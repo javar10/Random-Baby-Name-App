@@ -9,6 +9,7 @@ import { default as favStyles } from './FavoritesStyles';
 import Modal from "react-native-modal";
 
 interface Props {
+    favorites: FavoriteItem[];
     setModalOpen: Dispatch<SetStateAction<boolean>>;
     selectedFilters: string[];
     setSelectedFilters: Dispatch<SetStateAction<string[]>>;
@@ -16,27 +17,27 @@ interface Props {
     setIsFiltered: Dispatch<SetStateAction<boolean>>;
 }
 
-const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSelectedFilters, isFiltered, setIsFiltered
+const FilterFavsModal: React.FC<Props> = ({ favorites, setModalOpen, selectedFilters, setSelectedFilters, isFiltered, setIsFiltered
     // setViewFavorites, setFirstName, setMiddleName, setLastName, setGender 
 }) => {
-    const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+    // const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
     const filterOptions = ['first names', 'middle names', 'girl names', 'boy names', 'gender neutral']
 
-    useEffect(() => {
-        loadFavorites().then((data) => {
-            setFavorites(data);
-            // const sortedFavorites = data.sort((a, b) => {
-            //     return (
-            //         a.firstName.localeCompare(b.firstName) ||
-            //         (a.middleName && b.middleName
-            //             ? a.middleName.localeCompare(b.middleName)
-            //             : a.lastName.localeCompare(b.lastName)) ||
-            //         a.lastName.localeCompare(b.lastName)
-            //     );
-            // });
-            // setFavorites(sortedFavorites);
-        });
-    }, [favorites]);
+    // useEffect(() => {
+    //     loadFavorites().then((data) => {
+    //         setFavorites(data);
+    //         // const sortedFavorites = data.sort((a, b) => {
+    //         //     return (
+    //         //         a.firstName.localeCompare(b.firstName) ||
+    //         //         (a.middleName && b.middleName
+    //         //             ? a.middleName.localeCompare(b.middleName)
+    //         //             : a.lastName.localeCompare(b.lastName)) ||
+    //         //         a.lastName.localeCompare(b.lastName)
+    //         //     );
+    //         // });
+    //         // setFavorites(sortedFavorites);
+    //     });
+    // }, [favorites]);
 
     const renderItem = ({ item }: { item: string }) => (
         <View style={{

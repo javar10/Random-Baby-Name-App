@@ -20,6 +20,7 @@ interface Props {
 }
 
 interface FilteredItem {
+    id: number,
     name: string,
     place: string,
     gender: string,
@@ -35,6 +36,21 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
     const [genderFilterFavs, setGenderFilterFavs] = useState<FavoriteItem[]>([])
 
     const openRowRef = useRef<any>(null);
+
+    useEffect(() => {
+        loadFavorites().then((data) => {
+            const sortedFavorites = data.sort((a, b) => {
+                return (
+                    a.firstName.localeCompare(b.firstName) ||
+                    (a.middleName && b.middleName
+                        ? a.middleName.localeCompare(b.middleName)
+                        : a.lastName.localeCompare(b.lastName)) ||
+                    a.lastName.localeCompare(b.lastName)
+                );
+            });
+            setFavorites(sortedFavorites);
+        });
+    }, [favorites]);
 
     const handleOutsidePress = () => {
         if (openRowRef.current) {
@@ -79,7 +95,6 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
 
         return (
             <View>
-                {/* TODO: OnPress of single name, open up editing component */}
                 <Text style={styles.itemText} onPress={() => editFilteredName(item)}>
                     {item.name}
                 </Text>
@@ -87,17 +102,39 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         );
     };
 
-    const renderHiddenItem = ({ item }: { item: ListItem }) => {
+    // const renderHiddenItem = ({ item }: { item: ListItem }) => {
+    //     if ('firstName' in item) {
+    //         return (
+    //             <View style={styles.hiddenOptions}>
+    //                 <ShareName //I DO want to share the single name
+    //                     buttonType='fav'
+    //                     name={`${item.firstName} ${item.middleName ? `${item.middleName} ` : ''}${item.lastName}`}
+    //                 />
+    //                 <DeleteFavorite item={item} row={openRowRef} />
+    //             </View>
+    //         )
+    //     }
+    //     return (
+    //         <View style={styles.hiddenOptions}>
+    //             <ShareName
+    //                 buttonType='fav'
+    //                 name={item.name}
+    //             />
+    //         </View>
+    //     )
+    // };
+
+    const renderHiddenItem = ({ item, rowMap }: { item: ListItem; rowMap: { [key: string]: any } }) => {
         if ('firstName' in item) {
             return (
                 <View style={styles.hiddenOptions}>
-                    <ShareName //I DO want to share the single name
+                    <ShareName
                         buttonType='fav'
                         name={`${item.firstName} ${item.middleName ? `${item.middleName} ` : ''}${item.lastName}`}
                     />
-                    <DeleteFavorite item={item} />
+                    <DeleteFavorite favorites={favorites} setFavorites={setFavorites} item={item} rowMap={rowMap} rowKey={item.id.toString()} />
                 </View>
-            )
+            );
         }
         return (
             <View style={styles.hiddenOptions}>
@@ -106,8 +143,9 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                     name={item.name}
                 />
             </View>
-        )
+        );
     };
+
 
     return (
         <>
@@ -122,9 +160,9 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                                 ? filteredFavorites
                                 : genderFilterFavs
                             }
-                            keyExtractor={(item, index) => index.toString()}
+                            keyExtractor={(item) => item.id.toString()}
                             renderItem={renderItem}
-                            renderHiddenItem={renderHiddenItem}
+                            renderHiddenItem={(data, rowMap) => renderHiddenItem({ item: data.item, rowMap })}
                             rightOpenValue={-60}
                             leftOpenValue={60}
                             stopRightSwipe={-90}
@@ -137,6 +175,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                     </View>
                     <View style={modalStyles.footer}>
                         <FilterFavorites
+                            favorites={favorites}
                             selectedFilters={selectedFilters}
                             setSelectedFilters={setSelectedFilters}
                             isFiltered={isFiltered}
