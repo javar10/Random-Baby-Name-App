@@ -18,17 +18,11 @@ interface Props {
     favorites: FavoriteItem[];
     selectedFilters: string[];
     setSelectedFilters: Dispatch<SetStateAction<string[]>>;
-    isFiltered: boolean;
-    setIsFiltered: Dispatch<SetStateAction<boolean>>;
-    filteredFavorites: FilteredItem[];
     setFilteredFavorites: Dispatch<SetStateAction<FilteredItem[]>>;
-    genderFilterFavs: FavoriteItem[];
     setGenderFilterFavs: Dispatch<SetStateAction<FavoriteItem[]>>;
 }
 
-const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelectedFilters, isFiltered, setIsFiltered,
-    filteredFavorites, setFilteredFavorites, genderFilterFavs, setGenderFilterFavs,
-}) => {
+const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelectedFilters, setFilteredFavorites, setGenderFilterFavs }) => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
@@ -109,12 +103,9 @@ const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelec
             </TouchableOpacity>
             {modalOpen &&
                 <FilterFavsModal
-                    favorites={favorites}
                     setModalOpen={setModalOpen}
                     selectedFilters={selectedFilters}
                     setSelectedFilters={setSelectedFilters}
-                    isFiltered={isFiltered}
-                    setIsFiltered={setIsFiltered}
                 />}
         </>
     );

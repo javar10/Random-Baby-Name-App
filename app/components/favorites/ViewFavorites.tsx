@@ -30,7 +30,6 @@ type ListItem = FavoriteItem | FilteredItem
 
 const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMiddleName, setLastName, setGender }) => {
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
-    const [isFiltered, setIsFiltered] = useState<boolean>(false);
     const [filteredFavorites, setFilteredFavorites] = useState<FilteredItem[]>([]);
     const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
     const [genderFilterFavs, setGenderFilterFavs] = useState<FavoriteItem[]>([])
@@ -106,7 +105,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         if ('firstName' in item) {
             return (
                 <View style={styles.hiddenOptions}>
-                    <ShareName 
+                    <ShareName
                         buttonType='fav'
                         name={`${item.firstName} ${item.middleName ? `${item.middleName} ` : ''}${item.lastName}`}
                     />
@@ -138,8 +137,8 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                             data={selectedFilters.includes('first names') || selectedFilters.includes('middle names')
                                 ? filteredFavorites
                                 : selectedFilters.includes('boy names') || selectedFilters.includes('girl names') || selectedFilters.includes('gender neutral')
-                                ? genderFilterFavs
-                                : favorites
+                                    ? genderFilterFavs
+                                    : favorites
                             }
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={renderItem}
@@ -159,17 +158,15 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                             favorites={favorites}
                             selectedFilters={selectedFilters}
                             setSelectedFilters={setSelectedFilters}
-                            isFiltered={isFiltered}
-                            setIsFiltered={setIsFiltered}
-                            filteredFavorites={filteredFavorites}
                             setFilteredFavorites={setFilteredFavorites}
-                            genderFilterFavs={genderFilterFavs}
                             setGenderFilterFavs={setGenderFilterFavs}
                         />
                         <ShareFavsList
                             nameList={selectedFilters.includes('first names') || selectedFilters.includes('middle names')
                                 ? filteredFavorites
-                                : genderFilterFavs
+                                : selectedFilters.includes('boy names') || selectedFilters.includes('girl names') || selectedFilters.includes('gender neutral')
+                                    ? genderFilterFavs
+                                    : favorites
                             }
                         />
                         <TouchableOpacity style={modalStyles.footerButton} onPress={() => setViewFavorites(false)}>

@@ -1,43 +1,24 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, TouchableWithoutFeedback, FlatList } from 'react-native';
-import { loadFavorites, FavoriteItem } from '../../storage/favoritesStorage'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faXmark, faEraser, faCheck } from '@fortawesome/free-solid-svg-icons';
-import ShareName from '../options/ShareName';
 import { default as modalStyles } from '../name/ModalStyles';
-import { default as favStyles } from './FavoritesStyles';
 import Modal from "react-native-modal";
 
 interface Props {
-    favorites: FavoriteItem[];
     setModalOpen: Dispatch<SetStateAction<boolean>>;
     selectedFilters: string[];
     setSelectedFilters: Dispatch<SetStateAction<string[]>>;
-    isFiltered: boolean;
-    setIsFiltered: Dispatch<SetStateAction<boolean>>;
 }
 
-const FilterFavsModal: React.FC<Props> = ({ favorites, setModalOpen, selectedFilters, setSelectedFilters, isFiltered, setIsFiltered
-    // setViewFavorites, setFirstName, setMiddleName, setLastName, setGender 
-}) => {
-    // const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSelectedFilters }) => {
     const filterOptions = ['first names', 'middle names', 'girl names', 'boy names', 'gender neutral']
+    const [originalFilters, setOriginalFilters] = useState<string[]>([]);
 
-    // useEffect(() => {
-    //     loadFavorites().then((data) => {
-    //         setFavorites(data);
-    //         // const sortedFavorites = data.sort((a, b) => {
-    //         //     return (
-    //         //         a.firstName.localeCompare(b.firstName) ||
-    //         //         (a.middleName && b.middleName
-    //         //             ? a.middleName.localeCompare(b.middleName)
-    //         //             : a.lastName.localeCompare(b.lastName)) ||
-    //         //         a.lastName.localeCompare(b.lastName)
-    //         //     );
-    //         // });
-    //         // setFavorites(sortedFavorites);
-    //     });
-    // }, [favorites]);
+    useEffect(() => {
+        setOriginalFilters(selectedFilters)
+        console.log(originalFilters)
+    }, [])
 
     const renderItem = ({ item }: { item: string }) => (
         <View style={{
@@ -56,8 +37,10 @@ const FilterFavsModal: React.FC<Props> = ({ favorites, setModalOpen, selectedFil
                 <Text
                     style={[
                         modalStyles.contentText,
-                        { paddingLeft: 5,
-                            color: selectedFilters.includes(item) ? 'white' : '' }
+                        {
+                            paddingLeft: 5,
+                            color: selectedFilters.includes(item) ? 'white' : ''
+                        }
                     ]}>
                     {item}
                 </Text>
@@ -65,25 +48,16 @@ const FilterFavsModal: React.FC<Props> = ({ favorites, setModalOpen, selectedFil
         </View>
     );
 
-    const acceptFilters = () => {
-        if (selectedFilters) {
-            setIsFiltered(true)
-        } else {
-            setIsFiltered(false)
-        }
-        setModalOpen(false)
-    }
-
-    const clearFilters = () => {
-        setSelectedFilters([]);
-        setIsFiltered(false);
+    const cancelFilter = () => {
+        setSelectedFilters(originalFilters);
+        setModalOpen(false);
     }
 
     return (
         <View>
             <Modal
                 isVisible={true}
-                onBackdropPress={() => setModalOpen(false)}
+                onBackdropPress={cancelFilter}
             >
                 <View style={modalStyles.modalOverlay}>
                     <View style={modalStyles.container}>
@@ -100,13 +74,13 @@ const FilterFavsModal: React.FC<Props> = ({ favorites, setModalOpen, selectedFil
                         </View>
 
                         <View style={modalStyles.footer}>
-                            <TouchableOpacity style={modalStyles.footerButton} onPress={clearFilters}>
+                            <TouchableOpacity style={modalStyles.footerButton} onPress={() => setSelectedFilters([])}>
                                 <FontAwesomeIcon style={modalStyles.footerIcon} icon={faEraser} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={modalStyles.footerButton} onPress={acceptFilters}>
+                            <TouchableOpacity style={modalStyles.footerButton} onPress={() => (setModalOpen(false))}>
                                 <FontAwesomeIcon style={modalStyles.footerIcon} icon={faCheck} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={modalStyles.footerButton} onPress={() => (setModalOpen(false))}>
+                            <TouchableOpacity style={modalStyles.footerButton} onPress={cancelFilter}>
                                 <FontAwesomeIcon style={modalStyles.footerIcon} icon={faXmark} />
                             </TouchableOpacity>
 
