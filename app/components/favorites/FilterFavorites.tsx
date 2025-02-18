@@ -29,53 +29,29 @@ const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelec
         let nameFavs: FilteredItem[] = [];
         let tempFavs: FilteredItem[] = [];
         let seenNames = new Set<string>();
-
-        if (selectedFilters.includes('first names')) {
-            tempFavs = [
-                ...tempFavs,
-                ...favorites
-                    .map(item => ({ id: item.id, name: item.firstName, place: 'first', gender: item.gender }))
-                    .filter(item => {
-                        if (seenNames.has(item.name)) {
-                            return false;
-                        }
-                        seenNames.add(item.name);
-                        return true;
-                    })
-            ];
-
-        }
-
-        if (selectedFilters.includes('middle names')) {
-            tempFavs = [
-                ...tempFavs,
-                ...favorites
-                    .map(item => ({ id: uuid.v4() as string, name: item.middleName, place: 'middle', gender: item.gender }))
-                    .filter(item => {
-                        if (item.name === '' || seenNames.has(item.name)) {
-                            return false;
-                        }
-                        seenNames.add(item.name);
-                        return true;
-                    })
-            ];
-
-        }
-
-        if (selectedFilters.includes('boy names') || selectedFilters.includes('girl names') || selectedFilters.includes('gender neutral')) {
-            if (selectedFilters.includes('boy names')) {
-                const boyFavs = tempFavs.filter(item => item.gender === 'boy');
-                nameFavs = [...nameFavs, ...boyFavs];
+    
+        favorites.forEach(item => {
+            const addItem = (name: string, place: string) => {
+                if (name && !seenNames.has(name)) {
+                    seenNames.add(name);
+                    tempFavs.push({ id: `${item.id}${place}`, name, place, gender: item.gender });
+                }
+            };
+    
+            if (selectedFilters.includes('first names')) {
+                addItem(item.firstName, 'first');
             }
-            if (selectedFilters.includes('girl names')) {
-                const girlFavs = tempFavs.filter(item => item.gender === 'girl');
-                nameFavs = [...nameFavs, ...girlFavs];
+            if (selectedFilters.includes('middle names')) {
+                addItem(item.middleName, 'middle');
             }
-            if (selectedFilters.includes('gender neutral')) {
-                const neutralFavs = tempFavs.filter(item => item.gender === 'neutral');
-                nameFavs = [...nameFavs, ...neutralFavs];
-            }
-            tempFavs = [...nameFavs]
+        });
+
+        if (selectedFilters.some(filter => ['boy names', 'girl names', 'gender neutral'].includes(filter))) {
+            tempFavs = tempFavs.filter(item =>
+                (selectedFilters.includes('boy names') && item.gender === 'boy') ||
+                (selectedFilters.includes('girl names') && item.gender === 'girl') ||
+                (selectedFilters.includes('gender neutral') && item.gender === 'neutral')
+            );
         }
 
         tempFavs.sort((a, b) => a.name.localeCompare(b.name));
@@ -91,13 +67,11 @@ const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelec
         });
         setGenderFilterFavs(filteredData)
 
-        console.log({ filteredData })
-        console.log({ tempFavs })
-
     }, [selectedFilters])
 
     return (
         <>
+        {/* TODO: Change filter icon when filters are applied */}
             <TouchableOpacity style={modalStyles.footerButton} onPress={() => setModalOpen(true)}>
                 <FontAwesomeIcon style={modalStyles.footerIcon} icon={faFilter} />
             </TouchableOpacity>
@@ -123,9 +97,6 @@ export default FilterFavorites;
 // You are looping over favorites multiple times for each filter, which is inefficient and can be improved.
 // Solution: Use a single loop and filter all categories in one pass.
 // 
-// 4. Unnecessary useEffect Dependency
-// Your useEffect depends on selectedFilters, which is correct, but it seems isFiltered is also a piece of state related to filtering and isn't included. This can lead to stale state issues.
-// Solution: Add isFiltered as a dependency if it's part of the filtering logic.
 // 
 // 5. Repeated Code Blocks
 // The filtering of first names and middle names is almost identical, only differing by the key being accessed.
@@ -149,3 +120,6 @@ export default FilterFavorites;
 // Avoid UUID regeneration on every render.
 // Consolidate filter logic to reduce loops.
 // Use consistent data structures for state.
+
+// TODO: Keep filters after closing favs
+// TODO: Removed unused dependencies 
