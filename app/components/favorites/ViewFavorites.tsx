@@ -20,7 +20,7 @@ interface Props {
 }
 
 interface FilteredItem {
-    id: number,
+    id: string,
     name: string,
     place: string,
     gender: string,

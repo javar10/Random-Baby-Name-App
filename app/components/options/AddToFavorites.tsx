@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+import uuid from 'react-native-uuid';
 import { loadFavorites, addFavorite, FavoriteItem, removeFavorite } from '../../storage/favoritesStorage'
 import styles from './OptionsMenuStyles';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -18,7 +19,7 @@ const AddToFavorites: React.FC<Props> = ({ firstName, middleName, lastName, gend
   const [isFav, setIsFav] = useState<boolean>(false);
 
   const itemToAdd: FavoriteItem = {
-    id: Date.now(),
+    id: uuid.v4() as string,
     firstName: firstName,
     middleName: middleName,
     lastName: lastName,

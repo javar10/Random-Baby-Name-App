@@ -1,7 +1,7 @@
 import * as FileSystem from 'expo-file-system';
 
 export interface FavoriteItem {
-  id: number;
+  id: string;
   firstName: string;
   middleName: string;
   lastName: string;

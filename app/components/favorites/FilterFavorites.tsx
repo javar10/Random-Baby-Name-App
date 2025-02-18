@@ -1,6 +1,8 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import uuid from 'react-native-uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { loadFavorites, FavoriteItem } from '../../storage/favoritesStorage'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +13,7 @@ import DeleteFavorite from './DeleteFavorite';
 import FilterFavsModal from './FilterFavsModal';
 
 interface FilteredItem {
-    id: number,
+    id: string,
     name: string,
     place: string,
     gender: string,
@@ -80,7 +82,7 @@ const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelec
             tempFavs = [
                 ...tempFavs,
                 ...favorites
-                    .map(item => ({ id: Date.now(),name: item.firstName, place: 'first', gender: item.gender }))
+                    .map(item => ({ id: uuid.v4() as string, name: item.firstName, place: 'first', gender: item.gender }))
                     .filter(item => {
                         if (seenNames.has(item.name)) {
                             return false;
@@ -96,7 +98,7 @@ const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelec
             tempFavs = [
                 ...tempFavs,
                 ...favorites
-                    .map(item => ({ id: Date.now(), name: item.middleName, place: 'middle', gender: item.gender }))
+                    .map(item => ({ id: uuid.v4() as string, name: item.middleName, place: 'middle', gender: item.gender }))
                     .filter(item => {
                         if (item.name === '' || seenNames.has(item.name)) {
                             return false;
