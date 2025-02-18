@@ -20,8 +20,6 @@ interface Props {
 //     row: MutableRefObject<any>;
 // }
 
-// BUG: Trashcan stays visible. When an item is deleted, the trash can stays visible on the item that replaces it's spot.
-
 const DeleteFavorite: React.FC<Props> = ({ favorites, setFavorites, item, rowMap, rowKey }) => {
     // const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
 
