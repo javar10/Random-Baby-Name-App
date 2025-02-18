@@ -102,39 +102,20 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         );
     };
 
-    // const renderHiddenItem = ({ item }: { item: ListItem }) => {
-    //     if ('firstName' in item) {
-    //         return (
-    //             <View style={styles.hiddenOptions}>
-    //                 <ShareName //I DO want to share the single name
-    //                     buttonType='fav'
-    //                     name={`${item.firstName} ${item.middleName ? `${item.middleName} ` : ''}${item.lastName}`}
-    //                 />
-    //                 <DeleteFavorite item={item} row={openRowRef} />
-    //             </View>
-    //         )
-    //     }
-    //     return (
-    //         <View style={styles.hiddenOptions}>
-    //             <ShareName
-    //                 buttonType='fav'
-    //                 name={item.name}
-    //             />
-    //         </View>
-    //     )
-    // };
-
-    const renderHiddenItem = ({ item, rowMap }: { item: ListItem; rowMap: { [key: string]: any } }) => {
+    const renderHiddenItem = ({ item }: { item: ListItem }) => {
         if ('firstName' in item) {
             return (
                 <View style={styles.hiddenOptions}>
-                    <ShareName
+                    <ShareName //I DO want to share the single name
                         buttonType='fav'
                         name={`${item.firstName} ${item.middleName ? `${item.middleName} ` : ''}${item.lastName}`}
                     />
-                    <DeleteFavorite favorites={favorites} setFavorites={setFavorites} item={item} rowMap={rowMap} rowKey={item.id.toString()} />
+                    <DeleteFavorite
+                        favorites={favorites}
+                        setFavorites={setFavorites}
+                        item={item} />
                 </View>
-            );
+            )
         }
         return (
             <View style={styles.hiddenOptions}>
@@ -143,9 +124,8 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                     name={item.name}
                 />
             </View>
-        );
+        )
     };
-
 
     return (
         <>
@@ -158,11 +138,13 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                         <SwipeListView
                             data={selectedFilters.includes('first names') || selectedFilters.includes('middle names')
                                 ? filteredFavorites
-                                : genderFilterFavs
+                                : selectedFilters.includes('boy names') || selectedFilters.includes('girl names') || selectedFilters.includes('gender neutral')
+                                ? genderFilterFavs
+                                : favorites
                             }
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={renderItem}
-                            renderHiddenItem={(data, rowMap) => renderHiddenItem({ item: data.item, rowMap })}
+                            renderHiddenItem={renderHiddenItem}
                             rightOpenValue={-60}
                             leftOpenValue={60}
                             stopRightSwipe={-90}

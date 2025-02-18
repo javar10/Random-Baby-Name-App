@@ -43,20 +43,20 @@ const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelec
     // const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-    useEffect(() => {
-        loadFavorites().then((data) => {
-            const sortedFavorites = data.sort((a, b) => {
-                return (
-                    a.firstName.localeCompare(b.firstName) ||
-                    (a.middleName && b.middleName
-                        ? a.middleName.localeCompare(b.middleName)
-                        : a.lastName.localeCompare(b.lastName)) ||
-                    a.lastName.localeCompare(b.lastName)
-                );
-            });
-            setGenderFilterFavs(sortedFavorites);
-        });
-    }, [favorites]);
+    // useEffect(() => {
+    //     const sortedFavorites = favorites.sort((a, b) => {
+    //         return (
+    //             a.firstName.localeCompare(b.firstName) ||
+    //             (a.middleName && b.middleName
+    //                 ? a.middleName.localeCompare(b.middleName)
+    //                 : a.lastName.localeCompare(b.lastName)) ||
+    //             a.lastName.localeCompare(b.lastName)
+    //         );
+    //     })
+    //     setGenderFilterFavs(sortedFavorites);
+    // }, []);
+
+
 
     // useEffect(() => {
     //     loadFavorites().then((data) => {
@@ -142,7 +142,7 @@ const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelec
         console.log({ filteredData })
         console.log({ tempFavs })
 
-    }, [selectedFilters, isFiltered])
+    }, [selectedFilters])
 
     return (
         <>
