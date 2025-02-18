@@ -5,19 +5,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import styles from './FavoritesStyles';
 
-
-
 interface Props {
-    favorites: FavoriteItem[];
     setFavorites: Dispatch<SetStateAction<FavoriteItem[]>>;
     item: FavoriteItem;
 }
 
-const DeleteFavorite: React.FC<Props> = ({ favorites, setFavorites, item, }) => {
+const DeleteFavorite: React.FC<Props> = ({ setFavorites, item, }) => {
 
     const handleRemoveFavorite = async () => {
         const updatedFavorites = await removeFavorite(item);
-        setFavorites(updatedFavorites);
+        const sortedFavorites = updatedFavorites.sort((a, b) => {
+            return (
+                a.firstName.localeCompare(b.firstName) ||
+                (a.middleName && b.middleName
+                    ? a.middleName.localeCompare(b.middleName)
+                    : a.lastName.localeCompare(b.lastName)) ||
+                a.lastName.localeCompare(b.lastName)
+            );
+        })
+        setFavorites(sortedFavorites);
         console.log('Deleted');
     };
 

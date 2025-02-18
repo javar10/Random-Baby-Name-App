@@ -50,7 +50,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
             });
             setFavorites(sortedFavorites);
         });
-    }, [favorites]);
+    }, []);
 
     const handleOutsidePress = () => {
         if (openRowRef.current) {
@@ -106,12 +106,11 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         if ('firstName' in item) {
             return (
                 <View style={styles.hiddenOptions}>
-                    <ShareName //I DO want to share the single name
+                    <ShareName 
                         buttonType='fav'
                         name={`${item.firstName} ${item.middleName ? `${item.middleName} ` : ''}${item.lastName}`}
                     />
                     <DeleteFavorite
-                        favorites={favorites}
                         setFavorites={setFavorites}
                         item={item} />
                 </View>
