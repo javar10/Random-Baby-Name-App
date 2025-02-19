@@ -1,11 +1,13 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
-import uuid from 'react-native-uuid';
 import { FavoriteItem } from '../../storage/favoritesStorage'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { default as modalStyles } from '../name/ModalStyles';
 import FilterFavsModal from './FilterFavsModal';
+// import  from 'react-native-vector-icons/Feather'
+import { AntDesign, Feather } from '@expo/vector-icons';
+
 
 interface FilteredItem {
     id: string,
@@ -26,7 +28,6 @@ const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelec
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
-        let nameFavs: FilteredItem[] = [];
         let tempFavs: FilteredItem[] = [];
         let seenNames = new Set<string>();
     
@@ -54,7 +55,10 @@ const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelec
             );
         }
 
-        tempFavs.sort((a, b) => a.name.localeCompare(b.name));
+        if (tempFavs.length > 1) {
+            tempFavs.sort((a, b) => a.name.localeCompare(b.name));
+        }
+        
         setFilteredFavorites(tempFavs)
 
         const filteredData = favorites.filter(item => {
@@ -74,7 +78,10 @@ const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelec
         {/* TODO: Change filter icon when filters are applied */}
             <TouchableOpacity style={modalStyles.footerButton} onPress={() => setModalOpen(true)}>
                 <FontAwesomeIcon style={modalStyles.footerIcon} icon={faFilter} />
+                {/* <Feather name='filter' size={32} strokeWidt/> */}
+                {/* <AntDesign name='filter' size={36} /> */}
             </TouchableOpacity>
+
             {modalOpen &&
                 <FilterFavsModal
                     setModalOpen={setModalOpen}
@@ -87,39 +94,5 @@ const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelec
 
 export default FilterFavorites;
 
-// 1. Excessive State Updates in useEffect
-// You are calling both setFilteredFavorites and setGenderFilterFavs inside the same useEffect. Each call triggers a re-render, potentially leading to multiple re-renders in one render cycle.
-// Solution: Combine the logic into a single state update or separate the filtering logic into a useMemo and trigger the useEffect only when necessary.
-// 
-
-// 
-// 3. Inefficient Filtering Logic
-// You are looping over favorites multiple times for each filter, which is inefficient and can be improved.
-// Solution: Use a single loop and filter all categories in one pass.
-// 
-// 
-// 5. Repeated Code Blocks
-// The filtering of first names and middle names is almost identical, only differing by the key being accessed.
-// Solution: Refactor the code to avoid repetition by using a helper function.
-// 
-// 6. Sorting Directly on the Original Array
-// .sort() mutates the original array, which might cause unintended side effects if favorites is being used elsewhere.
-// Solution: Use .slice().sort() instead of .sort().
-//
-// 7. seenNames Handling
-// The seenNames set logic is implemented separately for first names and middle names, but there’s a chance that duplicate names across these categories could slip through. You also don’t clear the seenNames between different filter operations, which might lead to incorrect results.
-// Solution: Reset seenNames for each filtering operation or manage it more carefully.
-// 
-// 8. Mixed Data Types for State
-// You're using FilteredItem[] for filteredFavorites and FavoriteItem[] for genderFilterFavs, which can cause confusion and potential type mismatches.
-// Solution: Use consistent types or document the differences clearly.
-// 
-// 
-// Key Refactor Suggestions:
-// Use useMemo for filtering logic.
-// Avoid UUID regeneration on every render.
-// Consolidate filter logic to reduce loops.
-// Use consistent data structures for state.
-
 // TODO: Keep filters after closing favs
-// TODO: Removed unused dependencies 
+// TODO: Remove unused dependencies 
