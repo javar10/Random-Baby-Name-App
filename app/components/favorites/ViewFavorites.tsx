@@ -86,7 +86,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
             return (
                 <View>
                     <Text style={styles.itemText} onPress={() => editSelectedName(item)}>
-                        {item.firstName} {item.middleName || ''} {item.lastName}
+                        {item.firstName} {item.middleName ? item.middleName : ''} {item.lastName}
                     </Text>
                 </View>
             );
@@ -140,7 +140,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                                     ? genderFilterFavs
                                     : favorites
                             }
-                            keyExtractor={(item) => item.id.toString()}
+                            keyExtractor={(item) => item.id}
                             renderItem={renderItem}
                             renderHiddenItem={renderHiddenItem}
                             rightOpenValue={-60}

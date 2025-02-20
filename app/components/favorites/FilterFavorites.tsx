@@ -7,6 +7,9 @@ import { default as modalStyles } from '../name/ModalStyles';
 import FilterFavsModal from './FilterFavsModal';
 // import  from 'react-native-vector-icons/Feather'
 import { AntDesign, Feather } from '@expo/vector-icons';
+// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 
 interface FilteredItem {
@@ -77,9 +80,10 @@ const FilterFavorites: React.FC<Props> = ({ favorites, selectedFilters, setSelec
         <>
         {/* TODO: Change filter icon when filters are applied */}
             <TouchableOpacity style={modalStyles.footerButton} onPress={() => setModalOpen(true)}>
-                <FontAwesomeIcon style={modalStyles.footerIcon} icon={faFilter} />
+                {/* <FontAwesomeIcon style={modalStyles.footerIcon} icon={faFilter} /> */}
                 {/* <Feather name='filter' size={32} strokeWidt/> */}
                 {/* <AntDesign name='filter' size={36} /> */}
+                <MaterialCommunityIcons name="filter-outline" size={32} color="black" />;
             </TouchableOpacity>
 
             {modalOpen &&
