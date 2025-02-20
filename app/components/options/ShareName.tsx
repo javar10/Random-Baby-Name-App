@@ -1,5 +1,5 @@
 import { TouchableOpacity, Alert, Share } from "react-native";
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import styles from "./OptionsMenuStyles";
 import { default as favStyles } from '../favorites/FavoritesStyles'
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";

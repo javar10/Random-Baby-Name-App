@@ -6,18 +6,13 @@ import ViewFavorites from "./favorites/ViewFavorites";
 import DisplayNameMain from "./name/DisplayNameMain";
 
 const Home = () => {
-    const [gender, setGender] = useState<string>('');
-
     const [firstName, setFirstName] = useState<string>('First');
     const [middleName, setMiddleName] = useState<string>('Middle');
     const [lastName, setLastName] = useState<string>('Last');
+    const [gender, setGender] = useState<string>('');
+    const [viewFavorites, setViewFavorites] = useState<boolean>(false)
 
     const defaultBackground = require("../../assets/images/clouds.png");
-    const girlBackground = require("../../assets/images/girl-background.png");
-    const boyBackground = require("../../assets/images/boy-background.png");
-    const neutralBackground = require("../../assets/images/neutral-background.png");
-
-    const [viewFavorites, setViewFavorites] = useState<boolean>(false)
 
     return (
         <>

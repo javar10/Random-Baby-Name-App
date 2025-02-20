@@ -122,11 +122,7 @@ const BabyName: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        // justifyContent: "center",
-        // alignItems: "center",
-        // width: "100%", 
-        // height: "100%",
+       
     },
     box: {
         maxWidth: screenWidth * 0.8,

@@ -15,8 +15,6 @@ export default function RootLayout() {
     loadFonts().then(() => setFontsLoaded(true));
   }, []);
 
-  // if (!fontsLoaded) return null; // Prevent rendering until fonts are loaded
-
   return (
     <GestureHandlerRootView>
 

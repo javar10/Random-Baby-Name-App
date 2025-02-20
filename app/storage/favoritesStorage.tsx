@@ -39,7 +39,7 @@ export const addFavorite = async (item: FavoriteItem): Promise<FavoriteItem[]> =
     let favorites = await loadFavorites();
 
     if (!favorites.some((fav) => fav.id === item.id)) {
-      favorites = [...favorites, item]; // Ensure immutability
+      favorites = [...favorites, item];
       await saveFavorites(favorites);
       console.log('Added:', item);
     } else {
@@ -50,16 +50,6 @@ export const addFavorite = async (item: FavoriteItem): Promise<FavoriteItem[]> =
   } catch (error) {
     console.error('Error adding favorite:', error);
     return [];
-  }
-};
-
-export const getFavoritesCount = async (): Promise<number> => {
-  try {
-    const favorites = await loadFavorites();
-    return favorites.length;
-  } catch (error) {
-    console.error('Error getting favorites count:', error);
-    return 0;
   }
 };
 

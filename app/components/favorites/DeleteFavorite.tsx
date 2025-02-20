@@ -1,6 +1,6 @@
-import React, { Dispatch, MutableRefObject, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { loadFavorites, FavoriteItem, saveFavorites, removeFavorite } from '../../storage/favoritesStorage'
+import { FavoriteItem, removeFavorite } from '../../storage/favoritesStorage'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import styles from './FavoritesStyles';

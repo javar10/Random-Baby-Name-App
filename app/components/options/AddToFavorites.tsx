@@ -51,12 +51,10 @@ const AddToFavorites: React.FC<Props> = ({ firstName, middleName, lastName, gend
     );
 
     if (exists) {
-      // Remove favorite
       const updatedFavorites = await removeFavorite(itemToAdd);
       setFavorites(updatedFavorites);
       setIsFav(false);
     } else {
-      // Add favorite
       const updatedFavorites = await addFavorite(itemToAdd);
       setFavorites(updatedFavorites);
       setIsFav(true);
