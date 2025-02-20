@@ -10,7 +10,7 @@ interface Props {
     name: string;
 }
 
-// TODO: Consider sending a screenshot or the font somehow
+// TODO: Consider sending a screenshot or the text with a font
 
 const ShareName: React.FC<Props> = ({
     buttonType,

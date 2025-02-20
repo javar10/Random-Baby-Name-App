@@ -29,6 +29,8 @@ interface FilteredItem {
 type ListItem = FavoriteItem | FilteredItem
 
 const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMiddleName, setLastName, setGender }) => {
+    // TODO: Keep filters after closing favs
+
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
     const [filteredFavorites, setFilteredFavorites] = useState<FilteredItem[]>([]);
     const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
