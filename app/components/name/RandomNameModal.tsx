@@ -57,7 +57,6 @@ const RandomNameModal: React.FC<Props> = ({
             }
         }
         setRandomlySelectedNamesList(selectedNames);
-        console.log(randomlySelectedNamesList)
     }
 
     const renderItem = ({ item }: { item: string }) => (

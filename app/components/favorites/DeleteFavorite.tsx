@@ -24,7 +24,6 @@ const DeleteFavorite: React.FC<Props> = ({ setFavorites, item, }) => {
             );
         })
         setFavorites(sortedFavorites);
-        console.log('Deleted');
     };
 
     return (

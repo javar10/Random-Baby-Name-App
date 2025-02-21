@@ -61,7 +61,6 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
     };
 
     const editSelectedName = (item: FavoriteItem) => {
-        console.log(item)
         setFirstName(item.firstName)
         setMiddleName(item.middleName)
         setLastName(item.lastName)
@@ -80,7 +79,6 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
             setFirstName('First')
             setMiddleName(item.name)
         }
-        console.log({ item })
     }
 
     const renderItem = ({ item }: { item: ListItem }) => {

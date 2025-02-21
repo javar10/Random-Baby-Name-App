@@ -17,7 +17,6 @@ const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSe
 
     useEffect(() => {
         setOriginalFilters(selectedFilters)
-        console.log(originalFilters)
     }, [])
 
     const renderItem = ({ item }: { item: string }) => (
@@ -26,7 +25,6 @@ const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSe
             backgroundColor: selectedFilters.includes(item) ? '#909090' : ''
         }}>
             <TouchableOpacity onPress={() => {
-                console.log(item)
                 if (selectedFilters.includes(item)) {
                     setSelectedFilters((prev) => prev.filter((filter) => filter !== item));
                 } else {
