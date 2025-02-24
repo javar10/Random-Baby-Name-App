@@ -55,8 +55,8 @@ const BabyName: React.FC<Props> = ({
                     mode={ResizeTextMode.max_lines}
                     style={[styles.text, {fontFamily: nameFont}]}
                 >
-                    <Text onPress={() => setModalVisible('firstRandomNameModal')}>{firstName} </Text>
-                    <Text onPress={() => setModalVisible('middleRandomNameModal')}>{middleName}{middleName ? ' ' : ''}</Text>
+                    <Text onPress={() => setModalVisible('firstTypeNameModal')}>{firstName} </Text>
+                    <Text onPress={() => setModalVisible('middleTypeNameModal')}>{middleName}{middleName ? ' ' : ''}</Text>
                     <Text onPress={() => setModalVisible('lastTypeNameModal')}>{lastName}</Text>
                 </AutoSizeText>
             </View>

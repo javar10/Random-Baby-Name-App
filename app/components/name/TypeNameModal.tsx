@@ -7,6 +7,8 @@ import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 import styles from './ModalStyles';
 import DeleteText from './DeleteText';
 
+// BUG FIX! Not working for middle/last names. 
+
 interface Props {
     name: string;
     setName: Dispatch<SetStateAction<string>>;
@@ -21,6 +23,8 @@ const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
         setOriginalName(name);
         setTempName(name);
     }, [])
+    
+// Names with a '-' are forcing the second last name to be lowercase
 
     const onSubmitName = () => {
         const formattedName = tempName
