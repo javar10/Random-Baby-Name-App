@@ -100,10 +100,7 @@ const RandomNameModal: React.FC<Props> = ({
                             </TouchableOpacity>
 
                             <TouchableOpacity style={styles.footerButton}
-                                onPress={() => {
-                                    onClose();
-                                    setModalVisible(`${name}TypeNameModal`);
-                                }}>
+                                onPress={() => {setModalVisible(`${name}TypeNameModal`) }}>
                                 <FontAwesomeIcon style={styles.footerIcon} icon={faPenToSquare} />
                             </TouchableOpacity>
 
