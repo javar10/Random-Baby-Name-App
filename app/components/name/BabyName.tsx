@@ -53,7 +53,7 @@ const BabyName: React.FC<Props> = ({
                     fontSize={90}
                     numberOfLines={1}
                     mode={ResizeTextMode.max_lines}
-                    style={[styles.text, {fontFamily: nameFont}]}
+                    style={[styles.text, { fontFamily: nameFont }]}
                 >
                     <Text onPress={() => setModalVisible('firstRandomNameModal')}>{firstName} </Text>
                     <Text onPress={() => setModalVisible('middleRandomNameModal')}>{middleName}{middleName ? ' ' : ''}</Text>
@@ -124,7 +124,7 @@ const BabyName: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
     container: {
-       
+
     },
     box: {
         maxWidth: screenWidth * 0.8,
