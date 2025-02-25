@@ -65,7 +65,8 @@ const BabyName: React.FC<Props> = ({
             {(modalVisible === 'firstRandomNameModal') && (
                 <RandomNameModal
                     setModalVisible={setModalVisible}
-                    name='first'
+                    namePlace='first'
+                    name={firstName}
                     setName={setFirstName}
                     listExists={firstNameListExists}
                     setListExists={setFirstNameListExists}
@@ -88,7 +89,8 @@ const BabyName: React.FC<Props> = ({
             {(modalVisible === 'middleRandomNameModal') && (
                 <RandomNameModal
                     setModalVisible={setModalVisible}
-                    name='middle'
+                    namePlace='middle'
+                    name={middleName}
                     setName={setMiddleName}
                     listExists={middleNameListExists}
                     setListExists={setMiddleNameListExists}

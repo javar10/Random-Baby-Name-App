@@ -13,6 +13,7 @@ import styles from './ModalStyles';
 
 interface Props {
     setModalVisible: Dispatch<SetStateAction<string>>;
+    namePlace: string;
     name: string;
     setName: Dispatch<SetStateAction<string>>;
     listExists: boolean;
@@ -27,6 +28,7 @@ interface Props {
 
 const RandomNameModal: React.FC<Props> = ({
     setModalVisible,
+    namePlace,
     name,
     setName,
     listExists,
@@ -100,7 +102,7 @@ const RandomNameModal: React.FC<Props> = ({
                             </TouchableOpacity>
 
                             <TouchableOpacity style={styles.footerButton}
-                                onPress={() => {setModalVisible(`${name}TypeNameModal`) }}>
+                                onPress={() => {setModalVisible(`${namePlace}TypeNameModal`) }}>
                                 <FontAwesomeIcon style={styles.footerIcon} icon={faPenToSquare} />
                             </TouchableOpacity>
 

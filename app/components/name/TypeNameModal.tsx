@@ -13,7 +13,7 @@ interface Props {
     onClose: () => void;
 }
 
-const LastNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
+const TypeNameModal: React.FC<Props> = ({ name, setName, onClose }) => {
     const [originalName, setOriginalName] = useState<string>('');
     const [tempName, setTempName] = useState<string>('');
 
@@ -89,4 +89,4 @@ const onSubmitName = () => {
     );
 };
 
-export default LastNameModal;
+export default TypeNameModal;
