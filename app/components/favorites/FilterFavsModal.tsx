@@ -19,32 +19,35 @@ const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSe
         setOriginalFilters(selectedFilters)
     }, [])
 
-    const renderItem = ({ item }: { item: string }) => (
-        <View style={{
-            flexDirection: 'row',
-            backgroundColor: selectedFilters.includes(item) ? '#909090' : ''
-        }}>
-            <TouchableOpacity onPress={() => {
-                if (selectedFilters.includes(item)) {
-                    setSelectedFilters((prev) => prev.filter((filter) => filter !== item));
-                } else {
-                    setSelectedFilters((prev) => [...prev, item]);
-                }
-            }}
-            >
-                <Text
-                    style={[
-                        modalStyles.contentText,
-                        {
-                            paddingLeft: 5,
-                            color: selectedFilters.includes(item) ? 'white' : ''
-                        }
-                    ]}>
-                    {item}
-                </Text>
-            </TouchableOpacity>
-        </View>
-    );
+    const renderItem = ({ item }: { item: string }) => {
+        return (
+            <View style={{
+                flexDirection: 'row',
+                backgroundColor: selectedFilters.includes(item) ? '#909090' : 'transparent'
+            }}>
+                <TouchableOpacity onPress={() => {
+                    if (selectedFilters.includes(item)) {
+                        setSelectedFilters((prev) => prev.filter((filter) => filter !== item));
+                    } else {
+                        setSelectedFilters((prev) => [...prev, item]);
+                    }
+                }}
+                >
+                    <Text
+                        style={[
+                            modalStyles.contentText,
+                            {
+                                paddingLeft: 5,
+                                color: selectedFilters.includes(item) ? 'white' : 'black',
+                            }
+                        ]}>
+                        {item}
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        )
+
+    };
 
     const cancelFilter = () => {
         setSelectedFilters(originalFilters);
@@ -68,6 +71,7 @@ const FilterFavsModal: React.FC<Props> = ({ setModalOpen, selectedFilters, setSe
                                 data={filterOptions}
                                 keyExtractor={(item, index) => index.toString()}
                                 renderItem={renderItem}
+                                extraData={selectedFilters}
                             />
                         </View>
 
