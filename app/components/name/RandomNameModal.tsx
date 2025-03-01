@@ -70,6 +70,13 @@ const RandomNameModal: React.FC<Props> = ({
         </TouchableOpacity>
     );
 
+    const openTypeNameModal = () => {
+        onClose();
+        setTimeout(() => {
+            setModalVisible(`${namePlace}TypeNameModal`);
+        }, 300);
+    };
+
     return (
         <View>
             <Modal
@@ -101,8 +108,7 @@ const RandomNameModal: React.FC<Props> = ({
                                 <FontAwesomeIcon style={styles.footerIcon} icon={faArrowsRotate} />
                             </TouchableOpacity>
 
-                            <TouchableOpacity style={styles.footerButton}
-                                onPress={() => {setModalVisible(`${namePlace}TypeNameModal`) }}>
+                            <TouchableOpacity style={styles.footerButton} onPress={openTypeNameModal}>
                                 <FontAwesomeIcon style={styles.footerIcon} icon={faPenToSquare} />
                             </TouchableOpacity>
 

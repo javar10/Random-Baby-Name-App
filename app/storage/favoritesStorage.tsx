@@ -14,7 +14,6 @@ export const saveFavorites = async (favorites: FavoriteItem[]): Promise<void> =>
   try {
     const jsonValue = JSON.stringify(favorites);
     await FileSystem.writeAsStringAsync(favoritesFilePath, jsonValue);
-    console.log('Favorites saved!');
   } catch (error) {
     console.error('Error saving favorites:', error);
   }
@@ -41,9 +40,9 @@ export const addFavorite = async (item: FavoriteItem): Promise<FavoriteItem[]> =
     if (!favorites.some((fav) => fav.id === item.id)) {
       favorites = [...favorites, item];
       await saveFavorites(favorites);
-      console.log('Added:', item);
+      // console.log('Added:', item);
     } else {
-      console.log('Already in favorites:', item);
+      // console.log('Already in favorites:', item);
     }
 
     return favorites;
@@ -63,7 +62,7 @@ export const removeFavorite = async (item: FavoriteItem): Promise<FavoriteItem[]
         fav.gender === item.gender)
     );
     await saveFavorites(favorites);
-    console.log('Removed:', item);
+    // console.log('Removed:', item);
     return favorites;
   } catch (error) {
     console.error('Error removing favorite:', error);
