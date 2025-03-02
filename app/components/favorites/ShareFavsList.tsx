@@ -32,7 +32,7 @@ const ShareFavsList: React.FC<Props> = ({ nameList }) => {
 
         try {
             const result = await Share.share({
-                message: `Here are my favorite names from Name My Baby!\nWhat do you think?\n\n${formattedList}`,
+                message: `Here are my favorite names from Baby Mix!\nWhat do you think?\n\n${formattedList}`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {

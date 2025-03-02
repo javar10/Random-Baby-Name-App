@@ -19,7 +19,7 @@ const ShareName: React.FC<Props> = ({
     const onShare = async () => {
         try {
             const result = await Share.share({
-                message: `${name}\n\nSuggested by Name My Baby!\nWhat do you think?`,
+                message: `${name}\n\nSuggested by Baby Mix!\nWhat do you think?`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
