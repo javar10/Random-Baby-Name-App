@@ -8,9 +8,11 @@ import styles from './FavoritesStyles';
 interface Props {
     setFavorites: Dispatch<SetStateAction<FavoriteItem[]>>;
     item: FavoriteItem;
+    selectedFilters: string[];
+    setGenderFilterFavs: Dispatch<SetStateAction<FavoriteItem[]>>;
 }
 
-const DeleteFavorite: React.FC<Props> = ({ setFavorites, item, }) => {
+const DeleteFavorite: React.FC<Props> = ({ setFavorites, item, selectedFilters, setGenderFilterFavs}) => {
 
     const handleRemoveFavorite = async () => {
         const updatedFavorites = await removeFavorite(item);
@@ -24,6 +26,16 @@ const DeleteFavorite: React.FC<Props> = ({ setFavorites, item, }) => {
             );
         })
         setFavorites(sortedFavorites);
+
+        const filteredData = sortedFavorites.filter(item => {
+            const showItem =
+                selectedFilters.length === 0 ||
+                (selectedFilters.includes('boy names') && item.gender === 'boy') ||
+                (selectedFilters.includes('girl names') && item.gender === 'girl') ||
+                (selectedFilters.includes('gender neutral') && item.gender === 'neutral');
+            return showItem;
+        });
+        setGenderFilterFavs(filteredData);
     };
 
     return (

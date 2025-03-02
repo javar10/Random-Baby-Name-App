@@ -111,7 +111,10 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
                     />
                     <DeleteFavorite
                         setFavorites={setFavorites}
-                        item={item} />
+                        item={item} 
+                        selectedFilters={selectedFilters}
+                        setGenderFilterFavs={setGenderFilterFavs}
+                        />
                 </View>
             )
         }
