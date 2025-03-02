@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import ShareName from '../options/ShareName';
 import { default as modalStyles } from '../name/ModalStyles';
-import styles from './FavoritesStyles';
+import { default as favStyles } from './FavoritesStyles';
 import DeleteFavorite from './DeleteFavorite';
 import FilterFavorites from './FilterFavorites';
 import ShareFavsList from './ShareFavsList';
@@ -85,7 +85,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
         if ('firstName' in item) {
             return (
                 <View>
-                    <Text style={styles.itemText} onPress={() => editSelectedName(item)}>
+                    <Text style={favStyles.itemText} onPress={() => editSelectedName(item)}>
                         {item.firstName} {item.middleName ? item.middleName : ''} {item.lastName}
                     </Text>
                 </View>
@@ -94,7 +94,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
 
         return (
             <View>
-                <Text style={styles.itemText} onPress={() => editFilteredName(item)}>
+                <Text style={favStyles.itemText} onPress={() => editFilteredName(item)}>
                     {item.name}
                 </Text>
             </View>
@@ -104,7 +104,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
     const renderHiddenItem = ({ item }: { item: ListItem }) => {
         if ('firstName' in item) {
             return (
-                <View style={styles.hiddenOptions}>
+                <View style={favStyles.hiddenOptions}>
                     <ShareName
                         buttonType='fav'
                         name={`${item.firstName} ${item.middleName ? `${item.middleName} ` : ''}${item.lastName}`}
@@ -116,7 +116,7 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
             )
         }
         return (
-            <View style={styles.hiddenOptions}>
+            <View style={favStyles.hiddenOptions}>
                 <ShareName
                     buttonType='fav'
                     name={item.name}
@@ -128,11 +128,11 @@ const ViewFavorites: React.FC<Props> = ({ setViewFavorites, setFirstName, setMid
     return (
         <>
             <TouchableWithoutFeedback onPress={handleOutsidePress}>
-                <View style={styles.favoritesContainer}>
+                <View style={favStyles.favoritesContainer}>
                     <View style={modalStyles.header}>
                         <Text style={modalStyles.headerText}>Favorites</Text>
                     </View>
-                    <View style={styles.favoritesContent}>
+                    <View style={favStyles.favoritesContent}>
                         <SwipeListView
                             data={selectedFilters.includes('first names') || selectedFilters.includes('middle names')
                                 ? filteredFavorites

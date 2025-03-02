@@ -17,6 +17,8 @@ const styles = StyleSheet.create({
     favoritesItem: {
         flexDirection: 'row',
         borderBottomWidth: 1,
+        borderBottomColor: 'black',
+        borderStyle: 'solid',
         alignItems: 'center',
         paddingVertical: 5,
     },
