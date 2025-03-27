@@ -33,12 +33,8 @@ const styles = StyleSheet.create({
         padding: 10,
         width: '100%',
         backgroundColor: 'white',
-        borderBottomWidth: 1,
-        borderBottomColor: 'black',
-        borderStyle: 'solid',
     },
     hiddenOptions: {
-        borderBottomWidth: 1,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
